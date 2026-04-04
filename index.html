@@ -2017,7 +2017,7 @@ const routes = {
   ]}
 };
 
-const iconColors = { star: '#BC002D', food: '#C5973A', hotel: '#0F1117', train: '#3b82f6', shop: '#8b5cf6', nature: '#22c55e', plane: '#64748b', drink: '#a855f7', alt: '#9CA3AF' };
+const iconColors = { star: '#BC002D', food: '#C5973A', hotel: '#0F1117', train: '#3b82f6', shop: '#8b5cf6', nature: '#22c55e', plane: '#64748b', drink: '#a855f7', alt: '#0EA5E9' };
 
 function initMap(id) {
   const el = document.getElementById('map-' + id);
@@ -2041,13 +2041,13 @@ function initMap(id) {
   if (r.alts && r.alts.length) {
     r.alts.forEach(a => {
       L.circleMarker(a.ll, {
-        radius: 5,
-        fillColor: '#9CA3AF',
+        radius: 6,
+        fillColor: '#0EA5E9',
         color: '#fff',
-        weight: 1.5,
-        opacity: 0.7,
-        fillOpacity: 0.45
-      }).addTo(map).bindTooltip(a.label, { permanent: false, direction: 'top', offset: [0, -8] });
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.8
+      }).addTo(map).bindTooltip(a.label, { permanent: false, direction: 'top', offset: [0, -8], className: 'alt-tooltip' });
     });
   }
   maps[id] = map;
