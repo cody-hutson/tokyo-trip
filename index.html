@@ -36,7 +36,8 @@ input[type=checkbox]{accent-color:#BC002D}
 .hero-dates{font-family:'DM Serif Display',serif;font-size:clamp(1rem,3.5vw,1.8rem);color:rgba(255,255,255,0.7);letter-spacing:3px;margin:16px 0 8px;animation:fadeup 1s ease 0.3s both}
 .hero-group{font-size:0.9rem;letter-spacing:2px;color:rgba(255,255,255,0.4);text-transform:uppercase;animation:fadeup 1s ease 0.4s both}
 .hero-rule{width:48px;height:2px;background:var(--gold);margin:32px auto;animation:fadeup 1s ease 0.5s both}
-.hero-stats{display:flex;gap:40px;flex-wrap:wrap;justify-content:center;animation:fadeup 1s ease 0.6s both}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;max-width:600px;width:100%;animation:fadeup 1s ease 0.6s both}
+.hero-stat{text-align:center}
 .hero-stat .n{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--gold);display:block;line-height:1}
 .hero-stat .l{font-size:0.65rem;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.35)}
 .hero-base{margin-top:32px;font-size:0.82rem;color:rgba(255,255,255,0.45);animation:fadeup 1s ease 0.7s both}
@@ -194,6 +195,11 @@ input[type=checkbox]{accent-color:#BC002D}
 .leaflet-container{width:100%}
 
 /* ── TRANSPORT (compact) ──────────────── */
+.prep-box{padding:12px 16px;background:#FFF8EE;border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:0.78rem;margin-bottom:12px}
+.prep-box h5{font-size:0.6rem;text-transform:uppercase;letter-spacing:1.5px;color:#8B6914;margin-bottom:4px}
+.prep-box ul{margin:0;padding-left:16px;color:#4A3A10;line-height:1.7}
+.prep-box li{margin-bottom:2px}
+.prep-box strong{color:#3A2A00}
 .transport-box{padding:12px 16px;background:#EEF3FF;border-left:3px solid #3B5BD9;border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:0.78rem;margin-top:8px}
 .transport-box h5{font-size:0.6rem;text-transform:uppercase;letter-spacing:1.5px;color:#3B5BD9;margin-bottom:4px}
 .transport-box p{color:#2A3050;line-height:1.5}
@@ -384,6 +390,15 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="hl-item"><div class="hl-dot hd-eve"></div>Evening only &mdash; drops after 7 PM</div>
           </div>
         </div>
+        <div class="prep-box reveal">
+          <h5>🎒 Prep for Today</h5>
+          <ul>
+            <li><strong>Download apps before landing:</strong> GO taxi, Google Translate (offline Japanese pack), Google Maps (offline Tokyo)</li>
+            <li>Hotel address screenshot in Japanese on every phone</li>
+            <li>¥10,000+ cash per person (ATM at airport if needed &mdash; 7-Bank/Japan Post)</li>
+            <li>Suica card plan: iPhone users load Mobile Suica in Apple Wallet; others get Welcome Suica at JR counter</li>
+          </ul>
+        </div>
         <div class="reveal" style="padding-top:14px">
           <p class="col-head">Schedule</p>
           <div class="tl">
@@ -493,6 +508,15 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="hl-item"><div class="hl-dot hd-hot"></div>11 AM&ndash;5 PM: Ginza AC</div>
             <div class="hl-item"><div class="hl-dot hd-eve"></div>After 6 PM: Stroll</div>
           </div>
+        </div>
+        <div class="prep-box reveal">
+          <h5>🎒 Prep for Today</h5>
+          <ul>
+            <li><strong>Cash:</strong> Tsukiji stalls are mostly cash-only. Have ¥3,000+ in small bills.</li>
+            <li>Wear comfortable walking shoes &mdash; all walking today, no trains</li>
+            <li>Portable fan + water bottle (even morning market gets humid)</li>
+            <li>Jet lag will wake you at 4&ndash;5 AM &mdash; use it. Market is best before 9 AM.</li>
+          </ul>
         </div>
         <div class="reveal" style="padding-top:14px">
           <p class="col-head">Schedule</p>
@@ -715,6 +739,16 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="hl-item"><div class="hl-dot hd-eve"></div>After 5 PM: Evening</div>
           </div>
         </div>
+        <div class="prep-box reveal">
+          <h5>🎒 Prep for Today</h5>
+          <ul>
+            <li><strong>TDR App loaded + logged in</strong> &mdash; buy Premier Access for Frozen Journey at exactly 9:00 AM (sells out by 9:15)</li>
+            <li>Sunscreen, refillable water bottles, portable fans, hat for Mom</li>
+            <li>Combini breakfast packed night before (fastest park entry)</li>
+            <li>Charged phones &mdash; you'll use the TDR App all day</li>
+            <li>Credit card for in-app purchases (Premier Access, mobile ordering)</li>
+          </ul>
+        </div>
         <div class="reveal" style="padding-top:14px">
           <p class="col-head">Schedule</p>
           <div class="tl">
@@ -789,7 +823,7 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="fc-type">Full Service &middot; Mediterranean</div>
             <div class="fc-desc">Flagship restaurant inside the fortress. Sit-down in full AC. Midday heat-refuge meal.</div>
             <div class="fc-foot"><span class="fc-price">&yen;3,000&ndash;5,000/pp</span></div>
-            <div class="fc-res high">🟠 Reserve via TDR App</div>
+            <div class="fc-res high"><a href="https://www.tokyodisneyresort.jp/en/tdr/app.html" target="_blank" style="color:inherit;text-decoration:underline">🟠 Reserve via TDR App (Jun 17 at 10 AM JST)</a></div>
           </div>
           <div class="food-card reveal"><span class="fc-tag">B</span>
             <span class="fc-em">🌮</span>
@@ -871,6 +905,16 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="hl-item"><div class="hl-dot hd-hot"></div>11&ndash;5: Shopping (AC)</div>
             <div class="hl-item"><div class="hl-dot hd-eve"></div>6:30: Sunset &rarr; Dinner</div>
           </div>
+        </div>
+        <div class="prep-box reveal">
+          <h5>🎒 Prep for Today</h5>
+          <ul>
+            <li><strong>Ghibli tickets confirmed</strong> &mdash; screenshot your Lawson Ticket QR code (no phone signal inside museum)</li>
+            <li><strong>Shibuya Sky tickets booked</strong> for ~6:30 PM sunset slot</li>
+            <li>Download <strong>LINE app</strong> + add @soniandsmi for queue ticket (if busy day)</li>
+            <li>Passport for tax-free shopping at Shibuya PARCO + Kiddy Land</li>
+            <li>This is the big shopping day &mdash; bring a foldable bag for purchases</li>
+          </ul>
         </div>
         <div class="reveal" style="padding-top:14px">
           <p class="col-head">Schedule</p>
@@ -1010,8 +1054,8 @@ input[type=checkbox]{accent-color:#BC002D}
         </div>
         <p class="meal-label">🌙 ⭐ Dinner &mdash; Special</p>
         <div class="meal-cards">
-          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍷</span><div class="fc-name">Quintessence</div><div class="fc-type">French-Japanese &middot; Shiroganedai</div><div class="fc-desc">~10 courses, 3 hrs. Chef Kishida trained at L'Astrance Paris. English staff. No raw-fish obligation.</div><div class="fc-foot"><span class="fc-price">&yen;25,000&ndash;35,000/pp</span><span class="fc-dist">🚕 10 min</span></div><div class="fc-res urgent">🔴 Book 4&ndash;6 weeks out</div><div class="fc-links"><a href="https://maps.google.com/?q=Quintessence+Restaurant+Shinagawa+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
-          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🍗</span><div class="fc-name">Torishiki</div><div class="fc-type">Yakitori Omakase &middot; Meguro</div><div class="fc-desc">Best yakitori in Tokyo. Each cut from specific chicken breeds. ~2 hrs. All cooked.</div><div class="fc-foot"><span class="fc-price">&yen;12,000&ndash;18,000/pp</span><span class="fc-dist">🚕 10 min</span></div><div class="fc-res urgent">🔴 Book Jun 1 at 5 PM JST</div><div class="fc-links"><a href="https://maps.google.com/?q=Torishiki+Meguro+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍷</span><div class="fc-name">Quintessence</div><div class="fc-type">French-Japanese &middot; Shiroganedai</div><div class="fc-desc">~10 courses, 3 hrs. Chef Kishida trained at L'Astrance Paris. English staff. No raw-fish obligation.</div><div class="fc-foot"><span class="fc-price">&yen;25,000&ndash;35,000/pp</span><span class="fc-dist">🚕 10 min</span></div><div class="fc-res urgent"><a href="https://www.tableall.com/restaurant/67" target="_blank" style="color:inherit;text-decoration:underline">🔴 Book via TABLEALL</a></div><div class="fc-links"><a href="https://maps.google.com/?q=Quintessence+Restaurant+Shinagawa+Tokyo" target="_blank" class="fc-gmap">📍 Map</a><a href="https://www.tableall.com/restaurant/67" target="_blank" class="fc-site">🎟️ Book</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🍗</span><div class="fc-name">Torishiki</div><div class="fc-type">Yakitori Omakase &middot; Meguro</div><div class="fc-desc">Best yakitori in Tokyo. Each cut from specific chicken breeds. ~2 hrs. All cooked.</div><div class="fc-foot"><span class="fc-price">&yen;12,000&ndash;18,000/pp</span><span class="fc-dist">🚕 10 min</span></div><div class="fc-res urgent">🔴 Phone: 03-3440-7656 (Jun 1 at 5 PM JST)</div><div class="fc-links"><a href="https://maps.google.com/?q=Torishiki+Meguro+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
         </div>
         <div class="note-box reveal">👩 <strong>Mom-friendly:</strong> <strong>Gonpachi</strong> (Nishi-Azabu, ~10 min taxi) &mdash; &ldquo;Kill Bill&rdquo; restaurant. Robata grill, soba, tempura. Everything cooked. &yen;3,000&ndash;5,000/pp. English menus. No reservation.</div>
       </div>
@@ -1049,6 +1093,15 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="hl-item"><div class="hl-dot hd-hot"></div>1:30&ndash;3:30: TeamLab (AC)</div>
             <div class="hl-item"><div class="hl-dot hd-eve"></div>7 PM: Sushi Iwa</div>
           </div>
+        </div>
+        <div class="prep-box reveal">
+          <h5>🎒 Prep for Today</h5>
+          <ul>
+            <li><strong>TeamLab Planets tickets</strong> booked for afternoon slot (barefoot experience &mdash; wear easy-off shoes)</li>
+            <li><strong>Sushi Iwa dinner reservation</strong> confirmed (communicate raw-fish preferences at booking)</li>
+            <li>Cash for Asakusa street food stalls (~¥2,000)</li>
+            <li>Change of clothes if doing Water Bus + TeamLab (you walk through water at TeamLab)</li>
+          </ul>
         </div>
         <div class="reveal" style="padding-top:14px">
           <p class="col-head">Schedule</p>
@@ -1195,7 +1248,7 @@ input[type=checkbox]{accent-color:#BC002D}
         </div>
         <p class="meal-label">🌙 ⭐ Dinner &mdash; Main Meal</p>
         <div class="meal-cards">
-          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍣</span><div class="fc-name">Sushi Iwa</div><div class="fc-type">Omakase &middot; Ginza</div><div class="fc-desc">Skilled chef, relaxed pace (~90 min). Counter seats four. Raw-fish hesitancy accommodated with cooked subs.</div><div class="fc-foot"><span class="fc-price">&yen;12,000&ndash;18,000/pp</span><span class="fc-dist">🚶 8 min</span></div><div class="fc-res high">🟠 Book 1&ndash;2 weeks out</div><div class="fc-links"><a href="https://maps.google.com/?q=Sushi+Iwa+Ginza" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍣</span><div class="fc-name">Sushi Iwa</div><div class="fc-type">Omakase &middot; Ginza</div><div class="fc-desc">Skilled chef, relaxed pace (~90 min). Counter seats four. Raw-fish hesitancy accommodated with cooked subs.</div><div class="fc-foot"><span class="fc-price">&yen;12,000&ndash;18,000/pp</span><span class="fc-dist">🚶 8 min</span></div><div class="fc-res high"><a href="https://www.tablecheck.com/en/shops/ginza-iwa/reserve" target="_blank" style="color:inherit;text-decoration:underline">🟠 Book via TableCheck</a></div><div class="fc-links"><a href="https://maps.google.com/?q=Sushi+Iwa+Ginza" target="_blank" class="fc-gmap">📍 Map</a><a href="https://www.tablecheck.com/en/shops/ginza-iwa/reserve" target="_blank" class="fc-site">🎟️ Book</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🏮</span><div class="fc-name">Kagurazaka</div><div class="fc-type">French-Japanese &middot; 25 min metro</div><div class="fc-desc">Hidden stone alleys, machiya restaurants. More accessible price point.</div><div class="fc-foot"><span class="fc-price">&yen;3,000&ndash;6,000</span><span class="fc-dist">🚇 25 min</span></div></div>
         </div>
         <div class="note-box reveal">👩 <strong>Mom-friendly:</strong> If omakase price is too much, <strong>Kagurazaka</strong> or <strong>Ebisu Yokocho</strong> (&yen;2,500&ndash;4,000) are excellent alternatives.</div>
@@ -1233,6 +1286,16 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="hl-item"><div class="hl-dot hd-safe"></div>10&ndash;11: PokePark Forest</div>
             <div class="hl-item"><div class="hl-dot hd-hot"></div>PM: KEIKOKU / Spa</div>
           </div>
+        </div>
+        <div class="prep-box reveal">
+          <h5>🎒 Prep for Today</h5>
+          <ul>
+            <li><strong>PokePark tickets</strong> purchased (Trainer's Pass or Ace Trainer's)</li>
+            <li><strong>KEIKOKU overnight bags pre-packed</strong> (leave at hotel during PokePark): bug spray, swimsuit, water shoes, flashlight, cash ¥10K+, cooking oil, all alcohol, coffee/matcha</li>
+            <li><strong>Spa booked</strong> for Natalie + Mom + Abe &mdash; WA SPA Ginza or Peninsula</li>
+            <li>Grocery stop at Musashi-Itsukaichi is CRITICAL &mdash; no stores in Hinohara Village</li>
+            <li>Last bus to KEIKOKU ~6:30 PM &mdash; do not miss it (taxi backup: ¥7&ndash;9K)</li>
+          </ul>
         </div>
         <div class="reveal" style="padding-top:14px">
           <p class="col-head">Morning &mdash; Full Group</p>
@@ -1376,6 +1439,15 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="hl-item"><div class="hl-dot hd-eve"></div>7 PM: Nodaiwa</div>
           </div>
         </div>
+        <div class="prep-box reveal">
+          <h5>🎒 Prep for Today</h5>
+          <ul>
+            <li><strong>Nodaiwa reservation confirmed</strong> &mdash; farewell dinner, seasonal peak eel</li>
+            <li>Cody + Will: pack up KEIKOKU, tablet check-out by 9:30 AM. First bus ~7:30 AM if early departure.</li>
+            <li>Start final packing when reunited &mdash; <strong>takkyubin luggage forwarding</strong> if bags are overweight (ask front desk tonight)</li>
+            <li>Tomorrow's N'EX departure is 1:30 PM from Tokyo Station &mdash; buy return tickets today at any JR green machine</li>
+          </ul>
+        </div>
         <div class="reveal" style="padding-top:14px">
           <p class="col-head">Morning &mdash; Still Split</p>
           <div class="split-tabs">
@@ -1506,7 +1578,7 @@ input[type=checkbox]{accent-color:#BC002D}
         </div>
         <p class="meal-label">🌙 ⭐ Farewell Dinner</p>
         <div class="meal-cards">
-          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍽️</span><div class="fc-name">Nodaiwa Unagi</div><div class="fc-type">Edo-period &middot; Azabu</div><div class="fc-desc">Wild-caught eel, charcoal-grilled. Order hitsumabushi set &mdash; eat three ways. <strong>Everything cooked.</strong></div><div class="fc-foot"><span class="fc-price">&yen;4,000&ndash;8,000/pp</span><span class="fc-dist">🚇 20 min</span></div><div class="fc-res high">🟠 Book 1 week out</div><div class="fc-links"><a href="https://maps.google.com/?q=Nodaiwa+Azabu+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍽️</span><div class="fc-name">Nodaiwa Unagi</div><div class="fc-type">Edo-period &middot; Azabu</div><div class="fc-desc">Wild-caught eel, charcoal-grilled. Order hitsumabushi set &mdash; eat three ways. <strong>Everything cooked.</strong></div><div class="fc-foot"><span class="fc-price">&yen;4,000&ndash;8,000/pp</span><span class="fc-dist">🚇 20 min</span></div><div class="fc-res high">🟠 Phone: 03-3583-7852 (1 week out)</div><div class="fc-links"><a href="https://maps.google.com/?q=Nodaiwa+Azabu+Tokyo" target="_blank" class="fc-gmap">📍 Map</a><a href="https://www.nodaiwa.co.jp/" target="_blank" class="fc-site">🌐 Site</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🍤</span><div class="fc-name">Tenichi Tempura</div><div class="fc-type">Ginza &middot; Backup</div><div class="fc-desc">If Nodaiwa unavailable. Walking distance. Same elegance.</div><div class="fc-foot"><span class="fc-price">&yen;3,000&ndash;8,000</span><span class="fc-dist">🚶 Walk</span></div><div class="fc-res moderate">Book 1 wk</div><div class="fc-links"><a href="https://maps.google.com/?q=Tenichi+Tempura+Ginza" target="_blank" class="fc-gmap">📍 Map</a></div></div>
         </div>
       </div>
@@ -1543,6 +1615,16 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="hl-item"><div class="hl-dot hd-safe"></div>8&ndash;11: Final morning</div>
             <div class="hl-item"><div class="hl-dot hd-caution"></div>11&ndash;12:30: Pack, checkout</div>
           </div>
+        </div>
+        <div class="prep-box reveal">
+          <h5>🎒 Prep for Today</h5>
+          <ul>
+            <li><strong>N'EX return tickets</strong> purchased yesterday at JR green machine</li>
+            <li><strong>Checkout by 12:15 PM</strong> &mdash; hotel depart 12:30 sharp</li>
+            <li>If bags are overweight: <strong>takkyubin</strong> to Narita counter (must send by 10 AM &mdash; ask front desk last night)</li>
+            <li>Final Suica balance check &mdash; spend down or keep as souvenir</li>
+            <li>Mitsukoshi opens 10 AM &mdash; last-minute omiyage window</li>
+          </ul>
         </div>
         <div class="reveal" style="padding-top:14px">
           <p class="col-head">Departure Schedule</p>
@@ -1642,25 +1724,25 @@ input[type=checkbox]{accent-color:#BC002D}
 
     <div class="cl-group">
       <p class="cl-group-label">🔴 Book this week &mdash; sells out</p>
-      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>KEIKOKU Glamping Tent (Jul 20)</strong><span>Only 2 units. Booking.com or official site. Select Luxury or Suite Tent + BBQ + breakfast.</span></label></label>
-      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>DisneySea Tickets (Jul 17)</strong><span>tokyodisneyresort.jp &middot; Weekday = lower price tier. Fantasy Springs now has free standby lines.</span></label></label>
-      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>Special Dinner: Quintessence or Torishiki (Jul 18)</strong><span>4&ndash;6 weeks minimum. Phone or TABLEALL. Torishiki: Jun 1 at 5 PM JST.</span></label></label>
-      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>Nodaiwa Unagi (Jul 21)</strong><span>Phone: 03-3583-7852. Farewell dinner. Seasonal peak eel.</span></label></label>
+      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>KEIKOKU Glamping Tent (Jul 20) ✅</strong><span>Booked! Suite Tent, Jul 20&ndash;21.</span></label></label>
+      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>DisneySea Tickets (Jul 17)</strong><span><a href="https://www.tokyodisneyresort.jp/en/ticket/" target="_blank">tokyodisneyresort.jp/ticket</a> &middot; Weekday = lower price tier.</span></label></label>
+      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>Special Dinner: Quintessence or Torishiki (Jul 18)</strong><span><a href="https://www.tableall.com/restaurant/67" target="_blank">TABLEALL (Quintessence)</a> &middot; Torishiki: phone 03-3440-7656 Jun 1 at 5 PM JST.</span></label></label>
+      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>Nodaiwa Unagi (Jul 21)</strong><span>Phone: 03-3583-7852. <a href="https://www.nodaiwa.co.jp/" target="_blank">nodaiwa.co.jp</a>. Seasonal peak eel.</span></label></label>
     </div>
 
     <div class="cl-group">
       <p class="cl-group-label">🟠 Book within 1&ndash;2 weeks</p>
-      <label class="cl-item cl-high"><input type="checkbox"><label><strong>TeamLab Planets (Jul 19 afternoon)</strong><span>teamlabplanets.dmm.com &middot; Afternoon slot. July sells out weeks ahead.</span></label></label>
-      <label class="cl-item cl-high"><input type="checkbox"><label><strong>Natalie + Mom + Abe Spa (Jul 20 afternoon)</strong><span>WA SPA Ginza or Peninsula Tokyo Spa. Book 2&ndash;3 weeks out.</span></label></label>
-      <label class="cl-item cl-high"><input type="checkbox"><label><strong>PokePark KANTO Tickets (Jul 20)</strong><span>ticket-en.pokepark-kanto.co.jp &middot; Trainer's Pass &yen;7,900 or Ace &yen;14,000.</span></label></label>
+      <label class="cl-item cl-high"><input type="checkbox"><label><strong>TeamLab Planets (Jul 19 afternoon)</strong><span><a href="https://teamlabplanets.dmm.com/en" target="_blank">teamlabplanets.dmm.com</a> &middot; Afternoon slot. July sells out weeks ahead.</span></label></label>
+      <label class="cl-item cl-high"><input type="checkbox"><label><strong>Natalie + Mom + Abe Spa (Jul 20 afternoon)</strong><span>WA SPA Ginza or <a href="https://www.peninsula.com/en/tokyo/wellness/the-peninsula-spa" target="_blank">Peninsula Spa</a>. Book 2&ndash;3 weeks out.</span></label></label>
+      <label class="cl-item cl-high"><input type="checkbox"><label><strong>PokePark KANTO Tickets (Jul 20)</strong><span><a href="https://ticket-en.pokepark-kanto.co.jp/" target="_blank">ticket-en.pokepark-kanto.co.jp</a> &middot; Trainer's Pass &yen;7,900 or Ace &yen;14,000.</span></label></label>
     </div>
 
     <div class="cl-group">
       <p class="cl-group-label">🟡 Book 1 week out or on specific dates</p>
-      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Ghibli Museum Tickets (Jul 18, 10 AM slot)</strong><span>June 10 at 10 AM JST SHARP. Lawson Tickets. Sells out in minutes.</span></label></label>
-      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Magellan's Priority Seating (Jul 17)</strong><span>Jun 17 at 10 AM JST via TDR App. Sells out instantly.</span></label></label>
-      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Shibuya Sky Sunset (Jul 18 ~6:30 PM)</strong><span>shibuyasky.jp or KKday/Klook. Book in advance.</span></label></label>
-      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Sushi Iwa (Jul 19 dinner)</strong><span>TableCheck. &yen;12,000&ndash;18,000/pp. Counter seats four.</span></label></label>
+      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Ghibli Museum Tickets (Jul 18, 10 AM slot)</strong><span>June 10 at 10 AM JST SHARP. <a href="https://l-tike.com/ghibli/" target="_blank">Lawson Tickets</a>. Sells out in minutes.</span></label></label>
+      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Magellan's Priority Seating (Jul 17)</strong><span>Jun 17 at 10 AM JST via <a href="https://www.tokyodisneyresort.jp/en/tdr/app.html" target="_blank">TDR App</a>. Sells out instantly.</span></label></label>
+      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Shibuya Sky Sunset (Jul 18 ~6:30 PM)</strong><span><a href="https://www.shibuya-sky.tokyo/en/" target="_blank">shibuyasky.jp</a> or <a href="https://www.kkday.com/en-us/product/133300" target="_blank">KKday</a>/<a href="https://www.klook.com/en-US/activity/70672" target="_blank">Klook</a>.</span></label></label>
+      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Sushi Iwa (Jul 19 dinner)</strong><span><a href="https://www.tablecheck.com/en/shops/ginza-iwa/reserve" target="_blank">TableCheck</a>. &yen;12,000&ndash;18,000/pp. Counter seats four.</span></label></label>
     </div>
 
     <div class="cl-group">
