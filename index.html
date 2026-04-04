@@ -147,7 +147,9 @@ input[type=checkbox]{accent-color:#BC002D}
 .act-tix:hover{background:#f9d0d3}
 
 /* ── BOOKING STATUS (universal) ─────── */
+.book-status{display:inline-block;font-size:0.52rem;font-weight:800;letter-spacing:0.4px;padding:2px 8px;border-radius:6px;margin-top:4px}
 .book-status.advance{background:#fdecea;color:var(--red)}
+.book-status.ahead{background:#fff3e0;color:#C07000}
 .book-status.walkup{background:#f3f9f0;color:var(--safe)}
 .book-status.open{background:#f0f0f0;color:var(--muted)}
 .act-card .act-body{display:flex;flex-direction:column}
@@ -179,7 +181,7 @@ input[type=checkbox]{accent-color:#BC002D}
 /* ── OVERVIEW ALERT ──────────────────── */
 .ov-alert{text-align:center;padding:10px 20px;font-size:0.78rem;color:var(--gold);border:1px solid rgba(197,151,58,0.2);border-radius:var(--r-sm);margin-bottom:16px;background:rgba(197,151,58,0.06)}
 .ov-alert strong{color:#fff}
-.ov-booking-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-left:6px;vertical-align:middle}
+.ov-booking-tag{display:block;font-size:0.52rem;font-weight:700;margin-top:4px;letter-spacing:0.5px}
 
 /* ── DAY HERO SUMMARY BAR ────────────── */
 .day-summary{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.62rem;color:rgba(255,255,255,0.4)}
@@ -188,12 +190,6 @@ input[type=checkbox]{accent-color:#BC002D}
 /* ── NAV SUB-TEXT (desktop 1200px+) ─── */
 .nav-pill .nav-sub{display:none}
 
-/* ── BOOKING DEADLINE WIDGET ──────── */
-.booking-widget{position:fixed;bottom:24px;right:24px;z-index:250;background:var(--navy);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r);padding:14px 18px;color:#fff;box-shadow:var(--shadow-lg);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;max-width:220px}
-.booking-widget:hover{transform:translateY(-2px);box-shadow:0 16px 60px rgba(0,0,0,0.3)}
-.bw-label{font-size:0.52rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:4px}
-.bw-date{font-family:'DM Serif Display',serif;font-size:0.85rem;margin-bottom:2px}
-.bw-countdown{font-size:0.65rem;color:var(--gold)}
 
 /* ── DAY TRANSITION DIVIDER ──────────── */
 .day-section+.day-section::before{content:'';display:block;height:3px;background:linear-gradient(90deg,transparent 10%,var(--border) 50%,transparent 90%)}
@@ -206,7 +202,7 @@ input[type=checkbox]{accent-color:#BC002D}
 
 /* ── PRINT STYLES ─────────────────── */
 @media print{
-  .day-nav,.bottom-nav,.booking-widget,.hero-down,.map-zone,.booking-overlay,.booking-backdrop{display:none!important}
+  .day-nav,.bottom-nav,.hero-down,.map-zone,.booking-overlay,.booking-backdrop{display:none!important}
   .day-section{display:block!important;page-break-inside:avoid}
   .day-grid{grid-template-columns:1fr!important}
   .reveal{opacity:1!important;transform:none!important}
@@ -401,7 +397,6 @@ input[type=checkbox]{accent-color:#BC002D}
   .map-zone.mob-open{display:block}
   .booking{height:0;overflow:visible;padding:0 !important;margin:0;border:none}
   .hero{min-height:70svh}
-  .booking-widget{display:none}
   .day-summary{display:none}
 }
 @media(min-width:769px){
@@ -457,42 +452,50 @@ input[type=checkbox]{accent-color:#BC002D}
     <div class="ov-grid">
       <div class="ov-card" data-n="1" onclick="goDay(1)">
         <p class="ov-date"><span class="ov-pip" style="background:#BC002D"></span>Wed Jul 15</p>
-        <p class="ov-name">Arrival<span class="ov-booking-dot" style="background:#2A7D4F" title="No advance booking needed"></span></p>
+        <p class="ov-name">Arrival</p>
+        <span class="ov-booking-tag" style="color:#2A7D4F">✅ Walk-up</span>
         <p class="ov-highlights">Land 4 PM &middot; <strong>Suica cards</strong> &middot; Yakitori under the tracks</p>
       </div>
       <div class="ov-card" data-n="2" onclick="goDay(2)">
         <p class="ov-date"><span class="ov-pip" style="background:#C0652B"></span>Thu Jul 16</p>
-        <p class="ov-name">Tsukiji + Ginza<span class="ov-booking-dot" style="background:#2A7D4F" title="All walk-up"></span></p>
+        <p class="ov-name">Tsukiji + Ginza</p>
+        <span class="ov-booking-tag" style="color:#2A7D4F">✅ Walk-up</span>
         <p class="ov-highlights"><strong>Market morning</strong> &middot; Depachika &middot; Kagari Ramen &middot; Monjayaki</p>
       </div>
       <div class="ov-card" data-n="3" onclick="goDay(3)">
         <p class="ov-date"><span class="ov-pip" style="background:#C09000"></span>Fri Jul 17</p>
-        <p class="ov-name">DisneySea<span class="ov-booking-dot" style="background:#BC002D" title="Tickets + Magellan's need booking"></span></p>
+        <p class="ov-name">DisneySea</p>
+        <span class="ov-booking-tag" style="color:#f87171">🎟 Book May 17</span>
         <p class="ov-highlights"><strong>Fantasy Springs</strong> &middot; Frozen Journey &middot; Full park day</p>
       </div>
       <div class="ov-card" data-n="4" onclick="goDay(4)">
         <p class="ov-date"><span class="ov-pip" style="background:#2A7D4F"></span>Sat Jul 18 ⭐</p>
-        <p class="ov-name">Ghibli &middot; Shibuya<span class="ov-booking-dot" style="background:#BC002D" title="Ghibli + Sky + Dinner need booking"></span></p>
+        <p class="ov-name">Ghibli &middot; Shibuya</p>
+        <span class="ov-booking-tag" style="color:#f87171">🎟 Book Jun 10</span>
         <p class="ov-highlights"><strong>Museum</strong> &middot; Shopping corridor &middot; <strong>Shibuya Sky</strong> &middot; Special Dinner</p>
       </div>
       <div class="ov-card" data-n="5" onclick="goDay(5)">
         <p class="ov-date"><span class="ov-pip" style="background:#2A7D4F"></span>Sun Jul 19</p>
-        <p class="ov-name">Asakusa + TeamLab<span class="ov-booking-dot" style="background:#BC002D" title="TeamLab + Sushi Iwa need booking"></span></p>
+        <p class="ov-name">Asakusa + TeamLab</p>
+        <span class="ov-booking-tag" style="color:#f87171">🎟 Book late Apr</span>
         <p class="ov-highlights"><strong>Senso-ji dawn</strong> &middot; Hamarikyu &middot; <strong>TeamLab Planets</strong> &middot; Sushi Iwa</p>
       </div>
       <div class="ov-card" data-n="6" onclick="goDay(6)">
         <p class="ov-date"><span class="ov-pip" style="background:#C09000"></span>Mon Jul 20 🇯🇵</p>
-        <p class="ov-name">PokePark + Split<span class="ov-booking-dot" style="background:#BC002D" title="PokePark + KEIKOKU need booking"></span></p>
+        <p class="ov-name">PokePark + Split</p>
+        <span class="ov-booking-tag" style="color:#f87171">🎟 Book May 31</span>
         <p class="ov-highlights"><strong>PokePark KANTO</strong> &middot; KEIKOKU glamping &middot; Spa afternoon</p>
       </div>
       <div class="ov-card" data-n="7" onclick="goDay(7)">
         <p class="ov-date"><span class="ov-pip" style="background:#C0652B"></span>Tue Jul 21</p>
-        <p class="ov-name">Reunite + Farewell<span class="ov-booking-dot" style="background:#D0692A" title="Nodaiwa + Pokémon Café need booking"></span></p>
+        <p class="ov-name">Reunite + Farewell</p>
+        <span class="ov-booking-tag" style="color:#fb923c">📝 Book ahead</span>
         <p class="ov-highlights">Mountain return &middot; <strong>Nodaiwa unagi</strong> &middot; Bar High Five</p>
       </div>
       <div class="ov-card" data-n="8" onclick="goDay(8)">
         <p class="ov-date"><span class="ov-pip" style="background:#BC002D"></span>Wed Jul 22</p>
-        <p class="ov-name">Depart 12:30 PM<span class="ov-booking-dot" style="background:#D0692A" title="N'EX return tickets"></span></p>
+        <p class="ov-name">Depart 12:30 PM</p>
+        <span class="ov-booking-tag" style="color:#fb923c">📝 N'EX Jun 22</span>
         <p class="ov-highlights">Last Tsukiji &middot; Omiyage run &middot; <strong>N'EX to Narita</strong></p>
       </div>
     </div>
@@ -2908,30 +2911,6 @@ function saveChecks() {
 checks.forEach(c => c.addEventListener('change', saveChecks));
 saveChecks();
 
-// ── BOOKING DEADLINE WIDGET ─────────
-const deadlines = [
-  { date: new Date('2026-04-30T00:00:00+09:00'), label: 'Late April · TeamLab' },
-  { date: new Date('2026-05-17T14:00:00+09:00'), label: 'May 17 2PM · DisneySea' },
-  { date: new Date('2026-05-31T18:00:00+09:00'), label: 'May 31 6PM · PokePark' },
-  { date: new Date('2026-06-10T10:00:00+09:00'), label: 'Jun 10 10AM · Ghibli' },
-  { date: new Date('2026-06-17T10:00:00+09:00'), label: "Jun 17 10AM · Magellan's" },
-  { date: new Date('2026-06-20T18:00:00+09:00'), label: 'Jun 20 6PM · Pokémon Café' },
-  { date: new Date('2026-06-22T10:00:00+09:00'), label: "Jun 22 10AM · N'EX tickets" }
-];
-function updateWidget() {
-  const now = new Date();
-  const next = deadlines.find(d => d.date > now);
-  const widget = document.getElementById('bookingWidget');
-  if (!next || !widget) { if (widget) widget.style.display = 'none'; return; }
-  const diff = next.date - now;
-  const days = Math.floor(diff / 86400000);
-  const label = days === 0 ? 'TODAY' : days === 1 ? '1 day away' : days + ' days away';
-  document.getElementById('bwDate').textContent = next.label;
-  document.getElementById('bwCountdown').textContent = label;
-  if (days <= 3) widget.style.borderColor = 'rgba(188,0,45,0.4)';
-}
-if (!isMobile()) updateWidget();
-
 // Hash + init
 initFromHash();
 window.addEventListener('hashchange', initFromHash);
@@ -2947,10 +2926,5 @@ window.addEventListener('resize', () => {
     <button class="bn-btn" onclick="bnAction('bookings')"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Bookings</button>
   </div>
 </nav>
-<div class="booking-widget" id="bookingWidget" onclick="document.getElementById('bookings').scrollIntoView({behavior:'smooth'})">
-  <div class="bw-label">Next Booking Deadline</div>
-  <div class="bw-date" id="bwDate">Loading&hellip;</div>
-  <div class="bw-countdown" id="bwCountdown"></div>
-</div>
 </body>
 </html>
