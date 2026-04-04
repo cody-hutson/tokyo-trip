@@ -90,7 +90,7 @@ input[type=checkbox]{accent-color:#BC002D}
 
 /* ── 3-COLUMN DAY BODY ──────────────────── */
 .day-body{max-width:1920px;margin:0 auto;padding:0 32px 40px}
-.day-grid{display:grid;grid-template-columns:1.2fr 1fr 1.3fr;gap:8px 32px;align-items:start}
+.day-grid{display:grid;grid-template-columns:1fr 1.4fr 1.1fr;gap:8px 32px;align-items:start}
 .day-full{grid-column:1/-1}
 
 /* column section labels */
@@ -144,6 +144,75 @@ input[type=checkbox]{accent-color:#BC002D}
 .act-web:hover{background:#C8E6C9}
 .act-tix{display:inline-flex;align-items:center;gap:4px;font-size:0.68rem;font-weight:700;color:#BC002D;background:#fdecea;padding:4px 10px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none;margin-left:4px}
 .act-tix:hover{background:#f9d0d3}
+
+/* ── BOOKING STATUS (universal) ─────── */
+.book-status{display:inline-block;font-size:0.52rem;font-weight:800;letter-spacing:0.4px;padding:2px 8px;border-radius:6px;margin-top:4px}
+.book-status.advance{background:#fdecea;color:var(--red)}
+.book-status.ahead{background:#fff3e0;color:#C07000}
+.book-status.walkup{background:#f3f9f0;color:var(--safe)}
+.book-status.open{background:#f0f0f0;color:var(--muted)}
+.act-card .book-status{display:block;width:100%;text-align:center;font-size:0.56rem;padding:4px 8px;margin:6px 0}
+.food-card .book-status{display:block;width:100%;text-align:center;margin-top:4px}
+.act-mini .book-status{font-size:0.48rem;padding:1px 5px;margin-top:2px}
+
+/* ── CARD TRANSIT (universal) ────────── */
+.card-transit{font-size:0.6rem;color:var(--muted);display:flex;align-items:center;gap:3px;margin:2px 0}
+.card-transit .ct-mode{font-weight:700;color:#3A3A4A}
+.act-card .card-transit{margin-bottom:4px;font-size:0.62rem}
+.act-mini .card-transit{font-size:0.52rem;margin-top:1px}
+.food-card .card-transit{font-size:0.58rem}
+
+/* ── ACT-CARD ENHANCEMENTS ────────── */
+.act-tip{font-size:0.68rem;color:#4A3A10;background:#FFFBEF;border-left:2px solid var(--gold);padding:5px 10px;border-radius:0 var(--r-sm) var(--r-sm) 0;margin:6px 0;line-height:1.35}
+.act-tip strong{color:#3A2A00}
+.act-timing{font-size:0.62rem;color:var(--muted);margin:4px 0}
+.act-timing strong{color:var(--navy)}
+.act-group{display:flex;flex-wrap:wrap;gap:3px;margin:4px 0}
+.grp-tag{display:inline-block;font-size:0.5rem;font-weight:800;letter-spacing:0.4px;text-transform:uppercase;padding:1px 6px;border-radius:6px}
+.grp-mom{background:#e8f5e9;color:#2A7D4F}
+.grp-all{background:#fffde7;color:#A07800}
+.grp-cody{background:#f3e5f5;color:#6A1B9A}
+.grp-warn{background:#fdecea;color:#BC002D}
+.grp-will{background:#e3f2fd;color:#1565C0}
+
+/* ── OVERVIEW ALERT ──────────────────── */
+.ov-alert{text-align:center;padding:10px 20px;font-size:0.78rem;color:var(--gold);border:1px solid rgba(197,151,58,0.2);border-radius:var(--r-sm);margin-bottom:16px;background:rgba(197,151,58,0.06)}
+.ov-alert strong{color:#fff}
+.ov-booking-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-left:6px;vertical-align:middle}
+
+/* ── DAY HERO SUMMARY BAR ────────────── */
+.day-summary{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.62rem;color:rgba(255,255,255,0.4)}
+.day-summary strong{color:rgba(255,255,255,0.7)}
+
+/* ── NAV SUB-TEXT (desktop 1200px+) ─── */
+.nav-pill .nav-sub{display:none}
+
+/* ── BOOKING DEADLINE WIDGET ──────── */
+.booking-widget{position:fixed;bottom:24px;right:24px;z-index:250;background:var(--navy);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r);padding:14px 18px;color:#fff;box-shadow:var(--shadow-lg);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;max-width:220px}
+.booking-widget:hover{transform:translateY(-2px);box-shadow:0 16px 60px rgba(0,0,0,0.3)}
+.bw-label{font-size:0.52rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:4px}
+.bw-date{font-family:'DM Serif Display',serif;font-size:0.85rem;margin-bottom:2px}
+.bw-countdown{font-size:0.65rem;color:var(--gold)}
+
+/* ── DAY TRANSITION DIVIDER ──────────── */
+.day-section+.day-section::before{content:'';display:block;height:3px;background:linear-gradient(90deg,transparent 10%,var(--border) 50%,transparent 90%)}
+
+/* ── DESKTOP-SPECIFIC (1200px+) ─────── */
+@media(min-width:1200px){
+  .nav-pill .nav-sub{display:block;font-size:0.52rem;color:rgba(255,255,255,0.25);margin-top:1px;font-weight:400;letter-spacing:0}
+  .nav-pill.active .nav-sub{color:rgba(255,255,255,0.5)}
+}
+
+/* ── PRINT STYLES ─────────────────── */
+@media print{
+  .day-nav,.bottom-nav,.booking-widget,.hero-down,.map-zone,.booking-overlay,.booking-backdrop{display:none!important}
+  .day-section{display:block!important;page-break-inside:avoid}
+  .day-grid{grid-template-columns:1fr!important}
+  .reveal{opacity:1!important;transform:none!important}
+  .act-card,.food-card,.act-mini{break-inside:avoid}
+  .book-status{border:1px solid #ccc}
+  body{font-size:11pt}
+}
 
 /* ── HALF-SIZE MINI CARDS (alternatives/coffee/secondary) ── */
 .alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
