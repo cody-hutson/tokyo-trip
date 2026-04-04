@@ -450,45 +450,46 @@ input[type=checkbox]{accent-color:#BC002D}
 <section class="overview" id="overview">
   <div class="overview-inner">
     <p class="ov-head">Your 8 Days at a Glance</p>
+    <div class="ov-alert">⏰ Next booking deadline: <strong>Late April</strong> &mdash; TeamLab Planets July tickets opening &middot; <strong>May 17 @ 2 PM JST</strong> &mdash; DisneySea</div>
     <div class="ov-grid">
       <div class="ov-card" data-n="1" onclick="goDay(1)">
         <p class="ov-date"><span class="ov-pip" style="background:#BC002D"></span>Wed Jul 15</p>
-        <p class="ov-name">Arrival</p>
+        <p class="ov-name">Arrival<span class="ov-booking-dot" style="background:#2A7D4F" title="No advance booking needed"></span></p>
         <p class="ov-highlights">Land 4 PM &middot; <strong>Suica cards</strong> &middot; Yakitori under the tracks</p>
       </div>
       <div class="ov-card" data-n="2" onclick="goDay(2)">
         <p class="ov-date"><span class="ov-pip" style="background:#C0652B"></span>Thu Jul 16</p>
-        <p class="ov-name">Tsukiji + Ginza</p>
+        <p class="ov-name">Tsukiji + Ginza<span class="ov-booking-dot" style="background:#2A7D4F" title="All walk-up"></span></p>
         <p class="ov-highlights"><strong>Market morning</strong> &middot; Depachika &middot; Kagari Ramen &middot; Monjayaki</p>
       </div>
       <div class="ov-card" data-n="3" onclick="goDay(3)">
         <p class="ov-date"><span class="ov-pip" style="background:#C09000"></span>Fri Jul 17</p>
-        <p class="ov-name">DisneySea</p>
+        <p class="ov-name">DisneySea<span class="ov-booking-dot" style="background:#BC002D" title="Tickets + Magellan's need booking"></span></p>
         <p class="ov-highlights"><strong>Fantasy Springs</strong> &middot; Frozen Journey &middot; Full park day</p>
       </div>
       <div class="ov-card" data-n="4" onclick="goDay(4)">
         <p class="ov-date"><span class="ov-pip" style="background:#2A7D4F"></span>Sat Jul 18 ⭐</p>
-        <p class="ov-name">Ghibli &middot; Shibuya</p>
+        <p class="ov-name">Ghibli &middot; Shibuya<span class="ov-booking-dot" style="background:#BC002D" title="Ghibli + Sky + Dinner need booking"></span></p>
         <p class="ov-highlights"><strong>Museum</strong> &middot; Shopping corridor &middot; <strong>Shibuya Sky</strong> &middot; Special Dinner</p>
       </div>
       <div class="ov-card" data-n="5" onclick="goDay(5)">
         <p class="ov-date"><span class="ov-pip" style="background:#2A7D4F"></span>Sun Jul 19</p>
-        <p class="ov-name">Asakusa + TeamLab</p>
+        <p class="ov-name">Asakusa + TeamLab<span class="ov-booking-dot" style="background:#BC002D" title="TeamLab + Sushi Iwa need booking"></span></p>
         <p class="ov-highlights"><strong>Senso-ji dawn</strong> &middot; Hamarikyu &middot; <strong>TeamLab Planets</strong> &middot; Sushi Iwa</p>
       </div>
       <div class="ov-card" data-n="6" onclick="goDay(6)">
         <p class="ov-date"><span class="ov-pip" style="background:#C09000"></span>Mon Jul 20 🇯🇵</p>
-        <p class="ov-name">PokePark + Split</p>
+        <p class="ov-name">PokePark + Split<span class="ov-booking-dot" style="background:#BC002D" title="PokePark + KEIKOKU need booking"></span></p>
         <p class="ov-highlights"><strong>PokePark KANTO</strong> &middot; KEIKOKU glamping &middot; Spa afternoon</p>
       </div>
       <div class="ov-card" data-n="7" onclick="goDay(7)">
         <p class="ov-date"><span class="ov-pip" style="background:#C0652B"></span>Tue Jul 21</p>
-        <p class="ov-name">Reunite + Farewell</p>
+        <p class="ov-name">Reunite + Farewell<span class="ov-booking-dot" style="background:#D0692A" title="Nodaiwa + Pokémon Café need booking"></span></p>
         <p class="ov-highlights">Mountain return &middot; <strong>Nodaiwa unagi</strong> &middot; Bar High Five</p>
       </div>
       <div class="ov-card" data-n="8" onclick="goDay(8)">
         <p class="ov-date"><span class="ov-pip" style="background:#BC002D"></span>Wed Jul 22</p>
-        <p class="ov-name">Depart 12:30 PM</p>
+        <p class="ov-name">Depart 12:30 PM<span class="ov-booking-dot" style="background:#D0692A" title="N'EX return tickets"></span></p>
         <p class="ov-highlights">Last Tsukiji &middot; Omiyage run &middot; <strong>N'EX to Narita</strong></p>
       </div>
     </div>
@@ -500,14 +501,14 @@ input[type=checkbox]{accent-color:#BC002D}
 ══════════════════════════════════════════ -->
 <nav class="day-nav" id="mainNav">
   <div class="nav-inner">
-    <button class="nav-pill np-survival" data-day="1" onclick="goDay(1)">Jul 15<br>Arrival</button>
-    <button class="nav-pill np-fragile"  data-day="2" onclick="goDay(2)">Jul 16<br>Tsukiji</button>
-    <button class="nav-pill np-building" data-day="3" onclick="goDay(3)">Jul 17<br>DisneySea</button>
-    <button class="nav-pill np-peak"     data-day="4" onclick="goDay(4)">Jul 18 ⭐<br>Ghibli</button>
-    <button class="nav-pill np-peak"     data-day="5" onclick="goDay(5)">Jul 19<br>Asakusa</button>
-    <button class="nav-pill np-selective" data-day="6" onclick="goDay(6)">Jul 20<br>Split</button>
-    <button class="nav-pill np-comfort"  data-day="7" onclick="goDay(7)">Jul 21<br>Farewell</button>
-    <button class="nav-pill np-survival" data-day="8" onclick="goDay(8)">Jul 22<br>Depart</button>
+    <button class="nav-pill np-survival" data-day="1" onclick="goDay(1)">Jul 15<br>Arrival<span class="nav-sub">Land &middot; Yakitori</span></button>
+    <button class="nav-pill np-fragile"  data-day="2" onclick="goDay(2)">Jul 16<br>Tsukiji<span class="nav-sub">Market &middot; Ramen</span></button>
+    <button class="nav-pill np-building" data-day="3" onclick="goDay(3)">Jul 17<br>DisneySea<span class="nav-sub">Fantasy Springs</span></button>
+    <button class="nav-pill np-peak"     data-day="4" onclick="goDay(4)">Jul 18 ⭐<br>Ghibli<span class="nav-sub">Museum &middot; Sky &middot; Dinner</span></button>
+    <button class="nav-pill np-peak"     data-day="5" onclick="goDay(5)">Jul 19<br>Asakusa<span class="nav-sub">Senso-ji &middot; TeamLab</span></button>
+    <button class="nav-pill np-selective" data-day="6" onclick="goDay(6)">Jul 20<br>Split<span class="nav-sub">PokePark &middot; Glamping</span></button>
+    <button class="nav-pill np-comfort"  data-day="7" onclick="goDay(7)">Jul 21<br>Farewell<span class="nav-sub">Nodaiwa &middot; Bar High Five</span></button>
+    <button class="nav-pill np-survival" data-day="8" onclick="goDay(8)">Jul 22<br>Depart<span class="nav-sub">Tsukiji &middot; N'EX</span></button>
   </div>
 </nav>
 
