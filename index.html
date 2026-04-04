@@ -401,6 +401,8 @@ input[type=checkbox]{accent-color:#BC002D}
   .map-zone.mob-open{display:block}
   .booking{height:0;overflow:visible;padding:0 !important;margin:0;border:none}
   .hero{min-height:70svh}
+  .booking-widget{display:none}
+  .day-summary{display:none}
 }
 @media(min-width:769px){
   .day-section{display:block !important}
@@ -522,6 +524,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <p class="day-label">Wednesday &middot; July 15</p>
     <h2 class="day-headline">Arrival</h2>
     <p class="day-tagline">Land, eat, sleep. That's the entire job today.</p>
+    <div class="day-summary"><span>🎯 <strong>2</strong> stops</span><span>🍽 <strong>1</strong> dinner</span><span>✅ All walk-up</span><span>🌡 Evening only</span></div>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -699,6 +702,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <p class="day-label">Thursday &middot; July 16</p>
     <h2 class="day-headline">Tsukiji + Ginza Local</h2>
     <p class="day-tagline">Jet lag wakes you at 5 AM. That's an opportunity, not a problem.</p>
+    <div class="day-summary"><span>🎯 <strong>2</strong> featured stops</span><span>🍽 <strong>3</strong> meals</span><span>✅ All walk-up</span><span>🌡 Green → Red → Amber</span></div>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -1005,6 +1009,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <p class="day-label">Friday &middot; July 17</p>
     <h2 class="day-headline">Tokyo DisneySea</h2>
     <p class="day-tagline">Friday = lower crowds. 25th Anniversary Jubilee + Summer Cool-Off + Toy Story 5 overlay. Buy Frozen Journey + Soaring Premier Access at 9:00 AM sharp.</p>
+    <div class="day-summary"><span>🎯 <strong>2</strong> park areas</span><span>🍽 <strong>3</strong> in-park meals</span><span>🎟 <strong>2</strong> need booking</span><span>🌡 Full day — AC strategy</span></div>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -1230,6 +1235,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <p class="day-label">Saturday &middot; July 18</p>
     <h2 class="day-headline">Ghibli &middot; Shibuya &middot; Special Dinner</h2>
     <p class="day-tagline">The best day of the trip. Museum, shopping corridor, sunset from the sky, and the crown jewel dinner.</p>
+    <div class="day-summary"><span>🎯 <strong>2</strong> featured + shopping</span><span>🍽 <strong>3</strong> meals</span><span>🎟 <strong>3</strong> need booking</span><span>🌡 Green → Red → Amber</span></div>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -1500,6 +1506,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <p class="day-label">Sunday &middot; July 19</p>
     <h2 class="day-headline">Asakusa + TeamLab Planets</h2>
     <p class="day-tagline">Old Tokyo at dawn. Immersive art in the afternoon. Omakase close to home for dinner.</p>
+    <div class="day-summary"><span>🎯 <strong>2</strong> featured stops</span><span>🍽 <strong>3</strong> meals</span><span>🎟 <strong>2</strong> need booking</span><span>🌡 Green → Red → Amber</span></div>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -1775,6 +1782,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <p class="day-label">Monday &middot; July 20 &middot; National Holiday</p>
     <h2 class="day-headline">PokePark + Group Split</h2>
     <p class="day-tagline">Theme park morning. Cody + Will to the mountains. Natalie + Mom + Abe to the spa.</p>
+    <div class="day-summary"><span>🎯 <strong>2</strong> featured + split</span><span>🍽 <strong>2</strong> meals</span><span>🎟 <strong>2</strong> booked</span><span>🌡 Marine Day — crowds</span></div>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -2017,6 +2025,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <p class="day-label">Tuesday &middot; July 21</p>
     <h2 class="day-headline">Reunite + Farewell</h2>
     <p class="day-tagline">Return from the mountains. One last neighborhood walk. The farewell dinner this trip deserves.</p>
+    <div class="day-summary"><span>🎯 <strong>2</strong> featured stops</span><span>🍽 <strong>3</strong> meals</span><span>🎟 <strong>1</strong> needs booking</span><span>🌡 Green → Red → Amber</span></div>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -2307,6 +2316,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <p class="day-label">Wednesday &middot; July 22</p>
     <h2 class="day-headline">Depart 12:30 PM</h2>
     <p class="day-tagline">One last Tsukiji breakfast. One last Ginza walk. Then the N'EX.</p>
+    <div class="day-summary"><span>🎯 <strong>2</strong> final stops</span><span>🍽 <strong>1</strong> breakfast</span><span>🎟 N'EX reserved</span><span>🌡 Morning → depart</span></div>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -2898,6 +2908,30 @@ function saveChecks() {
 checks.forEach(c => c.addEventListener('change', saveChecks));
 saveChecks();
 
+// ── BOOKING DEADLINE WIDGET ─────────
+const deadlines = [
+  { date: new Date('2026-04-30T00:00:00+09:00'), label: 'Late April · TeamLab' },
+  { date: new Date('2026-05-17T14:00:00+09:00'), label: 'May 17 2PM · DisneySea' },
+  { date: new Date('2026-05-31T18:00:00+09:00'), label: 'May 31 6PM · PokePark' },
+  { date: new Date('2026-06-10T10:00:00+09:00'), label: 'Jun 10 10AM · Ghibli' },
+  { date: new Date('2026-06-17T10:00:00+09:00'), label: "Jun 17 10AM · Magellan's" },
+  { date: new Date('2026-06-20T18:00:00+09:00'), label: 'Jun 20 6PM · Pokémon Café' },
+  { date: new Date('2026-06-22T10:00:00+09:00'), label: "Jun 22 10AM · N'EX tickets" }
+];
+function updateWidget() {
+  const now = new Date();
+  const next = deadlines.find(d => d.date > now);
+  const widget = document.getElementById('bookingWidget');
+  if (!next || !widget) { if (widget) widget.style.display = 'none'; return; }
+  const diff = next.date - now;
+  const days = Math.floor(diff / 86400000);
+  const label = days === 0 ? 'TODAY' : days === 1 ? '1 day away' : days + ' days away';
+  document.getElementById('bwDate').textContent = next.label;
+  document.getElementById('bwCountdown').textContent = label;
+  if (days <= 3) widget.style.borderColor = 'rgba(188,0,45,0.4)';
+}
+if (!isMobile()) updateWidget();
+
 // Hash + init
 initFromHash();
 window.addEventListener('hashchange', initFromHash);
@@ -2913,5 +2947,10 @@ window.addEventListener('resize', () => {
     <button class="bn-btn" onclick="bnAction('bookings')"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Bookings</button>
   </div>
 </nav>
+<div class="booking-widget" id="bookingWidget" onclick="document.getElementById('bookings').scrollIntoView({behavior:'smooth'})">
+  <div class="bw-label">Next Booking Deadline</div>
+  <div class="bw-date" id="bwDate">Loading&hellip;</div>
+  <div class="bw-countdown" id="bwCountdown"></div>
+</div>
 </body>
 </html>
