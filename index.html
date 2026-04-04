@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tokyo · July 2026 · Cody's Trip</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+/* ── RESET ─────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Karla',sans-serif;background:#FAF8F5;color:#0F1117;line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{font-family:'Karla',sans-serif;cursor:pointer;border:none;background:none}
+input[type=checkbox]{accent-color:#BC002D}
+
+/* ── VARIABLES ────────────────────────── */
+:root{
+  --red:#BC002D;--red-deep:#7A001B;--navy:#0F1117;--navy2:#1a1a2e;
+  --gold:#C5973A;--gold-light:#F2D98B;--cream:#FAF8F5;--white:#FFFFFF;
+  --border:#E4DDD5;--muted:#8A8078;--safe:#2A7D4F;--caution:#D0692A;--danger:#BC002D;
+  --shadow:0 6px 30px rgba(15,17,23,0.1);--shadow-lg:0 12px 50px rgba(15,17,23,0.15);
+  --r:14px;--r-sm:8px;
+}
+
+/* ── HERO ─────────────────────────────── */
+.hero{min-height:100svh;background:linear-gradient(160deg,#0F1117 0%,#2A000D 45%,#BC002D 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 32px 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,255,255,0.03) 0%,transparent 70%);pointer-events:none}
+.hero-sun{position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(197,151,58,0.12) 0%,rgba(188,0,45,0.05) 50%,transparent 70%);pointer-events:none}
+.hero-kana{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3vw,1.4rem);letter-spacing:8px;color:rgba(255,255,255,0.25);margin-bottom:8px;animation:fadeup 1s ease both}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(7rem,22vw,18rem);color:#fff;line-height:0.85;letter-spacing:-3px;animation:fadeup 1s ease 0.15s both;text-shadow:0 0 120px rgba(188,0,45,0.4)}
+.hero-dates{font-family:'DM Serif Display',serif;font-size:clamp(1rem,3.5vw,1.8rem);color:rgba(255,255,255,0.7);letter-spacing:3px;margin:16px 0 8px;animation:fadeup 1s ease 0.3s both}
+.hero-group{font-size:0.9rem;letter-spacing:2px;color:rgba(255,255,255,0.4);text-transform:uppercase;animation:fadeup 1s ease 0.4s both}
+.hero-rule{width:48px;height:2px;background:var(--gold);margin:32px auto;animation:fadeup 1s ease 0.5s both}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap;justify-content:center;animation:fadeup 1s ease 0.6s both}
+.hero-stat .n{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--gold);display:block;line-height:1}
+.hero-stat .l{font-size:0.65rem;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.35)}
+.hero-base{margin-top:32px;font-size:0.82rem;color:rgba(255,255,255,0.45);animation:fadeup 1s ease 0.7s both}
+.hero-base strong{color:rgba(255,255,255,0.75)}
+.hero-down{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.25);animation:bounce 2.5s ease infinite}
+@keyframes fadeup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+/* ── TRIP OVERVIEW TIMELINE ─────────────── */
+.overview{background:var(--navy);color:#fff;padding:44px 32px 48px;position:relative}
+.overview::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(255,255,255,0.06)}
+.overview-inner{max-width:1500px;margin:0 auto}
+.ov-head{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:4px;color:rgba(255,255,255,0.25);margin-bottom:20px;text-align:center}
+.ov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ov-card{position:relative;padding:16px 18px 14px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:all 0.2s;overflow:hidden}
+.ov-card:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12)}
+.ov-card::before{content:attr(data-n);position:absolute;right:6px;bottom:-8px;font-family:'Bebas Neue',sans-serif;font-size:4.5rem;line-height:1;color:rgba(255,255,255,0.03);pointer-events:none}
+.ov-pip{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;flex-shrink:0;vertical-align:middle}
+.ov-date{font-size:0.62rem;letter-spacing:1.5px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:5px}
+.ov-name{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.5px;line-height:1.1;margin-bottom:6px}
+.ov-highlights{font-size:0.7rem;color:rgba(255,255,255,0.4);line-height:1.5}
+.ov-highlights strong{color:rgba(255,255,255,0.65)}
+
+/* ── NAV ──────────────────────────────── */
+.day-nav{position:sticky;top:0;z-index:200;background:rgba(15,17,23,0.96);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-inner{display:flex;gap:0;padding:0 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-pill{flex-shrink:0;padding:14px 16px;font-size:0.68rem;font-weight:700;text-align:center;letter-spacing:0.5px;line-height:1.35;color:rgba(255,255,255,0.35);border-bottom:3px solid transparent;transition:all 0.2s;white-space:nowrap;position:relative}
+.nav-pill:hover,.nav-pill.active{color:rgba(255,255,255,0.9)}
+.nav-pill::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:3px;background:var(--pill-color,var(--red));transform:scaleX(0);transition:transform 0.25s;transform-origin:left}
+.nav-pill.active::after,.nav-pill:hover::after{transform:scaleX(1)}
+.np-survival{--pill-color:#BC002D}.np-fragile{--pill-color:#C0652B}.np-building{--pill-color:#C09000}.np-peak{--pill-color:#2A7D4F}.np-selective{--pill-color:#C09000}.np-comfort{--pill-color:#C0652B}
+.nav-pill.active.np-survival{color:#f87171}.nav-pill.active.np-fragile{color:#fb923c}.nav-pill.active.np-building{color:#facc15}.nav-pill.active.np-peak{color:#4ade80}.nav-pill.active.np-selective{color:#facc15}.nav-pill.active.np-comfort{color:#fb923c}
+
+/* ── DAY SECTION ─────────────────────── */
+.day-section{border-bottom:1px solid var(--border)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:none}
+
+.day-hero{padding:40px 40px 32px;position:relative;overflow:hidden;color:#fff}
+.day-hero::before{content:'';position:absolute;inset:0;background:inherit;z-index:0}
+.day-hero::after{content:attr(data-n);position:absolute;right:-16px;bottom:-20px;font-family:'Bebas Neue',sans-serif;font-size:240px;line-height:1;color:rgba(255,255,255,0.04);pointer-events:none;user-select:none;z-index:1}
+.day-hero>*{position:relative;z-index:2}
+.energy-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 13px;border-radius:20px;font-size:0.65rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.15);margin-bottom:10px}
+.day-label{font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;opacity:0.55;margin-bottom:4px}
+.day-headline{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.2rem);line-height:0.95;letter-spacing:1px;margin-bottom:10px}
+.day-tagline{font-size:0.9rem;opacity:0.75;max-width:520px;font-style:italic;font-family:'DM Serif Display',serif}
+
+.bg-d1{background:linear-gradient(135deg,#101B2E,#1F3F6B)}.bg-d2{background:linear-gradient(135deg,#5C1808,#B5440E)}.bg-d3{background:linear-gradient(135deg,#700018,#0D0D42)}.bg-d4{background:linear-gradient(135deg,#150028,#3B1060)}.bg-d5{background:linear-gradient(135deg,#083248,#0F6052)}.bg-d6{background:linear-gradient(135deg,#060618,#0E2E6B)}.bg-d7{background:linear-gradient(135deg,#0F2E1E,#256046)}.bg-d8{background:linear-gradient(135deg,#1E2A38,#3E5060)}
+
+/* ── 3-COLUMN DAY BODY ──────────────────── */
+.day-body{max-width:1920px;margin:0 auto;padding:0 32px 40px}
+.day-grid{display:grid;grid-template-columns:1.2fr 1fr 1.3fr;gap:8px 32px;align-items:start}
+.day-full{grid-column:1/-1}
+
+/* column section labels */
+.col-head{font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:10px;padding-top:20px;display:flex;align-items:center;gap:8px}
+.col-head::after{content:'';flex:1;height:1px;background:var(--border)}
+.sec-label{font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── HEAT ZONE (compact inline) ─────────── */
+.heat-strip{padding:18px 0 14px;border-bottom:1px solid var(--border)}
+.heat-track{height:10px;border-radius:5px;overflow:hidden;margin-bottom:6px;border:1px solid rgba(0,0,0,0.06)}
+.ht-standard{background:linear-gradient(to right,#2A7D4F 0%,#2A7D4F 22%,#D0692A 22%,#D0692A 27%,#BC002D 27%,#BC002D 64%,#D0692A 64%,#D0692A 71%,#E8A830 71%,#E8A830 78%,#2A7D4F 78%)}
+.ht-arrival{background:#2A7D4F}
+.ht-depart{background:linear-gradient(to right,#2A7D4F 0%,#2A7D4F 22%,#D0692A 22%,#D0692A 35%,#8A8078 35%)}
+.heat-times{display:flex;justify-content:space-between;font-size:0.58rem;color:var(--muted);margin-bottom:6px}
+.heat-legend{display:flex;gap:12px;flex-wrap:wrap}
+.hl-item{display:flex;align-items:center;gap:4px;font-size:0.64rem;color:var(--muted)}
+.hl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.hd-safe{background:#2A7D4F}.hd-caution{background:#D0692A}.hd-hot{background:#BC002D}.hd-eve{background:#E8A830}
+
+/* ── TIMELINE ────────────────────────── */
+.tl{position:relative;padding-left:20px}
+.tl::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--border);border-radius:1px}
+.tl-row{display:grid;grid-template-columns:68px 1fr;gap:6px 10px;margin-bottom:14px;align-items:start;position:relative}
+.tl-row:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-17px;top:2px;width:10px;height:10px;border-radius:50%;border:2px solid var(--cream);box-shadow:0 0 0 1px var(--border)}
+.td-green{background:#2A7D4F;box-shadow:0 0 0 1px #2A7D4F40}.td-red{background:#BC002D;box-shadow:0 0 0 1px #BC002D40}.td-amber{background:#C8880A;box-shadow:0 0 0 1px #C8880A40}.td-blue{background:#1B6CB2;box-shadow:0 0 0 1px #1B6CB240}.td-purple{background:#6B2FAE;box-shadow:0 0 0 1px #6B2FAE40}.td-gold{background:var(--gold);box-shadow:0 0 0 1px rgba(197,151,58,0.4)}
+.tl-time{font-size:0.66rem;font-weight:700;color:var(--muted);padding-top:1px;line-height:1.4}
+.tl-title{font-weight:700;font-size:0.84rem;margin-bottom:2px;line-height:1.3}
+.tl-note{font-size:0.76rem;color:#4A4A5A;line-height:1.4}
+.tag{display:inline-block;font-size:0.55rem;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;padding:1px 7px;border-radius:8px;margin-top:3px;margin-right:3px}
+.tag-hot{background:#fdecea;color:#BC002D}.tag-ac{background:#e8f5e9;color:#2A7D4F}.tag-walk{background:#e3f2fd;color:#1565C0}.tag-book{background:#fff3e0;color:#C07000}.tag-star{background:#fffde7;color:#A07800}.tag-free{background:#f3e5f5;color:#6A1B9A}
+
+/* ── ACTIVITY CARDS (compact) ───────────── */
+.act-card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;margin-bottom:12px}
+.act-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.act-vis{height:80px;display:flex;align-items:center;justify-content:center;font-size:2.4rem;position:relative;overflow:hidden}
+.act-vis::before{content:'';position:absolute;inset:0;background:inherit}
+.act-vis span{position:relative;z-index:1;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.4))}
+.av-airport{background:linear-gradient(135deg,#101B2E,#1F4D8B)}.av-tsukiji{background:linear-gradient(135deg,#5C1808,#B5440E)}.av-ginza{background:linear-gradient(135deg,#2C3542,#6B7D8E)}.av-temple{background:linear-gradient(135deg,#700018,#BC002D)}.av-teamlab{background:linear-gradient(135deg,#050520,#0D0D8A)}.av-shrine{background:linear-gradient(135deg,#0D2414,#2A6040)}.av-harajuku{background:linear-gradient(135deg,#4A1B60,#A04BC0)}.av-shibuya{background:linear-gradient(135deg,#150028,#4A1888)}.av-coast{background:linear-gradient(135deg,#083248,#0F7060)}.av-disney{background:linear-gradient(135deg,#020210,#0A2060)}.av-garden{background:linear-gradient(135deg,#0A2018,#256040)}.av-station{background:linear-gradient(135deg,#1E2A38,#3A5268)}.av-ramen{background:linear-gradient(135deg,#3C1008,#8A300A)}.av-sushi{background:linear-gradient(135deg,#051828,#1060A0)}.av-ghibli{background:linear-gradient(135deg,#0A3818,#2D8A50)}.av-pokepark{background:linear-gradient(135deg,#8A6800,#E8B800)}.av-glamping{background:linear-gradient(135deg,#1A3020,#2A6840)}.av-unagi{background:linear-gradient(135deg,#3A1A00,#7A4008)}.av-sky{background:linear-gradient(135deg,#150028,#5030A0)}
+.act-body{padding:12px 14px}
+.act-kicker{font-size:0.6rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.act-name{font-family:'DM Serif Display',serif;font-size:0.95rem;margin-bottom:4px}
+.act-desc{font-size:0.74rem;color:#3A3A4A;line-height:1.45;margin-bottom:8px}
+.act-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:0.66rem;color:var(--muted);margin-bottom:8px}
+.act-map{display:inline-flex;align-items:center;gap:4px;font-size:0.68rem;font-weight:700;color:#1252A0;background:#EBF3FF;padding:4px 10px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none}
+.act-map:hover{background:#C8DEFF}
+.act-web{display:inline-flex;align-items:center;gap:4px;font-size:0.68rem;font-weight:700;color:#2A7D4F;background:#E8F5E9;padding:4px 10px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none;margin-left:4px}
+.act-web:hover{background:#C8E6C9}
+.act-tix{display:inline-flex;align-items:center;gap:4px;font-size:0.68rem;font-weight:700;color:#BC002D;background:#fdecea;padding:4px 10px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none;margin-left:4px}
+.act-tix:hover{background:#f9d0d3}
+
+/* ── HALF-SIZE MINI CARDS (alternatives/coffee/secondary) ── */
+.alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.act-mini{background:var(--white);border-radius:var(--r-sm);border:1.5px solid var(--border);padding:9px 11px;display:flex;gap:8px;align-items:flex-start;transition:border-color 0.2s,transform 0.2s;position:relative}
+.act-mini:hover{border-color:var(--gold);transform:translateY(-1px)}
+.act-mini .mini-em{font-size:1.1rem;flex-shrink:0;line-height:1}
+.act-mini .mini-body{flex:1;min-width:0}
+.act-mini .mini-name{font-family:'DM Serif Display',serif;font-size:0.72rem;line-height:1.2;margin-bottom:1px}
+.act-mini .mini-name a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--border);transition:border-color 0.15s}
+.act-mini .mini-name a:hover{border-color:var(--gold)}
+.act-mini .mini-sub{font-size:0.56rem;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:2px}
+.act-mini .mini-note{font-size:0.6rem;color:#4A4A5A;line-height:1.3}
+.act-mini .mini-links{display:flex;gap:4px;margin-top:3px}
+.act-mini .mini-links a{font-size:0.54rem;font-weight:700;color:#1252A0;text-decoration:none}
+.act-mini .mini-links a:hover{text-decoration:underline}
+
+/* ── GOOGLE MAPS ROUTE BUTTON ── */
+.gmap-route{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#4285F4;color:#fff;font-size:0.72rem;font-weight:700;letter-spacing:0.5px;border-radius:var(--r-sm);text-decoration:none;transition:background 0.15s;margin-top:8px}
+.gmap-route:hover{background:#3367D6}
+.gmap-route svg{width:16px;height:16px;fill:currentColor}
+
+/* ── FOOD CARD LINKS ── */
+.fc-links{display:flex;gap:4px;margin-top:4px}
+.fc-links a{font-size:0.52rem;font-weight:700;padding:2px 6px;border-radius:4px;text-decoration:none;transition:background 0.15s}
+.fc-links .fc-gmap{color:#1252A0;background:#EBF3FF}
+.fc-links .fc-gmap:hover{background:#C8DEFF}
+.fc-links .fc-site{color:#2A7D4F;background:#E8F5E9}
+.fc-links .fc-site:hover{background:#C8E6C9}
+
+/* ── FOOD CARDS (side-stacked in food column) ── */
+.meal-cards{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.meal-cards.single{grid-template-columns:1fr}
+.food-card{background:var(--white);border-radius:var(--r-sm);border:1.5px solid var(--border);padding:10px 11px;transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;position:relative}
+.food-card:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:var(--shadow)}
+.fc-tag{position:absolute;top:7px;right:9px;font-size:0.5rem;font-weight:900;letter-spacing:1px;color:var(--border)}
+.fc-em{font-size:1.15rem;margin-bottom:3px;display:block;line-height:1}
+.fc-name{font-family:'DM Serif Display',serif;font-size:0.78rem;margin-bottom:1px;line-height:1.2}
+.fc-type{font-size:0.54rem;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.fc-desc{font-size:0.65rem;color:#3A3A4A;line-height:1.35;margin-bottom:5px}
+.fc-foot{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:3px}
+.fc-price{font-size:0.68rem;font-weight:800;color:var(--navy)}
+.fc-dist{font-size:0.6rem;color:var(--muted)}
+.fc-res{display:inline-block;font-size:0.52rem;font-weight:800;letter-spacing:0.4px;padding:2px 6px;border-radius:6px;margin-top:3px;width:100%;text-align:center}
+.fc-res.urgent{background:#fdecea;color:var(--red)}.fc-res.high{background:#fff3e0;color:#C07000}.fc-res.moderate{background:#f3f9f0;color:#2A7D4F}.fc-res.none{background:#f0f0f0;color:var(--muted)}
+.meal-label{font-size:0.58rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin:12px 0 6px;display:flex;align-items:center;gap:6px}
+.meal-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── MAP SECTION (full width) ────────────── */
+.map-zone{padding:16px 0 12px}
+.map-wrap{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);position:relative;background:#E8E4DE;height:220px}
+.leaflet-container{width:100%}
+
+/* ── TRANSPORT (compact) ──────────────── */
+.transport-box{padding:12px 16px;background:#EEF3FF;border-left:3px solid #3B5BD9;border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:0.78rem;margin-top:8px}
+.transport-box h5{font-size:0.6rem;text-transform:uppercase;letter-spacing:1.5px;color:#3B5BD9;margin-bottom:4px}
+.transport-box p{color:#2A3050;line-height:1.5}
+.transport-box strong{color:#1A2040}
+
+/* ── NOTE / WARN BOXES ───────────────── */
+.note-box{padding:10px 14px;border-radius:0 var(--r-sm) var(--r-sm) 0;border-left:3px solid var(--gold);background:#FFFBEF;font-size:0.74rem;color:#5A4800;line-height:1.45;margin-top:10px}
+.warn-box{padding:10px 14px;border-radius:0 var(--r-sm) var(--r-sm) 0;border-left:3px solid var(--red);background:#FFF0F1;font-size:0.74rem;color:#6A0010;line-height:1.45;margin-top:10px}
+
+/* ── SPLIT VIEW (Days 6-7) ── */
+.split-tabs{display:flex;gap:0;margin:12px 0 0;border-bottom:2px solid var(--border)}
+.split-tab{padding:8px 14px;font-size:0.68rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted);border-bottom:3px solid transparent;transition:all 0.2s;cursor:pointer}
+.split-tab.active{color:var(--red);border-bottom-color:var(--red)}
+.split-panel{display:none;padding-top:10px}
+.split-panel.active{display:block}
+
+/* ── NIGHTLIFE (collapsible) ── */
+.night-toggle{cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:0.58rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid var(--border)}
+.night-toggle .chevron{transition:transform 0.3s;font-size:0.7rem}
+.night-toggle.open .chevron{transform:rotate(180deg)}
+.night-content{display:none;padding:10px 0}
+.night-toggle.open+.night-content{display:block}
+.night-card{display:flex;gap:10px;padding:10px 12px;background:var(--navy);color:#fff;border-radius:var(--r-sm);margin-bottom:6px}
+.night-card .nc-em{font-size:1.3rem;flex-shrink:0}
+.night-card .nc-name{font-family:'DM Serif Display',serif;font-size:0.85rem;margin-bottom:1px}
+.night-card .nc-meta{font-size:0.65rem;color:rgba(255,255,255,0.4);margin-bottom:2px}
+.night-card .nc-desc{font-size:0.7rem;color:rgba(255,255,255,0.6);line-height:1.35}
+.night-card .nc-links{display:flex;gap:4px;margin-top:4px}
+.night-card .nc-links a{font-size:0.52rem;font-weight:700;padding:2px 6px;border-radius:4px;text-decoration:none;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.1);transition:background 0.15s}
+.night-card .nc-links a:hover{background:rgba(255,255,255,0.2)}
+
+/* ── BOOKING CHECKLIST ───────────────── */
+.booking{background:var(--navy2);color:#fff;padding:72px 32px}
+.booking-inner{max-width:640px;margin:0 auto}
+.booking-head{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:2px;margin-bottom:6px}
+.booking-sub{color:rgba(255,255,255,0.45);font-size:0.88rem;margin-bottom:44px}
+.cl-group{margin-bottom:32px}
+.cl-group-label{font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px}
+.cl-item{display:flex;align-items:flex-start;gap:13px;padding:12px 16px;border-radius:var(--r-sm);margin-bottom:6px;cursor:pointer;transition:background 0.15s;border:1px solid rgba(255,255,255,0.06)}
+.cl-item:hover{background:rgba(255,255,255,0.06)}
+.cl-item input{flex-shrink:0;width:17px;height:17px;margin-top:2px;cursor:pointer}
+.cl-item label{cursor:pointer;flex:1}
+.cl-item label strong{display:block;font-size:0.88rem;margin-bottom:2px}
+.cl-item label span{font-size:0.76rem;color:rgba(255,255,255,0.4)}
+.cl-item.checked label strong{text-decoration:line-through;opacity:0.45}
+.cl-urgent strong::before{content:'🔴 '}.cl-high strong::before{content:'🟠 '}.cl-mod strong::before{content:'🟡 '}
+.booking-progress{background:rgba(255,255,255,0.07);border-radius:var(--r);padding:20px 24px;margin-top:32px;display:flex;align-items:center;gap:20px}
+.progress-bar-wrap{flex:1;height:6px;background:rgba(255,255,255,0.12);border-radius:3px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));border-radius:3px;transition:width 0.4s ease;width:0%}
+.progress-text{font-size:0.78rem;color:rgba(255,255,255,0.5);white-space:nowrap}
+
+/* ── FOOTER ──────────────────────────── */
+.site-footer{background:#07070F;color:rgba(255,255,255,0.2);text-align:center;padding:28px;font-size:0.72rem;letter-spacing:1px}
+
+/* ── RESPONSIVE ──────────────────────── */
+@media(max-width:1200px){
+  .day-grid{grid-template-columns:1fr 1fr;gap:8px 20px}
+  .day-grid>.col-food{grid-column:1/-1}
+  .meal-cards{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))!important}
+  .ov-grid{grid-template-columns:repeat(4,1fr);gap:8px}
+}
+@media(max-width:768px){
+  .day-grid{grid-template-columns:1fr}
+  .meal-cards{grid-template-columns:1fr!important}
+  .ov-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px 32px;justify-items:center}
+  .day-hero{padding:36px 20px 28px}
+  .day-body{padding:0 16px 36px}
+  .booking{padding:48px 20px}
+  .hero-title{font-size:clamp(6rem,18vw,10rem)}
+  .day-headline{font-size:clamp(1.8rem,5vw,2.6rem)}
+  .split-tabs{flex-wrap:wrap}
+  .map-wrap{height:180px}
+}
+@media(max-width:480px){
+  .ov-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-sun"></div>
+  <p class="hero-kana">東京</p>
+  <h1 class="hero-title">TOKYO</h1>
+  <p class="hero-dates">July 15 &ndash; 22 &middot; 2026</p>
+  <p class="hero-group">Cody &nbsp;&middot;&nbsp; Partner &nbsp;&middot;&nbsp; Sister &nbsp;&middot;&nbsp; Mom</p>
+  <div class="hero-rule"></div>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="n">7</span><span class="l">Nights</span></div>
+    <div class="hero-stat"><span class="n">3</span><span class="l">Theme Parks</span></div>
+    <div class="hero-stat"><span class="n">1</span><span class="l">Glamping Night</span></div>
+    <div class="hero-stat"><span class="n">8</span><span class="l">Neighborhoods</span></div>
+  </div>
+  <p class="hero-base">Staying at <strong>MONday Apart Premium &middot; Ginza Shintomicho</strong></p>
+  <p class="hero-down">Scroll &darr;</p>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TRIP OVERVIEW TIMELINE
+══════════════════════════════════════════ -->
+<section class="overview" id="overview">
+  <div class="overview-inner">
+    <p class="ov-head">Your 8 Days at a Glance</p>
+    <div class="ov-grid">
+      <div class="ov-card" data-n="1" onclick="goDay(1)">
+        <p class="ov-date"><span class="ov-pip" style="background:#BC002D"></span>Wed Jul 15</p>
+        <p class="ov-name">Arrival</p>
+        <p class="ov-highlights">Land 4 PM &middot; <strong>Suica cards</strong> &middot; Yakitori under the tracks</p>
+      </div>
+      <div class="ov-card" data-n="2" onclick="goDay(2)">
+        <p class="ov-date"><span class="ov-pip" style="background:#C0652B"></span>Thu Jul 16</p>
+        <p class="ov-name">Tsukiji + Ginza</p>
+        <p class="ov-highlights"><strong>Market morning</strong> &middot; Depachika &middot; Kagari Ramen &middot; Monjayaki</p>
+      </div>
+      <div class="ov-card" data-n="3" onclick="goDay(3)">
+        <p class="ov-date"><span class="ov-pip" style="background:#C09000"></span>Fri Jul 17</p>
+        <p class="ov-name">DisneySea</p>
+        <p class="ov-highlights"><strong>Fantasy Springs</strong> &middot; Frozen Journey &middot; Full park day</p>
+      </div>
+      <div class="ov-card" data-n="4" onclick="goDay(4)">
+        <p class="ov-date"><span class="ov-pip" style="background:#2A7D4F"></span>Sat Jul 18 ⭐</p>
+        <p class="ov-name">Ghibli &middot; Shibuya</p>
+        <p class="ov-highlights"><strong>Museum</strong> &middot; Shopping corridor &middot; <strong>Shibuya Sky</strong> &middot; Special Dinner</p>
+      </div>
+      <div class="ov-card" data-n="5" onclick="goDay(5)">
+        <p class="ov-date"><span class="ov-pip" style="background:#2A7D4F"></span>Sun Jul 19</p>
+        <p class="ov-name">Asakusa + TeamLab</p>
+        <p class="ov-highlights"><strong>Senso-ji dawn</strong> &middot; Hamarikyu &middot; <strong>TeamLab Planets</strong> &middot; Sushi Iwa</p>
+      </div>
+      <div class="ov-card" data-n="6" onclick="goDay(6)">
+        <p class="ov-date"><span class="ov-pip" style="background:#C09000"></span>Mon Jul 20 🇯🇵</p>
+        <p class="ov-name">PokePark + Split</p>
+        <p class="ov-highlights"><strong>PokePark KANTO</strong> &middot; KEIKOKU glamping &middot; Spa afternoon</p>
+      </div>
+      <div class="ov-card" data-n="7" onclick="goDay(7)">
+        <p class="ov-date"><span class="ov-pip" style="background:#C0652B"></span>Tue Jul 21</p>
+        <p class="ov-name">Reunite + Farewell</p>
+        <p class="ov-highlights">Mountain return &middot; <strong>Nodaiwa unagi</strong> &middot; Bar High Five</p>
+      </div>
+      <div class="ov-card" data-n="8" onclick="goDay(8)">
+        <p class="ov-date"><span class="ov-pip" style="background:#BC002D"></span>Wed Jul 22</p>
+        <p class="ov-name">Depart 12:30 PM</p>
+        <p class="ov-highlights">Last Tsukiji &middot; Omiyage run &middot; <strong>N'EX to Narita</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STICKY NAVIGATION
+══════════════════════════════════════════ -->
+<nav class="day-nav" id="mainNav">
+  <div class="nav-inner">
+    <button class="nav-pill np-survival" data-day="1" onclick="goDay(1)">Jul 15<br>Arrival</button>
+    <button class="nav-pill np-fragile"  data-day="2" onclick="goDay(2)">Jul 16<br>Tsukiji</button>
+    <button class="nav-pill np-building" data-day="3" onclick="goDay(3)">Jul 17<br>DisneySea</button>
+    <button class="nav-pill np-peak"     data-day="4" onclick="goDay(4)">Jul 18 ⭐<br>Ghibli</button>
+    <button class="nav-pill np-peak"     data-day="5" onclick="goDay(5)">Jul 19<br>Asakusa</button>
+    <button class="nav-pill np-selective" data-day="6" onclick="goDay(6)">Jul 20<br>Split</button>
+    <button class="nav-pill np-comfort"  data-day="7" onclick="goDay(7)">Jul 21<br>Farewell</button>
+    <button class="nav-pill np-survival" data-day="8" onclick="goDay(8)">Jul 22<br>Depart</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     DAY 1 · JUL 15 · ARRIVAL
+══════════════════════════════════════════ -->
+<section class="day-section" id="day1">
+  <div class="day-hero bg-d1" data-n="1">
+    <div class="energy-pill">🔴 Survival Mode</div>
+    <p class="day-label">Wednesday &middot; July 15</p>
+    <h2 class="day-headline">Arrival</h2>
+    <p class="day-tagline">Land, eat, sleep. That's the entire job today.</p>
+  </div>
+  <div class="day-body">
+    <div class="day-grid">
+      <!-- COL 1: AGENDA -->
+      <div class="col-agenda">
+        <div class="heat-strip reveal">
+          <p class="col-head">Heat Window</p>
+          <div class="heat-track ht-arrival"></div>
+          <div class="heat-times"><span>4 PM</span><span>6 PM</span><span>8 PM</span><span>10 PM</span></div>
+          <div class="heat-legend">
+            <div class="hl-item"><div class="hl-dot hd-eve"></div>Evening only &mdash; drops after 7 PM</div>
+          </div>
+        </div>
+        <div class="reveal" style="padding-top:14px">
+          <p class="col-head">Schedule</p>
+          <div class="tl">
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">4:00 PM</div><div><div class="tl-title">Land at Narita (NRT)</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">4:00&ndash;5:30</div><div><div class="tl-title">Customs &middot; Baggage &middot; Suica Cards</div><div class="tl-note">JR East counter near N'EX gates. iPhone: load Mobile Suica. Load &yen;3&ndash;5K each.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">5:30 PM</div><div><div class="tl-title">Narita Express (N'EX)</div><div class="tl-note">60 min to Tokyo Station. &yen;3,070/person.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">6:30 PM</div><div><div class="tl-title">Tokyo Stn &rarr; Taxi to Hotel</div><div class="tl-note">~&yen;1,500&ndash;2,000. Show driver hotel address in Japanese.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">7:00 PM</div><div><div class="tl-title">Check in &middot; Drop bags</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">7:30&ndash;9:00</div><div><div class="tl-title">⭐ Dinner &mdash; Yurakucho</div><div class="tl-note">6-min walk. Yakitori, cold Sapporo, smoke.</div><span class="tag tag-walk">6 min walk</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-amber"></div><div class="tl-time">9:30 PM</div><div><div class="tl-title">Combini stock-up</div><div class="tl-note">Onigiri, beer, miso soup sachets, Pocari Sweat.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-red"></div><div class="tl-time">10:00 PM</div><div><div class="tl-title">In bed. Non-negotiable.</div></div></div>
+          </div>
+        </div>
+        <div class="transport-box reveal" style="margin-top:14px">
+          <h5>🚆 Transport</h5>
+          <p><strong>NRT &rarr; Hotel:</strong> N'EX to Tokyo Station + taxi. &yen;3,070/pp + ~&yen;1,500 taxi. Download <strong>GO app</strong> tonight.</p>
+        </div>
+      </div>
+
+      <!-- COL 2: HIGHLIGHTS -->
+      <div class="col-highlights">
+        <p class="col-head" style="padding-top:20px">Tonight's Stops</p>
+        <div class="act-card reveal">
+          <div class="act-vis av-airport"><span>✈️</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Airport Transfer &middot; N'EX</div>
+            <div class="act-name">Narita Express to Tokyo Station</div>
+            <div class="act-desc">Do not take the Limousine Bus &mdash; 4 PM summer expressway traffic is unpredictable. Rails are fixed. Buy tickets at the same JR kiosk as your Suica cards.</div>
+            <div class="act-meta"><span>⏱ 60 min</span><span>💴 &yen;3,070/pp</span></div>
+            <a href="https://www.jreast.co.jp/multi/en/nex/" target="_blank" class="act-web">🌐 Website</a>
+          </div>
+        </div>
+        <div class="act-card reveal">
+          <div class="act-vis av-tsukiji"><span>🍢</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Yakitori &middot; 6 min walk</div>
+            <div class="act-name">Yurakucho Under the Tracks</div>
+            <div class="act-desc">Yakitori stalls under the Yamanote Line arches. Smoke, cold Sapporo, skewers. Order: momo, tsukune with egg yolk, pork-wrapped asparagus. All grilled &mdash; no raw fish.</div>
+            <div class="act-meta"><span>💴 &yen;2,000&ndash;4,000/pp</span><span>🚶 6 min</span></div>
+            <a href="https://maps.google.com/?q=Yurakucho+Yakitori+Alley+Tokyo" target="_blank" class="act-map">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- COL 3: FOOD -->
+      <div class="col-food">
+        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="meal-label">🌙 Dinner &mdash; the only meal that matters</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span>
+            <span class="fc-em">🍢</span>
+            <div class="fc-name">Yurakucho Under the Tracks</div>
+            <div class="fc-type">Yakitori &middot; Outdoor stalls</div>
+            <div class="fc-desc">Yamanote Line arches. Smoke, salarymen, cold Sapporo, skewers. No reservation, no planning. Everything grilled.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;2,000&ndash;4,000</span><span class="fc-dist">🚶 6 min</span></div>
+            <div class="fc-res none">No reservation needed</div>
+            <div class="fc-links">
+              <a href="https://maps.google.com/?q=Yurakucho+Yakitori+Alley+Tokyo" target="_blank" class="fc-gmap">📍 Map</a>
+            </div>
+          </div>
+          <div class="food-card reveal"><span class="fc-tag">B</span>
+            <span class="fc-em">🏮</span>
+            <div class="fc-name">Tsukiji Area Izakaya</div>
+            <div class="fc-type">Izakaya &middot; Casual</div>
+            <div class="fc-desc">Any lit izakaya in the Tsukiji area. 10-min walk. Point at the picture menu. Zero planning for a jet-lagged first night.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;1,500&ndash;3,500</span><span class="fc-dist">🚶 10 min</span></div>
+            <div class="fc-res none">No reservation needed</div>
+            <div class="fc-links">
+              <a href="https://maps.google.com/?q=Tsukiji+Outer+Market+Tokyo" target="_blank" class="fc-gmap">📍 Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAP (full width) -->
+      <div class="day-full reveal">
+        <div class="map-zone"><div class="map-wrap" id="map-d1"></div></div>
+        <a href="https://www.google.com/maps/dir/Narita+Airport/Tokyo+Station/MONday+Apart+Premium+Ginza+Shintomicho/Yurakucho+Station" target="_blank" class="gmap-route">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Open Route in Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DAY 2 · JUL 16 · TSUKIJI + GINZA
+══════════════════════════════════════════ -->
+<section class="day-section" id="day2">
+  <div class="day-hero bg-d2" data-n="2">
+    <div class="energy-pill">🟠 Fragile &mdash; Treat with Care</div>
+    <p class="day-label">Thursday &middot; July 16</p>
+    <h2 class="day-headline">Tsukiji + Ginza Local</h2>
+    <p class="day-tagline">Jet lag wakes you at 5 AM. That's an opportunity, not a problem.</p>
+  </div>
+  <div class="day-body">
+    <div class="day-grid">
+      <!-- COL 1: AGENDA -->
+      <div class="col-agenda">
+        <div class="heat-strip reveal">
+          <p class="col-head">Heat Windows</p>
+          <div class="heat-track ht-standard"></div>
+          <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
+          <div class="heat-legend">
+            <div class="hl-item"><div class="hl-dot hd-safe"></div>8&ndash;11 AM: Market (covered)</div>
+            <div class="hl-item"><div class="hl-dot hd-hot"></div>11 AM&ndash;5 PM: Ginza AC</div>
+            <div class="hl-item"><div class="hl-dot hd-eve"></div>After 6 PM: Stroll</div>
+          </div>
+        </div>
+        <div class="reveal" style="padding-top:14px">
+          <p class="col-head">Schedule</p>
+          <div class="tl">
+            <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">7:30&ndash;9:30</div><div><div class="tl-title">🥚 Tsukiji Outer Market</div><div class="tl-note">10-min walk. Tamagoyaki, scallops, tuna on rice. Thursday = prime market day.</div><span class="tag tag-walk">10 min</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">9:30&ndash;11:00</div><div><div class="tl-title">Return to hotel &middot; Rest</div><div class="tl-note">Optional: Turret Coffee (5-min walk).</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-red"></div><div class="tl-time">11:00&ndash;2:30</div><div><div class="tl-title">Ginza Midday Refuge</div><div class="tl-note">Ginza Six (5-min): B2 food hall, Tsutaya bookstore, rooftop garden.</div><span class="tag tag-ac">Full AC</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-red"></div><div class="tl-time">2:30&ndash;5:00</div><div><div class="tl-title">Rest at Hotel</div><div class="tl-note">Mandatory on Days 1&ndash;3. Keeps group functional Days 4&ndash;5.</div><span class="tag tag-hot">Mandatory rest</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-amber"></div><div class="tl-time">5:30&ndash;7:00</div><div><div class="tl-title">Neighborhood Stroll</div><div class="tl-note">Ginza at dusk or Sumida toward Tsukishima.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">7:00&ndash;9:00</div><div><div class="tl-title">Dinner</div></div></div>
+          </div>
+        </div>
+        <div class="transport-box reveal" style="margin-top:14px">
+          <h5>🚆 Transport</h5>
+          <p><strong>Walk everywhere today.</strong> Tsukiji (10 min), Ginza Six (5 min), Kagari (5 min), Yurakucho (6 min).</p>
+        </div>
+      </div>
+
+      <!-- COL 2: HIGHLIGHTS -->
+      <div class="col-highlights">
+        <p class="col-head" style="padding-top:20px">Featured Stops</p>
+        <div class="act-card reveal">
+          <div class="act-vis av-tsukiji"><span>🐟</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Market &middot; 10 min walk</div>
+            <div class="act-name">Tsukiji Outer Market</div>
+            <div class="act-desc">Sensory overload of Tokyo's premier food market. Wander covered lanes, eat standing. Thursday is prime market day.</div>
+            <div class="act-meta"><span>⏱ 2 hrs</span><span>💴 Free entry</span></div>
+            <a href="https://maps.google.com/?q=Tsukiji+Outer+Market+Tokyo" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://www.tsukiji.or.jp/english/" target="_blank" class="act-web">🌐 Website</a>
+          </div>
+        </div>
+        <div class="act-card reveal">
+          <div class="act-vis av-ginza"><span>🏬</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Department Store &middot; 5 min walk</div>
+            <div class="act-name">Ginza Six</div>
+            <div class="act-desc">Luxury mall, B2 food basement, Tsutaya bookstore, rooftop garden. Mom will be happy here for hours.</div>
+            <div class="act-meta"><span>⏱ 2&ndash;3 hrs</span><span>💴 Free entry</span></div>
+            <a href="https://maps.google.com/?q=GINZA+SIX+Tokyo" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://ginza6.tokyo/" target="_blank" class="act-web">🌐 Website</a>
+          </div>
+        </div>
+
+        <p class="sec-label">☕ Nearby Coffee</p>
+        <div class="alt-grid">
+          <div class="act-mini reveal">
+            <span class="mini-em">☕</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Turret+Coffee+Tsukiji+Tokyo" target="_blank">Turret Coffee</a></div>
+              <div class="mini-sub">☕ 5 min walk · Tsukiji</div>
+              <div class="mini-note">Tiny standing counter near Tsukiji. Excellent pour-over. Perfect pre-market stop.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">☕</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Sarutahiko+Coffee+Ginza" target="_blank">Sarutahiko Coffee</a></div>
+              <div class="mini-sub">☕ 10 min · Ginza</div>
+              <div class="mini-note">Clean, modern, single-origin. Multiple Ginza locations.</div>
+            </div>
+          </div>
+        </div>
+        <p class="sec-label">🏛️ AC Alternatives</p>
+        <div class="alt-grid">
+          <div class="act-mini reveal">
+            <span class="mini-em">🎭</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Kabukiza+Theatre+Tokyo" target="_blank">Kabukiza Theatre</a></div>
+              <div class="mini-sub">Culture &middot; Free gallery &middot; 3 min</div>
+              <div class="mini-note">Free 4F gallery or &yen;1-2K single-act ticket (~30 min live kabuki).</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">⛩️</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Tsukiji+Honganji+Temple+Tokyo" target="_blank">Tsukiji Honganji</a></div>
+              <div class="mini-sub">Temple &middot; Free &middot; 5 min</div>
+              <div class="mini-note">Indian-Mogul style Buddhist temple. Stunning interior, pipe organ. Always quiet.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">👕</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=UNIQLO+Ginza+Flagship+Tokyo" target="_blank">UNIQLO Ginza</a></div>
+              <div class="mini-sub">Shopping &middot; 12 floors &middot; 8 min</div>
+              <div class="mini-note">Japan-exclusive UT collabs, Airism for the heat. Tax-free.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🏯</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Imperial+Palace+East+Gardens+Tokyo" target="_blank">Imperial Palace Gardens</a></div>
+              <div class="mini-sub">Gardens &middot; Free &middot; 15 min walk</div>
+              <div class="mini-note">Free, uncrowded. Morning only. Closes 4:30 PM. Closed Mon+Fri (open Marine Day, closed Tue Jul 21 instead).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COL 3: FOOD -->
+      <div class="col-food">
+        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="meal-label">🌅 Breakfast &mdash; Tsukiji Market Grazing</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span>
+            <span class="fc-em">🥚</span>
+            <div class="fc-name">Full Market Wander</div>
+            <div class="fc-type">Tsukiji Market &middot; Walk</div>
+            <div class="fc-desc">Tamagoyaki, grilled scallops, tuna on rice, taiyaki. Covered lanes stay cool. Eat standing.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;800&ndash;2,000</span><span class="fc-dist">🚶 10 min</span></div>
+            <div class="fc-links">
+              <a href="https://maps.google.com/?q=Tsukiji+Outer+Market+Tokyo" target="_blank" class="fc-gmap">📍 Map</a>
+            </div>
+          </div>
+          <div class="food-card reveal"><span class="fc-tag">B</span>
+            <span class="fc-em">🏪</span>
+            <div class="fc-name">Combini + Kitchenette</div>
+            <div class="fc-type">Hotel &middot; Quick</div>
+            <div class="fc-desc">Miso soup sachets + onigiri from the fridge. Skip the market and go later.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div>
+          </div>
+        </div>
+        <p class="meal-label">☀️ Lunch &mdash; Main Meal</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span>
+            <span class="fc-em">🍜</span>
+            <div class="fc-name">Kagari Ramen</div>
+            <div class="fc-type">Chicken Shoyu &middot; Ginza</div>
+            <div class="fc-desc">Rich, creamy chicken broth (tori paitan shoyu). Arrive at opening 11:30 AM. Chicken-based &mdash; no raw fish.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;1,200&ndash;1,800</span><span class="fc-dist">🚶 5 min</span></div>
+            <div class="fc-res none">No reservation &mdash; arrive at opening</div>
+            <div class="fc-links">
+              <a href="https://maps.google.com/?q=Kagari+Ramen+Ginza+Tokyo" target="_blank" class="fc-gmap">📍 Map</a>
+            </div>
+          </div>
+          <div class="food-card reveal"><span class="fc-tag">B</span>
+            <span class="fc-em">🏬</span>
+            <div class="fc-name">Mitsukoshi B2 Depachika</div>
+            <div class="fc-type">Dept Store Food Hall</div>
+            <div class="fc-desc">Assemble a grazing lunch &mdash; wagyu skewers, croquettes, pastries. Point at whatever looks good.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;500&ndash;2,000</span><span class="fc-dist">🚶 4 min</span></div>
+            <div class="fc-links">
+              <a href="https://maps.google.com/?q=Mitsukoshi+Ginza+Tokyo" target="_blank" class="fc-gmap">📍 Map</a>
+              <a href="https://www.mistore.jp/store/ginza.html" target="_blank" class="fc-site">🌐 Site</a>
+            </div>
+          </div>
+        </div>
+        <p class="meal-label">🌙 Dinner &mdash; Low-effort evening</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span>
+            <span class="fc-em">🍺</span>
+            <div class="fc-name">Ginza Lion Beer Hall</div>
+            <div class="fc-type">Beer Hall &middot; Since 1934</div>
+            <div class="fc-desc">Japan's oldest beer hall. Gorgeous Art Deco mosaic ceiling, cold Sapporo on tap, yoshoku comfort food. No reservation.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;1,500&ndash;3,500</span><span class="fc-dist">🚶 5 min</span></div>
+            <div class="fc-res none">No reservation</div>
+            <div class="fc-links">
+              <a href="https://maps.google.com/?q=Ginza+Lion+Beer+Hall+Ginza" target="_blank" class="fc-gmap">📍 Map</a>
+              <a href="https://www.ginzalion.jp/" target="_blank" class="fc-site">🌐 Site</a>
+            </div>
+          </div>
+          <div class="food-card reveal"><span class="fc-tag">B</span>
+            <span class="fc-em">🍜</span>
+            <div class="fc-name">Ichiran Ramen</div>
+            <div class="fc-type">Tonkotsu &middot; Solo Booths</div>
+            <div class="fc-desc">Individual booths, customization slip, zero interaction. Excellent for jet-lag comfort.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;900&ndash;1,500</span><span class="fc-dist">🚶 10 min</span></div>
+            <div class="fc-res none">No reservation</div>
+            <div class="fc-links">
+              <a href="https://maps.google.com/?q=Ichiran+Ramen+Ginza+Tokyo" target="_blank" class="fc-gmap">📍 Map</a>
+              <a href="https://en.ichiran.com/" target="_blank" class="fc-site">🌐 Site</a>
+            </div>
+          </div>
+          <div class="food-card reveal"><span class="fc-tag">C</span>
+            <span class="fc-em">🥞</span>
+            <div class="fc-name">Tsukishima Monjayaki</div>
+            <div class="fc-type">Teppan Cooking &middot; 15 min</div>
+            <div class="fc-desc">Tokyo's savory pancake at your table. Social, participatory, very few tourists.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;1,500&ndash;3,000</span><span class="fc-dist">🚇 15 min</span></div>
+            <div class="fc-res none">No reservation</div>
+            <div class="fc-links">
+              <a href="https://maps.google.com/?q=Tsukishima+Monja+Street+Tokyo" target="_blank" class="fc-gmap">📍 Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-full reveal">
+        <div class="map-zone"><div class="map-wrap" id="map-d2"></div></div>
+        <a href="https://www.google.com/maps/dir/MONday+Apart+Premium+Ginza+Shintomicho/Tsukiji+Outer+Market/Kagari+Ramen+Ginza/GINZA+SIX/Yurakucho+Station" target="_blank" class="gmap-route">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Open Route in Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DAY 3 · JUL 17 · DISNEYSEA
+══════════════════════════════════════════ -->
+<section class="day-section" id="day3">
+  <div class="day-hero bg-d3" data-n="3">
+    <div class="energy-pill">🟡 Building Momentum</div>
+    <p class="day-label">Friday &middot; July 17</p>
+    <h2 class="day-headline">Tokyo DisneySea</h2>
+    <p class="day-tagline">Weekday crowds. 25th Anniversary. Fantasy Springs. Buy Frozen Journey Premier Access at 9 AM sharp.</p>
+  </div>
+  <div class="day-body">
+    <div class="day-grid">
+      <div class="col-agenda">
+        <div class="heat-strip reveal">
+          <p class="col-head">Heat Strategy</p>
+          <div class="heat-track ht-standard"></div>
+          <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
+          <div class="heat-legend">
+            <div class="hl-item"><div class="hl-dot hd-safe"></div>8&ndash;11 AM: Outdoor rides</div>
+            <div class="hl-item"><div class="hl-dot hd-hot"></div>11&ndash;3 PM: Indoor/AC</div>
+            <div class="hl-item"><div class="hl-dot hd-eve"></div>After 5 PM: Evening</div>
+          </div>
+        </div>
+        <div class="reveal" style="padding-top:14px">
+          <p class="col-head">Schedule</p>
+          <div class="tl">
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">6:45 AM</div><div><div class="tl-title">Up early &mdash; pack for park day</div><div class="tl-note">Sunscreen, water, portable fan, hat for mom.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">7:15 AM</div><div><div class="tl-title">JR Keiyo from Hatchobori</div><div class="tl-note">6-min walk. ~25 min to Maihama. &yen;220/pp Suica.</div><span class="tag tag-walk">6 min walk</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">9:00 AM</div><div><div class="tl-title">Park opens &mdash; BUY PREMIER ACCESS</div><div class="tl-note">Frozen Journey via TDR App. Sells out by 9:15. &yen;2,000&ndash;2,500/pp.</div><span class="tag tag-book">Buy immediately</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">9&ndash;11 AM</div><div><div class="tl-title">Outdoor rides + Fantasy Springs</div><div class="tl-note">Morning green window.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-red"></div><div class="tl-time">11 AM&ndash;2</div><div><div class="tl-title">Indoor rides + Magellan's lunch</div><div class="tl-note">AC priority through midday.</div><span class="tag tag-ac">AC</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-amber"></div><div class="tl-time">2&ndash;5 PM</div><div><div class="tl-title">Second wave &mdash; rides, shopping</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">5&ndash;7 PM</div><div><div class="tl-title">Evening atmosphere</div><div class="tl-note">DisneySea at dusk. 25th Anniversary harbor show.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">7&ndash;9 PM</div><div><div class="tl-title">Park dinner &middot; Depart when ready</div></div></div>
+          </div>
+        </div>
+        <div class="transport-box reveal" style="margin-top:14px">
+          <h5>🚆 Transport</h5>
+          <p><strong>Hatchobori &rarr; Maihama:</strong> JR Keiyo, ~25 min, &yen;220/pp. <strong>6-min walk from hotel.</strong> Return: same line.</p>
+        </div>
+      </div>
+
+      <div class="col-highlights">
+        <p class="col-head" style="padding-top:20px">Park Highlights</p>
+        <div class="act-card reveal">
+          <div class="act-vis av-disney"><span>🎢</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Theme Park &middot; Maihama</div>
+            <div class="act-name">Tokyo DisneySea</div>
+            <div class="act-desc">More indoor/AC spaces than Disneyland. Waterfront stunning at dusk. Use Standby Pass + Premier Access strategically.</div>
+            <div class="act-meta"><span>💴 &yen;9,400&ndash;10,900/pp</span><span>📅 Book now</span></div>
+            <a href="https://maps.google.com/?q=Tokyo+DisneySea" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://www.tokyodisneyresort.jp/en/tds/" target="_blank" class="act-web">🌐 Website</a>
+            <a href="https://www.tokyodisneyresort.jp/en/ticket/" target="_blank" class="act-tix">🎟 Tickets</a>
+          </div>
+        </div>
+        <div class="act-card reveal">
+          <div class="act-vis av-disney"><span>🏰</span></div>
+          <div class="act-body">
+            <div class="act-kicker">New Area &middot; Fantasy Springs</div>
+            <div class="act-name">Fantasy Springs</div>
+            <div class="act-desc">Frozen, Peter Pan, Rapunzel. Freely accessible with standard standby. Premier Access &yen;2,000&ndash;2,500 each.</div>
+            <div class="act-meta"><span>💴 Free standby or PA</span></div>
+            <a href="https://maps.google.com/?q=Tokyo+DisneySea+Fantasy+Springs" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://www.tokyodisneyresort.jp/en/tds/fantasy-springs.html" target="_blank" class="act-web">🌐 Website</a>
+          </div>
+        </div>
+        <div class="warn-box reveal">🔴 <strong>Book tickets NOW.</strong> July is peak. Purchase at tokyodisneyresort.jp. Bring refillable water bottles for mom.</div>
+      </div>
+
+      <div class="col-food">
+        <p class="col-head" style="padding-top:20px">Park Food</p>
+        <p class="meal-label">🌅 Breakfast &mdash; Before the park</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span>
+            <span class="fc-em">🏪</span>
+            <div class="fc-name">Combini Pre-Pack</div>
+            <div class="fc-type">Prep night before</div>
+            <div class="fc-desc">Onigiri + canned Boss coffee. Eat before gates. Fastest start.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div>
+          </div>
+          <div class="food-card reveal"><span class="fc-tag">B</span>
+            <span class="fc-em">🍱</span>
+            <div class="fc-name">Hotel Kitchenette</div>
+            <div class="fc-type">Prep ahead</div>
+            <div class="fc-desc">Miso sachets + onigiri from fridge. Zero wait, out the door for 7:15 train.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;400&ndash;700</span></div>
+          </div>
+        </div>
+        <p class="meal-label">☀️ Lunch &mdash; Main Meal</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span>
+            <span class="fc-em">🍽️</span>
+            <div class="fc-name">Magellan's</div>
+            <div class="fc-type">Full Service &middot; Mediterranean</div>
+            <div class="fc-desc">Flagship restaurant inside the fortress. Sit-down in full AC. Midday heat-refuge meal.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;3,000&ndash;5,000/pp</span></div>
+            <div class="fc-res high">🟠 Reserve via TDR App</div>
+          </div>
+          <div class="food-card reveal"><span class="fc-tag">B</span>
+            <span class="fc-em">🌮</span>
+            <div class="fc-name">Miguel's El Dorado Cantina</div>
+            <div class="fc-type">Quick-Service Mexican</div>
+            <div class="fc-desc">Good, fast, cheap. In the park. If Magellan's is full.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;800&ndash;1,500</span></div>
+            <div class="fc-res none">No reservation</div>
+            <div class="fc-links"><a href="https://maps.google.com/?q=Tokyo+DisneySea" target="_blank" class="fc-gmap">📍 Map</a></div>
+          </div>
+          <div class="food-card reveal"><span class="fc-tag">C</span>
+            <span class="fc-em">🍛</span>
+            <div class="fc-name">Casbah Food Court</div>
+            <div class="fc-type">Arabian Coast &middot; Curry</div>
+            <div class="fc-desc">Curry and rice sets. Full AC. Quick, filling lunch in shade.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;800&ndash;1,200</span></div>
+            <div class="fc-res none">No reservation</div>
+            <div class="fc-links"><a href="https://maps.google.com/?q=Tokyo+DisneySea" target="_blank" class="fc-gmap">📍 Map</a></div>
+          </div>
+        </div>
+        <p class="meal-label">🌙 Dinner &mdash; In park or recovery</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span>
+            <span class="fc-em">🍝</span>
+            <div class="fc-name">Zambini Brothers'</div>
+            <div class="fc-type">In-Park Italian &middot; Seated</div>
+            <div class="fc-desc">Pasta, pizza. Sit-down for a tired group. Mediterranean Harbor.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;1,500&ndash;2,500</span></div>
+            <div class="fc-res none">No reservation</div>
+            <div class="fc-links"><a href="https://maps.google.com/?q=Tokyo+DisneySea" target="_blank" class="fc-gmap">📍 Map</a></div>
+          </div>
+          <div class="food-card reveal"><span class="fc-tag">B</span>
+            <span class="fc-em">🦃</span>
+            <div class="fc-name">Quick-Service Grazing</div>
+            <div class="fc-type">Various &middot; Park-wide</div>
+            <div class="fc-desc">Gyoza dogs, turkey legs, themed drinks. Graze across stops.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;800&ndash;2,000</span></div>
+          </div>
+          <div class="food-card reveal"><span class="fc-tag">C</span>
+            <span class="fc-em">🏪</span>
+            <div class="fc-name">Combini Back at Hotel</div>
+            <div class="fc-type">Hotel &middot; Recovery</div>
+            <div class="fc-desc">No shame in combini dinner after a full park day. Cold soba, bento, chu-hi on the balcony.</div>
+            <div class="fc-foot"><span class="fc-price">&yen;500&ndash;1,200</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-full reveal">
+        <div class="map-zone"><div class="map-wrap" id="map-d3"></div></div>
+        <a href="https://www.google.com/maps/dir/MONday+Apart+Premium+Ginza+Shintomicho/Hatchobori+Station/Tokyo+DisneySea" target="_blank" class="gmap-route">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Open Route in Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DAY 4 · JUL 18 · GHIBLI + SHIBUYA ⭐
+══════════════════════════════════════════ -->
+<section class="day-section" id="day4">
+  <div class="day-hero bg-d4" data-n="4">
+    <div class="energy-pill">🟢 Full Capacity &mdash; Peak Day #1</div>
+    <p class="day-label">Saturday &middot; July 18</p>
+    <h2 class="day-headline">Ghibli &middot; Shibuya &middot; Special Dinner</h2>
+    <p class="day-tagline">The best day of the trip. Museum, shopping corridor, sunset from the sky, and the crown jewel dinner.</p>
+  </div>
+  <div class="day-body">
+    <div class="day-grid">
+      <div class="col-agenda">
+        <div class="heat-strip reveal">
+          <p class="col-head">Heat Windows</p>
+          <div class="heat-track ht-standard"></div>
+          <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
+          <div class="heat-legend">
+            <div class="hl-item"><div class="hl-dot hd-safe"></div>8&ndash;11: Ghibli + Park</div>
+            <div class="hl-item"><div class="hl-dot hd-hot"></div>11&ndash;5: Shopping (AC)</div>
+            <div class="hl-item"><div class="hl-dot hd-eve"></div>6:30: Sunset &rarr; Dinner</div>
+          </div>
+        </div>
+        <div class="reveal" style="padding-top:14px">
+          <p class="col-head">Schedule</p>
+          <div class="tl">
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">8:30 AM</div><div><div class="tl-title">Depart hotel &rarr; Shinjuku</div><div class="tl-note">Yurakucho Line, ~20 min.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">9:00 AM</div><div><div class="tl-title">JR Chuo Rapid &rarr; Mitaka</div><div class="tl-note">~20 min. Suica works.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">9:30 AM</div><div><div class="tl-title">Walk through Inokashira Park</div><div class="tl-note">~15 min shaded path along the pond.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">10:00&ndash;12:30</div><div><div class="tl-title">🎬 Studio Ghibli Museum</div><div class="tl-note">Short film, rooftop Robot Soldier, Cat Bus room. No photos inside. &yen;1,000.</div><span class="tag tag-book">Jun 10 10 AM JST</span><span class="tag tag-star">Main event</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">12:30&ndash;1:30</div><div><div class="tl-title">Lunch in Kichijoji</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">1:45 PM</div><div><div class="tl-title">Keio &rarr; Shibuya</div><div class="tl-note">~20 min, direct.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-purple"></div><div class="tl-time">2:15&ndash;3:00</div><div><div class="tl-title">🎀 SONIANDSMI</div><div class="tl-note">Sonny Angel + SMISKI flagship. 5 min from Shibuya Stn.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-purple"></div><div class="tl-time">3:15&ndash;4:15</div><div><div class="tl-title">🛍️ Shibuya PARCO</div><div class="tl-note">Pok&eacute;mon Center (6F), Sylvanian (5F), Nintendo (6F).</div><span class="tag tag-ac">AC</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-purple"></div><div class="tl-time">4:30&ndash;5:15</div><div><div class="tl-title">🧸 Kiddy Land Harajuku</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-amber"></div><div class="tl-time">5:15&ndash;5:45</div><div><div class="tl-title">Break &mdash; drinks, rest</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">6:30&ndash;7:30</div><div><div class="tl-title">🌆 Shibuya Sky</div><div class="tl-note">Sunset ~6:56 PM. &yen;3,400/pp.</div><span class="tag tag-book">Pre-book</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">8:00 PM</div><div><div class="tl-title">Shibuya Crossing at night</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">9:00 PM</div><div><div class="tl-title">⭐ Special Dinner</div><div class="tl-note">Taxi from Shibuya, ~10 min.</div><span class="tag tag-star">Crown jewel</span></div></div>
+          </div>
+        </div>
+        <div class="transport-box reveal" style="margin-top:14px">
+          <h5>🚆 Transport</h5>
+          <p><strong>Hotel&rarr;Shinjuku:</strong> Yurakucho (~20m). <strong>Shinjuku&rarr;Mitaka:</strong> JR Chuo (~20m). <strong>Kichijoji&rarr;Shibuya:</strong> Keio (~20m). <strong>Taxis:</strong> GO app.</p>
+        </div>
+      </div>
+
+      <div class="col-highlights">
+        <p class="col-head" style="padding-top:20px">Featured Stops</p>
+        <div class="act-card reveal">
+          <div class="act-vis av-ghibli"><span>🎬</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Museum &middot; Mitaka</div>
+            <div class="act-name">Studio Ghibli Museum</div>
+            <div class="act-desc">Miyazaki designed every inch. No photography inside. Exclusive short film, Cat Bus room, Robot Soldier on the roof. Walk through Inokashira Park is part of it.</div>
+            <div class="act-meta"><span>⏱ 2&ndash;3 hrs</span><span>💴 &yen;1,000</span></div>
+            <a href="https://maps.google.com/?q=Ghibli+Museum+Mitaka" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://www.ghibli-museum.jp/en/" target="_blank" class="act-web">🌐 Website</a>
+            <a href="https://l-tike.com/ghibli/" target="_blank" class="act-tix">🎟 Tickets</a>
+          </div>
+        </div>
+        <div class="act-card reveal">
+          <div class="act-vis av-sky"><span>🌆</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Observatory &middot; Shibuya</div>
+            <div class="act-name">Shibuya Sky</div>
+            <div class="act-desc">Open-air rooftop at dusk &mdash; best elevated view in Tokyo. The city turns on beneath you.</div>
+            <div class="act-meta"><span>⏱ 1 hr</span><span>💴 &yen;3,400/pp</span></div>
+            <a href="https://maps.google.com/?q=Shibuya+Sky" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://www.shibuya-scramble-square.com/sky/" target="_blank" class="act-web">🌐 Website</a>
+            <a href="https://www.shibuya-sky.tokyo/en/" target="_blank" class="act-tix">🎟 Tickets</a>
+          </div>
+        </div>
+        <div class="note-box reveal">🛍️ <strong>Shopping:</strong> SONIANDSMI + PARCO + Kiddy Land on same Meiji-dori corridor. All AC, all tax-free, ~2.5 hrs.</div>
+        <div class="night-toggle" onclick="this.classList.toggle('open')">Nightlife (Cody + Partner + Sister) <span class="chevron">&#9660;</span></div>
+        <div class="night-content">
+          <div class="night-card"><div class="nc-em">🏮</div><div><div class="nc-name">Golden Gai</div><div class="nc-meta">Shinjuku &middot; 200 tiny bars &middot; &yen;500&ndash;1,000 cover</div><div class="nc-desc">The exploration IS the experience.</div></div></div>
+          <div class="night-card"><div class="nc-em">🎷</div><div><div class="nc-name">New York Bar (Park Hyatt)</div><div class="nc-meta">Shinjuku &middot; 52F &middot; Live jazz &middot; &yen;2,000 cover</div><div class="nc-desc">The Lost in Translation one.</div></div></div>
+        </div>
+        <p class="sec-label">☕ Nearby Coffee</p>
+        <div class="alt-grid">
+          <div class="act-mini reveal">
+            <span class="mini-em">☕</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Light+Up+Coffee+Kichijoji" target="_blank">Light Up Coffee</a></div>
+              <div class="mini-sub">Micro-roaster · Kichijoji</div>
+              <div class="mini-note">Award-winning. Grab a sandwich nearby.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">☕</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Koffee+Mameya+Omotesando" target="_blank">Koffee Mameya</a></div>
+              <div class="mini-sub">Specialty · Omotesando</div>
+              <div class="mini-note">Beans selected for you by the barista. No menu.</div>
+            </div>
+          </div>
+        </div>
+        <p class="sec-label">⛩️ Nearby Stops</p>
+        <div class="alt-grid">
+          <div class="act-mini reveal">
+            <span class="mini-em">⛩️</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Meiji+Jingu+Shrine" target="_blank">Meiji Jingu</a></div>
+              <div class="mini-sub">Shrine · Near Harajuku</div>
+              <div class="mini-note">Early morning before Ghibli departure. Free entry.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🌿</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Inokashira+Park+Kichijoji" target="_blank">Inokashira Park</a></div>
+              <div class="mini-sub">Park · Kichijoji</div>
+              <div class="mini-note">Walk through on the way to Ghibli Museum.</div>
+            </div>
+          </div>
+        </div>
+        <p class="sec-label">🔀 Route Alternatives</p>
+        <div class="alt-grid">
+          <div class="act-mini reveal">
+            <span class="mini-em">🛍️</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Cat+Street+Harajuku+Shibuya" target="_blank">Cat Street</a></div>
+              <div class="mini-sub">Shopping · Harajuku→Shibuya</div>
+              <div class="mini-note">Indie boutiques, vintage shops. Already on the D4 walking corridor. 20-min stroll.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🎸</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Shimokitazawa+Tokyo" target="_blank">Shimokitazawa</a></div>
+              <div class="mini-sub">Neighborhood · 2 stops from Shibuya</div>
+              <div class="mini-note">Vintage shops, record stores, indie caf&eacute;s. Feels like a different city. 90-120 min.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🏛️</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Omotesando+Hills+Tokyo" target="_blank">Omotesando Hills</a></div>
+              <div class="mini-sub">Shopping · AC · Tadao Ando</div>
+              <div class="mini-note">Spiral mall designed by Tadao Ando. Architecture alone is worth it. AC.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-food">
+        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="meal-label">🌅 Breakfast</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🏪</span><div class="fc-name">Combini</div><div class="fc-type">Quick &middot; 2 min</div><div class="fc-desc">Early start. Onigiri + Boss coffee. Best for a big day.</div><div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🥐</span><div class="fc-name">Viron French Bakery</div><div class="fc-type">Marunouchi &middot; Sit-down</div><div class="fc-desc">Serious croissants, French flour. Calm before a big day.</div><div class="fc-foot"><span class="fc-price">&yen;1,200&ndash;2,500</span><span class="fc-dist">🚇 10 min</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Viron+Bakery+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+        </div>
+        <p class="meal-label">☀️ Lunch &mdash; Kichijoji</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍢</span><div class="fc-name">Harmonica Yokocho</div><div class="fc-type">Izakaya Alley &middot; Kichijoji</div><div class="fc-desc">Narrow alleys packed with small izakayas and lunch counters.</div><div class="fc-foot"><span class="fc-price">&yen;800&ndash;1,500</span></div><div class="fc-res none">No reservation</div><div class="fc-links"><a href="https://maps.google.com/?q=Harmonica+Yokocho+Kichijoji" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">☕</span><div class="fc-name">Light Up Coffee</div><div class="fc-type">Micro-roaster &middot; Kichijoji</div><div class="fc-desc">Award-winning micro-roaster for Cody's coffee. Grab a sandwich nearby.</div><div class="fc-foot"><span class="fc-price">&yen;1,000&ndash;1,800</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Light+Up+Coffee+Kichijoji" target="_blank" class="fc-gmap">📍 Map</a><a href="https://lightupcoffee.com/" target="_blank" class="fc-site">🌐 Site</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">C</span><span class="fc-em">🥩</span><div class="fc-name">Maisen Tonkatsu</div><div class="fc-type">Omotesando &middot; Later</div><div class="fc-desc">Panko-breaded pork cutlet in a converted bathhouse. No reservation.</div><div class="fc-foot"><span class="fc-price">&yen;1,500&ndash;3,000</span></div><div class="fc-res none">No reservation</div><div class="fc-links"><a href="https://maps.google.com/?q=Maisen+Tonkatsu+Omotesando" target="_blank" class="fc-gmap">📍 Map</a><a href="https://mai-sen.com/" target="_blank" class="fc-site">🌐 Site</a></div></div>
+        </div>
+        <p class="meal-label">🌙 ⭐ Dinner &mdash; Special</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍷</span><div class="fc-name">Quintessence</div><div class="fc-type">French-Japanese &middot; Shiroganedai</div><div class="fc-desc">~10 courses, 3 hrs. Chef Kishida trained at L'Astrance Paris. English staff. No raw-fish obligation.</div><div class="fc-foot"><span class="fc-price">&yen;25,000&ndash;35,000/pp</span><span class="fc-dist">🚕 10 min</span></div><div class="fc-res urgent">🔴 Book 4&ndash;6 weeks out</div><div class="fc-links"><a href="https://maps.google.com/?q=Quintessence+Restaurant+Shinagawa+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🍗</span><div class="fc-name">Torishiki</div><div class="fc-type">Yakitori Omakase &middot; Meguro</div><div class="fc-desc">Best yakitori in Tokyo. Each cut from specific chicken breeds. ~2 hrs. All cooked.</div><div class="fc-foot"><span class="fc-price">&yen;12,000&ndash;18,000/pp</span><span class="fc-dist">🚕 10 min</span></div><div class="fc-res urgent">🔴 Book Jun 1 at 5 PM JST</div><div class="fc-links"><a href="https://maps.google.com/?q=Torishiki+Meguro+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+        </div>
+        <div class="note-box reveal">👩 <strong>Mom-friendly:</strong> <strong>Gonpachi</strong> (Nishi-Azabu, ~10 min taxi) &mdash; &ldquo;Kill Bill&rdquo; restaurant. Robata grill, soba, tempura. Everything cooked. &yen;3,000&ndash;5,000/pp. English menus. No reservation.</div>
+      </div>
+
+      <div class="day-full reveal">
+        <div class="map-zone"><div class="map-wrap" id="map-d4"></div></div>
+        <a href="https://www.google.com/maps/dir/MONday+Apart+Premium+Ginza+Shintomicho/Ghibli+Museum+Mitaka/Kichijoji+Station/Shibuya+PARCO/Shibuya+Sky" target="_blank" class="gmap-route">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Open Route in Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DAY 5 · JUL 19 · ASAKUSA + TEAMLAB
+══════════════════════════════════════════ -->
+<section class="day-section" id="day5">
+  <div class="day-hero bg-d5" data-n="5">
+    <div class="energy-pill">🟢 Full Capacity &mdash; Peak Day #2</div>
+    <p class="day-label">Sunday &middot; July 19</p>
+    <h2 class="day-headline">Asakusa + TeamLab Planets</h2>
+    <p class="day-tagline">Old Tokyo at dawn. Immersive art in the afternoon. Omakase close to home for dinner.</p>
+  </div>
+  <div class="day-body">
+    <div class="day-grid">
+      <div class="col-agenda">
+        <div class="heat-strip reveal">
+          <p class="col-head">Heat Windows</p>
+          <div class="heat-track ht-standard"></div>
+          <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
+          <div class="heat-legend">
+            <div class="hl-item"><div class="hl-dot hd-safe"></div>7:30&ndash;10: Senso-ji + river</div>
+            <div class="hl-item"><div class="hl-dot hd-hot"></div>1:30&ndash;3:30: TeamLab (AC)</div>
+            <div class="hl-item"><div class="hl-dot hd-eve"></div>7 PM: Sushi Iwa</div>
+          </div>
+        </div>
+        <div class="reveal" style="padding-top:14px">
+          <p class="col-head">Schedule</p>
+          <div class="tl">
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">7:00 AM</div><div><div class="tl-title">Depart for Asakusa</div><div class="tl-note">Asakusa Line, 2 stops, ~15 min.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">7:30&ndash;9:30</div><div><div class="tl-title">🏯 Senso-ji + Backstreets</div><div class="tl-note">Almost no crowds at 7:30. Thunder Gate, pagoda, side alleys.</div><span class="tag tag-star">Main event</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">9:30&ndash;10:15</div><div><div class="tl-title">Optional: Water Bus &rarr; Hamarikyu</div><div class="tl-note">40 min, &yen;780/pp. River breeze, mom-friendly.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">10:15&ndash;11:15</div><div><div class="tl-title">Hamarikyu Gardens</div><div class="tl-note">&yen;300. Matcha at the tea house. 8-min walk to hotel.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-amber"></div><div class="tl-time">11:30&ndash;1:00</div><div><div class="tl-title">Lunch + transit</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-purple"></div><div class="tl-time">1:30&ndash;3:30</div><div><div class="tl-title">🎨 TeamLab Planets</div><div class="tl-note">Toyosu. Barefoot through water rooms. ~1.5 hrs. &yen;3,800/pp.</div><span class="tag tag-book">Pre-book</span><span class="tag tag-ac">AC</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-red"></div><div class="tl-time">4:00&ndash;5:30</div><div><div class="tl-title">Hotel &middot; Rest &middot; Change</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">7:00&ndash;9:00</div><div><div class="tl-title">🍣 Sushi Iwa Omakase</div><div class="tl-note">8-min walk from hotel.</div><span class="tag tag-star">Main meal</span><span class="tag tag-book">Book 1&ndash;2 wks</span></div></div>
+          </div>
+        </div>
+        <div class="transport-box reveal" style="margin-top:14px">
+          <h5>🚆 Transport</h5>
+          <p><strong>Asakusa:</strong> Asakusa Line (~15 min). <strong>Water Bus:</strong> &yen;780/pp. <strong>TeamLab:</strong> Yurakucho &rarr; Toyosu (~20 min).</p>
+        </div>
+      </div>
+
+      <div class="col-highlights">
+        <p class="col-head" style="padding-top:20px">Featured Stops</p>
+        <div class="act-card reveal">
+          <div class="act-vis av-temple"><span>🏯</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Temple &middot; Asakusa</div>
+            <div class="act-name">Senso-ji at Dawn</div>
+            <div class="act-desc">Tokyo's oldest temple, empty at 7:30 AM. Thunder Gate, pagoda, incense. Side alleys behind Nakamise are the real find.</div>
+            <div class="act-meta"><span>⏱ 2 hrs</span><span>💴 Free</span></div>
+            <a href="https://maps.google.com/?q=Sensoji+Temple+Asakusa" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://www.senso-ji.jp/english/" target="_blank" class="act-web">🌐 Website</a>
+          </div>
+        </div>
+        <div class="act-card reveal">
+          <div class="act-vis av-teamlab"><span>🎨</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Digital Art &middot; Toyosu</div>
+            <div class="act-name">TeamLab Planets</div>
+            <div class="act-desc">Barefoot through knee-deep water, mirror halls, projection tunnels. Fully immersive, fully AC. Best indoor afternoon in summer.</div>
+            <div class="act-meta"><span>⏱ 1.5 hrs</span><span>💴 &yen;3,800/pp</span></div>
+            <a href="https://maps.google.com/?q=teamLab+Planets+Toyosu" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://www.teamlab.art/e/planets/" target="_blank" class="act-web">🌐 Website</a>
+            <a href="https://teamlabplanets.dmm.com/" target="_blank" class="act-tix">🎟 Tickets</a>
+          </div>
+        </div>
+        <p class="sec-label" style="margin-top:16px">Coffee &amp; Detours</p>
+        <div class="alt-grid">
+          <div class="act-mini reveal">
+            <span class="mini-em">☕</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Fuglen+Asakusa" target="_blank">Fuglen Asakusa</a></div>
+              <div class="mini-sub">Norwegian roasters &middot; Kaminarimon</div>
+              <div class="mini-note">Excellent single-origin. Quiet morning vibe.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">☕</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Arabica+Coffee+Asakusa" target="_blank">% Arabica Asakusa</a></div>
+              <div class="mini-sub">Kyoto-born &middot; Riverside</div>
+              <div class="mini-note">Scenic riverside location near Kaminarimon.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🍦</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Suzukien+Asakusa" target="_blank">Suzukien</a></div>
+              <div class="mini-sub">Matcha gelato &middot; 7 levels</div>
+              <div class="mini-note">World's richest matcha gelato. Partner must try.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🚢</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Asakusa+Water+Bus+Terminal" target="_blank">Water Bus</a></div>
+              <div class="mini-sub">Asakusa &rarr; Hamarikyu &middot; 40 min</div>
+              <div class="mini-note">&yen;780, river breeze. Alternative to metro.</div>
+              <div class="mini-links"><a href="https://www.suijobus.co.jp/en/" target="_blank">🌐 Site</a></div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🌿</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Hamarikyu+Gardens+Tokyo" target="_blank">Hamarikyu Gardens</a></div>
+              <div class="mini-sub">Tidal gardens &middot; &yen;300</div>
+              <div class="mini-note">Matcha at the tea house with city skyline views.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🍶</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">Sake no Ana</a></div>
+              <div class="mini-sub">200+ sake varieties &middot; Ginza</div>
+              <div class="mini-note">Evening drink option. 8-min walk from hotel.</div>
+            </div>
+          </div>
+        </div>
+        <p class="sec-label">🗺️ Side Quests</p>
+        <div class="alt-grid">
+          <div class="act-mini reveal">
+            <span class="mini-em">🔪</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Kappabashi+Kitchen+Street+Tokyo" target="_blank">Kappabashi Kitchen St.</a></div>
+              <div class="mini-sub">Shopping &middot; 10 min from Senso-ji</div>
+              <div class="mini-note">Plastic food replicas, Japanese knives, ceramics. ~45 min. ⚠️ Most shops closed Sundays.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🌉</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Sumida+Riverwalk+Asakusa" target="_blank">Sumida Riverwalk</a></div>
+              <div class="mini-sub">Walk &middot; Asakusa→Skytree</div>
+              <div class="mini-note">Pedestrian bridge with river views. Nice evening light. 15-min stroll.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🏬</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Coredo+Muromachi+Nihonbashi+Tokyo" target="_blank">Coredo Muromachi</a></div>
+              <div class="mini-sub">Shopping &middot; AC &middot; Nihonbashi</div>
+              <div class="mini-note">Traditional craft shops + food stalls. En route between Asakusa and TeamLab.</div>
+            </div>
+          </div>
+        </div>
+        <div class="night-toggle" onclick="this.classList.toggle('open')">Nightlife (Cody + Partner + Sister) <span class="chevron">&#9660;</span></div>
+        <div class="night-content">
+          <div class="night-card"><div class="nc-em">🍺</div><div><div class="nc-name">Ginza Lion Beer Hall</div><div class="nc-meta">Ginza &middot; 5-min walk &middot; Open Sundays</div><div class="nc-desc">Japan&rsquo;s oldest beer hall (1934). Art Deco mosaic ceiling, cold Sapporo, yoshoku comfort food.</div><div class="nc-links"><a href="https://maps.google.com/?q=Ginza+Lion+Beer+Hall+Ginza" target="_blank">📍 Map</a></div></div></div>
+          <div class="night-card"><div class="nc-em">🍶</div><div><div class="nc-name">Sake no Ana</div><div class="nc-meta">Ginza &middot; 200+ varieties</div><div class="nc-desc">English menu. Start light, go richer.</div><div class="nc-links"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">📍 Map</a></div></div></div>
+        </div>
+      </div>
+
+      <div class="col-food">
+        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="meal-label">🌅 Breakfast</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🏪</span><div class="fc-name">Combini Pre-Pack</div><div class="fc-type">Quick &middot; Hotel</div><div class="fc-desc">Fastest for early Asakusa departure. Onigiri + coffee.</div><div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🍳</span><div class="fc-name">Asakusa Teishoku</div><div class="fc-type">Japanese Set &middot; Near Senso-ji</div><div class="fc-desc">Grilled fish, rice, miso, pickles. Proper sit-down Japanese breakfast.</div><div class="fc-foot"><span class="fc-price">&yen;1,000&ndash;1,800</span></div></div>
+          <div class="food-card reveal"><span class="fc-tag">C</span><span class="fc-em">🍵</span><div class="fc-name">Tsumugi at Tsukiji Honganji</div><div class="fc-type">Temple Caf&eacute; &middot; 5 min walk</div><div class="fc-desc">Famous &ldquo;18 Items Breakfast&rdquo; &mdash; 18 small dishes inside a stunning Indian-Mogul style Buddhist temple. Reserve or arrive pre-8 AM.</div><div class="fc-foot"><span class="fc-price">&yen;1,800&ndash;2,200</span><span class="fc-dist">🚶 5 min</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Tsukiji+Honganji+Temple+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+        </div>
+        <p class="meal-label">☀️ Lunch</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍜</span><div class="fc-name">Asakusa Soba / Tempura</div><div class="fc-type">Counter &middot; Near Nakamise</div><div class="fc-desc">Small lunch counters. Soba set or tempura rice bowl.</div><div class="fc-foot"><span class="fc-price">&yen;900&ndash;1,400</span></div><div class="fc-res none">No reservation</div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">☕</span><div class="fc-name">Kiyosumi Coffee District</div><div class="fc-type">Coffee &middot; En route</div><div class="fc-desc">Blue Bottle Japan's first location + excellent small roasters. Light lunch en route to TeamLab.</div><div class="fc-foot"><span class="fc-price">&yen;800&ndash;1,500</span></div></div>
+        </div>
+        <p class="meal-label">🌙 ⭐ Dinner &mdash; Main Meal</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍣</span><div class="fc-name">Sushi Iwa</div><div class="fc-type">Omakase &middot; Ginza</div><div class="fc-desc">Skilled chef, relaxed pace (~90 min). Counter seats four. Raw-fish hesitancy accommodated with cooked subs.</div><div class="fc-foot"><span class="fc-price">&yen;12,000&ndash;18,000/pp</span><span class="fc-dist">🚶 8 min</span></div><div class="fc-res high">🟠 Book 1&ndash;2 weeks out</div><div class="fc-links"><a href="https://maps.google.com/?q=Sushi+Iwa+Ginza" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🏮</span><div class="fc-name">Kagurazaka</div><div class="fc-type">French-Japanese &middot; 25 min metro</div><div class="fc-desc">Hidden stone alleys, machiya restaurants. More accessible price point.</div><div class="fc-foot"><span class="fc-price">&yen;3,000&ndash;6,000</span><span class="fc-dist">🚇 25 min</span></div></div>
+        </div>
+        <div class="note-box reveal">👩 <strong>Mom-friendly:</strong> If omakase price is too much, <strong>Kagurazaka</strong> or <strong>Ebisu Yokocho</strong> (&yen;2,500&ndash;4,000) are excellent alternatives.</div>
+      </div>
+
+      <div class="day-full reveal">
+        <div class="map-zone"><div class="map-wrap" id="map-d5"></div></div>
+        <a href="https://www.google.com/maps/dir/MONday+Apart+Premium+Ginza+Shintomicho/Sensoji+Temple/Hamarikyu+Gardens/teamLab+Planets+Toyosu" target="_blank" class="gmap-route">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Open Route in Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DAY 6 · JUL 20 · POKEPARK + SPLIT
+══════════════════════════════════════════ -->
+<section class="day-section" id="day6">
+  <div class="day-hero bg-d6" data-n="6">
+    <div class="energy-pill">🟡 Selective &middot; Marine Day 🇯🇵</div>
+    <p class="day-label">Monday &middot; July 20 &middot; National Holiday</p>
+    <h2 class="day-headline">PokePark + Group Split</h2>
+    <p class="day-tagline">Theme park morning. Couple to the mountains. Mom + Sister to the spa.</p>
+  </div>
+  <div class="day-body">
+    <div class="day-grid">
+      <div class="col-agenda">
+        <div class="heat-strip reveal">
+          <p class="col-head">Heat Windows</p>
+          <div class="heat-track ht-standard"></div>
+          <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
+          <div class="heat-legend">
+            <div class="hl-item"><div class="hl-dot hd-safe"></div>10&ndash;11: PokePark Forest</div>
+            <div class="hl-item"><div class="hl-dot hd-hot"></div>PM: KEIKOKU / Spa</div>
+          </div>
+        </div>
+        <div class="reveal" style="padding-top:14px">
+          <p class="col-head">Morning &mdash; Full Group</p>
+          <div class="tl">
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">8:30 AM</div><div><div class="tl-title">Depart hotel &rarr; Shinjuku</div><div class="tl-note">Metro, ~20 min. <strong>Leave couple's bags at hotel.</strong></div></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">9:15 AM</div><div><div class="tl-title">Keio Line &rarr; Yomiuriland</div><div class="tl-note">~30 min + Gondola (~10 min, &yen;500 RT).</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">10:00&ndash;12:30</div><div><div class="tl-title">🎮 PokePark KANTO</div><div class="tl-note">Forest trail first (outdoor). Then Sedge Town: Gym, rides, merch.</div><span class="tag tag-star">Main event</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">12:30 PM</div><div><div class="tl-title">Depart &rarr; Shinjuku</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-red"></div><div class="tl-time">~1:30&ndash;2:00</div><div><div class="tl-title">Arrive hotel &mdash; Groups Split</div></div></div>
+          </div>
+        </div>
+        <div class="reveal" style="padding-top:14px">
+          <p class="col-head">Afternoon &mdash; Choose Your Group</p>
+          <div class="split-tabs">
+            <div class="split-tab active" onclick="switchSplit('day6','couple')">❤️ Cody + Partner</div>
+            <div class="split-tab" onclick="switchSplit('day6','momsister')">👩 Mom + Sister</div>
+          </div>
+          <div class="split-panel active" id="day6-couple">
+            <div class="tl">
+              <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">2:00 PM</div><div><div class="tl-title">Grab overnight bags</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">2:30 PM</div><div><div class="tl-title">Metro to Shinjuku</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">3:00 PM</div><div><div class="tl-title">JR Chuo &rarr; Tachikawa &rarr; Itsukaichi</div><div class="tl-note">~70 min total. All Suica.</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-amber"></div><div class="tl-time">4:15 PM</div><div><div class="tl-title">⚠️ Supermarket at Musashi-Itsukaichi</div><div class="tl-note">Buy ALL alcohol, water, ice, snacks. <strong>No stores in Hinohara.</strong></div><span class="tag tag-hot">Critical stop</span></div></div>
+              <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">4:45 PM</div><div><div class="tl-title">Nishi Tokyo Bus &rarr; Hinohara</div><div class="tl-note">~35 min. <strong>Last bus ~6:30 PM.</strong></div><span class="tag tag-book">Last bus 6:30</span></div></div>
+              <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">5:20 PM</div><div><div class="tl-title">Arrive KEIKOKU</div><div class="tl-note">Tablet check-in (Google Translate camera). Start jacuzzi.</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">5:30&ndash;6:30</div><div><div class="tl-title">Build sauna fire &middot; River walk</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">6:30&ndash;7:30</div><div><div class="tl-title">🔥 Sauna + Cold Plunge</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">7:30&ndash;9:00</div><div><div class="tl-title">🥩 BBQ Dinner on Deck</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-purple"></div><div class="tl-time">9:00 PM+</div><div><div class="tl-title">Fire pit &middot; Jacuzzi &middot; Stars</div></div></div>
+            </div>
+            <div class="warn-box" style="margin-top:10px">⚠️ <strong>Pack:</strong> Bug repellent, mosquito coils, flashlight, ALL alcohol (BYOB), swimsuit, water shoes, coffee beans, cash &yen;10K+, rain jacket.</div>
+          </div>
+          <div class="split-panel" id="day6-momsister">
+            <div class="tl">
+              <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">2:00 PM</div><div><div class="tl-title">Return to hotel &middot; Freshen up</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-purple"></div><div class="tl-time">2:30&ndash;5:00</div><div><div class="tl-title">💆 Spa Afternoon</div><div class="tl-note"><strong>Mid-range:</strong> WA SPA Ginza (&yen;18&ndash;22K/pp).<br><strong>Luxury:</strong> Peninsula Tokyo Spa (&yen;25&ndash;40K/pp).</div><span class="tag tag-book">Book 2&ndash;3 weeks</span></div></div>
+              <div class="tl-row"><div class="tl-dot td-amber"></div><div class="tl-time">5:00&ndash;6:30</div><div><div class="tl-title">Ginza stroll &middot; Depachika</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">7:00&ndash;9:00</div><div><div class="tl-title">Dinner</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="transport-box reveal" style="margin-top:14px">
+          <h5>🚆 Transport</h5>
+          <p><strong>PokePark:</strong> Metro&rarr;Shinjuku&rarr;Keio+Gondola. <strong>KEIKOKU:</strong> JR Chuo&rarr;Itsukaichi&rarr;Bus. ~2.5 hrs. <strong>Last bus ~6:30 PM.</strong></p>
+        </div>
+      </div>
+
+      <div class="col-highlights">
+        <p class="col-head" style="padding-top:20px">Featured Stop</p>
+        <div class="act-card reveal">
+          <div class="act-vis av-pokepark"><span>⚡</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Theme Park &middot; Yomiuriland</div>
+            <div class="act-name">PokePark KANTO</div>
+            <div class="act-desc">500m Forest trail, Sedge Town with rides and Gym shows, exclusive merch. Do Forest trail in morning green window.</div>
+            <div class="act-meta"><span>⏱ 2&ndash;4 hrs</span><span>💴 &yen;7,900&ndash;14,000</span></div>
+            <a href="https://maps.google.com/?q=PokePark+KANTO+Yomiuriland" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://pokepark-kanto.pokemon.co.jp/en/" target="_blank" class="act-web">🌐 Website</a>
+            <a href="https://ticket-en.pokepark-kanto.co.jp/" target="_blank" class="act-tix">🎟 Tickets</a>
+          </div>
+        </div>
+        <div class="act-card reveal">
+          <div class="act-vis av-glamping"><span>🏕️</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Glamping &middot; Hinohara Village</div>
+            <div class="act-name">KEIKOKU Glamping Tent</div>
+            <div class="act-desc">River gorge location, private sauna, jacuzzi, BBQ deck. Zero light pollution. The most unique night of the trip.</div>
+            <div class="act-meta"><span>🌙 Overnight</span><span>💴 &yen;35,000&ndash;55,000</span></div>
+            <a href="https://maps.google.com/?q=KEIKOKU+Glamping+Tent+Hinohara" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://www.booking.com/hotel/jp/keikoku-glamping-tent" target="_blank" class="act-tix">🎟 Tickets</a>
+          </div>
+        </div>
+        <p class="sec-label" style="margin-top:16px">Spa Options (Mom + Sister)</p>
+        <div class="alt-grid">
+          <div class="act-mini reveal">
+            <span class="mini-em">💆</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=WA+SPA+Ginza" target="_blank">WA SPA Ginza</a></div>
+              <div class="mini-sub">Mid-range &middot; Walking distance</div>
+              <div class="mini-note">Facial + mani/pedi, &yen;18-22K/pp. Open holidays.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">💆</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Peninsula+Tokyo+Spa" target="_blank">Peninsula Spa</a></div>
+              <div class="mini-sub">Luxury &middot; 10 min taxi</div>
+              <div class="mini-note">&yen;25-40K/pp. Open daily.</div>
+              <div class="mini-links"><a href="https://www.peninsula.com/en/tokyo/hotel-fine-dining/the-peninsula-spa" target="_blank">🌐 Site</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-food">
+        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="meal-label">🌅 Breakfast &mdash; Quick for PokePark</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🏪</span><div class="fc-name">Combini + Kitchenette</div><div class="fc-type">Hotel &middot; Quick</div><div class="fc-desc">Onigiri, miso soup, coffee. Fast start for PokePark.</div><div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🍳</span><div class="fc-name">Teishoku Near Hotel</div><div class="fc-type">Japanese Set &middot; Sit-down</div><div class="fc-desc">Grilled fish, rice, miso, pickles. Proper breakfast if the group wants to sit down.</div><div class="fc-foot"><span class="fc-price">&yen;1,000&ndash;1,800</span></div></div>
+        </div>
+        <p class="meal-label">🌙 Dinner &mdash; Mom + Sister</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🐟</span><div class="fc-name">Uoshin</div><div class="fc-type">Fish Izakaya &middot; Shimbashi</div><div class="fc-desc">Own fishing boats, sea-to-table. Half menu cooked (grilled, karaage). Excellent sake.</div><div class="fc-foot"><span class="fc-price">&yen;3,500&ndash;6,000</span><span class="fc-dist">🚶 Walk</span></div><div class="fc-res none">No reservation</div><div class="fc-links"><a href="https://maps.google.com/?q=Uoshin+Shimbashi+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🥞</span><div class="fc-name">Tsukishima Monjayaki</div><div class="fc-type">Teppan &middot; 15 min metro</div><div class="fc-desc">Interactive cooking at your table. Fun, social, local.</div><div class="fc-foot"><span class="fc-price">&yen;1,500&ndash;3,000</span><span class="fc-dist">🚇 15 min</span></div><div class="fc-res none">No reservation</div><div class="fc-links"><a href="https://maps.google.com/?q=Tsukishima+Monja+Street+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">C</span><span class="fc-em">🥩</span><div class="fc-name">Imahan Sukiyaki</div><div class="fc-type">Nihonbashi &middot; Meiji Era</div><div class="fc-desc">Wagyu in sweet soy, dipped in raw egg. Communal, comfortable. Since the 1800s.</div><div class="fc-foot"><span class="fc-price">&yen;4,000&ndash;10,000</span><span class="fc-dist">🚶 Walk</span></div><div class="fc-res moderate">Walk-in OK, reserve for dinner rush</div><div class="fc-links"><a href="https://maps.google.com/?q=Imahan+Nihonbashi+Tokyo" target="_blank" class="fc-gmap">📍 Map</a><a href="https://www.imahan.com/" target="_blank" class="fc-site">🌐 Site</a></div></div>
+        </div>
+      </div>
+
+      <div class="day-full reveal">
+        <div class="map-zone"><div class="map-wrap" id="map-d6"></div></div>
+        <a href="https://www.google.com/maps/dir/MONday+Apart+Premium+Ginza+Shintomicho/PokePark+KANTO+Yomiuriland/KEIKOKU+Glamping+Tent+Hinohara" target="_blank" class="gmap-route">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Open Route in Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DAY 7 · JUL 21 · FAREWELL
+══════════════════════════════════════════ -->
+<section class="day-section" id="day7">
+  <div class="day-hero bg-d7" data-n="7">
+    <div class="energy-pill">🟠 Comfortable &mdash; Stay Close</div>
+    <p class="day-label">Tuesday &middot; July 21</p>
+    <h2 class="day-headline">Reunite + Farewell</h2>
+    <p class="day-tagline">Return from the mountains. One last neighborhood walk. The farewell dinner this trip deserves.</p>
+  </div>
+  <div class="day-body">
+    <div class="day-grid">
+      <div class="col-agenda">
+        <div class="heat-strip reveal">
+          <p class="col-head">Heat Windows</p>
+          <div class="heat-track ht-standard"></div>
+          <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
+          <div class="heat-legend">
+            <div class="hl-item"><div class="hl-dot hd-safe"></div>7:30&ndash;10: Tsukiji / KEIKOKU</div>
+            <div class="hl-item"><div class="hl-dot hd-hot"></div>11&ndash;3: Indoor / travel</div>
+            <div class="hl-item"><div class="hl-dot hd-eve"></div>7 PM: Nodaiwa</div>
+          </div>
+        </div>
+        <div class="reveal" style="padding-top:14px">
+          <p class="col-head">Morning &mdash; Still Split</p>
+          <div class="split-tabs">
+            <div class="split-tab active" onclick="switchSplit('day7','couple')">❤️ Cody + Partner</div>
+            <div class="split-tab" onclick="switchSplit('day7','momsister')">👩 Mom + Sister</div>
+          </div>
+          <div class="split-panel active" id="day7-couple">
+            <div class="tl">
+              <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">7:00 AM</div><div><div class="tl-title">Morning sauna or river swim</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">7:30&ndash;8:30</div><div><div class="tl-title">Breakfast (BALMUDA toaster)</div><div class="tl-note">Last coffee with gorge view.</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">9:00 AM</div><div><div class="tl-title">Pack up &middot; Check-out</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">9:30 AM</div><div><div class="tl-title">Bus &rarr; Trains &rarr; Shinjuku</div><div class="tl-note">~2 hrs total.</div></div></div>
+              <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">~12:00 PM</div><div><div class="tl-title">Arrive hotel &middot; Reunite</div></div></div>
+            </div>
+          </div>
+          <div class="split-panel" id="day7-momsister">
+            <div class="tl">
+              <div class="tl-row"><div class="tl-dot td-green"></div><div class="tl-time">7:30&ndash;9:30</div><div><div class="tl-title">🌿 Hamarikyu Gardens</div><div class="tl-note">&yen;300. Matcha at the tea house. Morning green window.</div><span class="tag tag-walk">8 min</span></div></div>
+              <div class="tl-row"><div class="tl-dot td-red"></div><div class="tl-time">10:00&ndash;11:00</div><div><div class="tl-title">✏️ Ginza Itoya (opens 10)</div><div class="tl-note">12-floor stationery paradise. Tax-free.</div><span class="tag tag-ac">AC</span></div></div>
+              <div class="tl-row"><div class="tl-dot td-red"></div><div class="tl-time">11:00&ndash;1:00</div><div><div class="tl-title">Ginza omiyage run</div><div class="tl-note">Matsuya Ginza B1, Ginza Six B2.</div><span class="tag tag-ac">AC</span></div></div>
+              <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">1:00 PM</div><div><div class="tl-title">Return hotel &middot; Wait for couple</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal" style="padding-top:14px">
+          <p class="col-head">Afternoon &mdash; Full Group</p>
+          <div class="tl">
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">1:00&ndash;1:30</div><div><div class="tl-title">Reunite at hotel</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">1:30&ndash;3:00</div><div><div class="tl-title">Lunch</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-red"></div><div class="tl-time">3:00&ndash;5:30</div><div><div class="tl-title">Final packing &middot; Rest</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-amber"></div><div class="tl-time">6:00 PM</div><div><div class="tl-title">Freshen up for farewell dinner</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">7:00&ndash;9:00</div><div><div class="tl-title">🍽️ Nodaiwa Unagi &mdash; Farewell</div><div class="tl-note">Azabu. ~20 min by metro/taxi.</div><span class="tag tag-star">Crown jewel</span><span class="tag tag-book">Book 1 wk</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-purple"></div><div class="tl-time">9:30&ndash;11:30</div><div><div class="tl-title">🍸 Bar High Five &mdash; Farewell Drinks</div><div class="tl-note">Ginza, 8-min walk. Open Tuesdays 5&ndash;11:30 PM.</div></div></div>
+          </div>
+        </div>
+        <div class="transport-box reveal" style="margin-top:14px">
+          <h5>🚆 Transport</h5>
+          <p><strong>KEIKOKU return:</strong> Bus&rarr;JR&rarr;Shinjuku (~2 hrs). <strong>Nodaiwa:</strong> Hibiya Line (~15 min) or taxi ~&yen;2,000. Otherwise: <strong>walk.</strong></p>
+        </div>
+      </div>
+
+      <div class="col-highlights">
+        <p class="col-head" style="padding-top:20px">Featured Stops</p>
+        <div class="act-card reveal">
+          <div class="act-vis av-unagi"><span>🍽️</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Unagi &middot; Azabu</div>
+            <div class="act-name">Nodaiwa</div>
+            <div class="act-desc">Edo-period standard-bearer. Wild-caught eel, charcoal-grilled. July IS eel season &mdash; most time-specific food experience of the trip.</div>
+            <div class="act-meta"><span>💴 &yen;4,000&ndash;8,000/pp</span><span>📅 Book 1 wk</span></div>
+            <a href="https://maps.google.com/?q=Nodaiwa+Azabu+Tokyo" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://www.nodaiwa.co.jp/" target="_blank" class="act-web">🌐 Website</a>
+          </div>
+        </div>
+        <div class="act-card reveal">
+          <div class="act-vis av-garden"><span>🌿</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Garden &middot; 8 min walk</div>
+            <div class="act-name">Hamarikyu Gardens</div>
+            <div class="act-desc">Edo-period tidal garden in the shadow of Shiodome's glass towers. Flat paths, shaded trees, teahouse on pond island.</div>
+            <div class="act-meta"><span>⏱ 1&ndash;1.5 hrs</span><span>💴 &yen;300</span></div>
+            <a href="https://maps.google.com/?q=Hamarikyu+Gardens+Tokyo" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://www.tokyo-park.or.jp/park/hama-rikyu/" target="_blank" class="act-web">🌐 Website</a>
+          </div>
+        </div>
+        <div class="night-toggle" onclick="this.classList.toggle('open')">Farewell Nightlife <span class="chevron">&#9660;</span></div>
+        <div class="night-content">
+          <div class="night-card"><div class="nc-em">🍸</div><div><div class="nc-name">Bar High Five</div><div class="nc-meta">Ginza &middot; 8-min walk &middot; Open Tue 5&ndash;11:30</div><div class="nc-desc">World-class cocktails by Hidetsugu Ueno. Mom can join.</div><div class="nc-links"><a href="https://maps.google.com/?q=Bar+High+Five+Ginza" target="_blank">📍 Map</a></div></div></div>
+          <div class="night-card"><div class="nc-em">🍶</div><div><div class="nc-name">Sake no Ana</div><div class="nc-meta">Ginza &middot; 200+ varieties</div><div class="nc-desc">Sake education before the flight home.</div><div class="nc-links"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">📍 Map</a></div></div></div>
+          <div class="night-card"><div class="nc-em">🍻</div><div><div class="nc-name">Andy&rsquo;s Shin Hinomoto</div><div class="nc-meta">Yurakucho &middot; 6-min walk &middot; Cash only</div><div class="nc-desc">English-speaking owner, legendary izakaya under the tracks. Open Tuesdays. Reserve ahead.</div><div class="nc-links"><a href="https://maps.google.com/?q=Shin+Hinomoto+Yurakucho+Tokyo" target="_blank">📍 Map</a></div></div></div>
+        </div>
+        <p class="sec-label">☕ Coffee &amp; Secondary</p>
+        <div class="alt-grid">
+          <div class="act-mini reveal">
+            <span class="mini-em">☕</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Turret+Coffee+Tsukiji+Tokyo" target="_blank">Turret Coffee</a></div>
+              <div class="mini-sub">Standing counter &middot; 5 min</div>
+              <div class="mini-note">Perfect pre-Tsukiji pour-over.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">✏️</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Ginza+Itoya+Tokyo" target="_blank">Ginza Itoya</a></div>
+              <div class="mini-sub">Stationery &middot; 12 floors &middot; 8 min</div>
+              <div class="mini-note">Pens, washi tape, notebooks, art supplies. Tax-free. Mom + Sister paradise.</div>
+              <div class="mini-links"><a href="https://www.ito-ya.co.jp/en/" target="_blank">🌐 Site</a></div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🎭</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Kabukiza+Theatre+Tokyo" target="_blank">Kabukiza Theatre</a></div>
+              <div class="mini-sub">Culture &middot; Free gallery or &yen;1-2K act</div>
+              <div class="mini-note">Free 4F gallery of kabuki costumes. Or buy a single-act ticket for ~30 min of live performance.</div>
+            </div>
+          </div>
+        </div>
+        <p class="sec-label">🗺️ Afternoon Fillers</p>
+        <div class="alt-grid">
+          <div class="act-mini reveal">
+            <span class="mini-em">🏬</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Coredo+Muromachi+Nihonbashi+Tokyo" target="_blank">Coredo Muromachi</a></div>
+              <div class="mini-sub">Craft shops &middot; Nihonbashi &middot; 10 min</div>
+              <div class="mini-note">Knives, sake, ceramics + curated food stalls. AC. Different feel from Ginza.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🏛️</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Kitte+Marunouchi+Tokyo" target="_blank">Kitte Rooftop</a></div>
+              <div class="mini-sub">Views &middot; Free &middot; 10 min walk</div>
+              <div class="mini-note">Tokyo Station brick facade from above. Free terrace. Quick photo stop.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-food">
+        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="meal-label">☀️ Lunch</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍤</span><div class="fc-name">Tenichi Tempura</div><div class="fc-type">Ginza &middot; Since 1930</div><div class="fc-desc">Seasonal vegetables + seafood in impossibly light batter. All cooked, elegant, mother-friendly.</div><div class="fc-foot"><span class="fc-price">&yen;3,000&ndash;6,000</span><span class="fc-dist">🚶 Walk</span></div><div class="fc-res moderate">Book 1 wk</div><div class="fc-links"><a href="https://maps.google.com/?q=Tenichi+Tempura+Ginza" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🥩</span><div class="fc-name">Ginza Bairin</div><div class="fc-type">Tonkatsu &middot; Since 1927</div><div class="fc-desc">Crispy, impossibly light panko crust. Different style from Maisen (D4). No reservation needed.</div><div class="fc-foot"><span class="fc-price">&yen;1,200&ndash;2,000</span><span class="fc-dist">🚶 5 min</span></div><div class="fc-res none">No reservation</div><div class="fc-links"><a href="https://maps.google.com/?q=Ginza+Bairin+Tonkatsu+Ginza" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">C</span><span class="fc-em">🏬</span><div class="fc-name">Coredo Muromachi</div><div class="fc-type">Food Hall &middot; Nihonbashi</div><div class="fc-desc">Curated Japanese food stalls &mdash; soba, tempura, rice bowls. Different neighborhood feel from Ginza.</div><div class="fc-foot"><span class="fc-price">&yen;1,000&ndash;3,000</span><span class="fc-dist">🚶 10 min</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Coredo+Muromachi+Nihonbashi+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+        </div>
+        <p class="meal-label">🌙 ⭐ Farewell Dinner</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍽️</span><div class="fc-name">Nodaiwa Unagi</div><div class="fc-type">Edo-period &middot; Azabu</div><div class="fc-desc">Wild-caught eel, charcoal-grilled. Order hitsumabushi set &mdash; eat three ways. <strong>Everything cooked.</strong></div><div class="fc-foot"><span class="fc-price">&yen;4,000&ndash;8,000/pp</span><span class="fc-dist">🚇 20 min</span></div><div class="fc-res high">🟠 Book 1 week out</div><div class="fc-links"><a href="https://maps.google.com/?q=Nodaiwa+Azabu+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🍤</span><div class="fc-name">Tenichi Tempura</div><div class="fc-type">Ginza &middot; Backup</div><div class="fc-desc">If Nodaiwa unavailable. Walking distance. Same elegance.</div><div class="fc-foot"><span class="fc-price">&yen;3,000&ndash;8,000</span><span class="fc-dist">🚶 Walk</span></div><div class="fc-res moderate">Book 1 wk</div><div class="fc-links"><a href="https://maps.google.com/?q=Tenichi+Tempura+Ginza" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+        </div>
+      </div>
+
+      <div class="day-full reveal">
+        <div class="map-zone"><div class="map-wrap" id="map-d7"></div></div>
+        <a href="https://www.google.com/maps/dir/KEIKOKU+Glamping+Tent+Hinohara/Musashi+Itsukaichi+Station/MONday+Apart+Premium+Ginza+Shintomicho/Nodaiwa+Azabu" target="_blank" class="gmap-route">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Open Route in Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DAY 8 · JUL 22 · DEPARTURE
+══════════════════════════════════════════ -->
+<section class="day-section" id="day8">
+  <div class="day-hero bg-d8" data-n="8">
+    <div class="energy-pill">🔴 Logistics Day</div>
+    <p class="day-label">Wednesday &middot; July 22</p>
+    <h2 class="day-headline">Depart 12:30 PM</h2>
+    <p class="day-tagline">One last Tsukiji breakfast. One last Ginza walk. Then the N'EX.</p>
+  </div>
+  <div class="day-body">
+    <div class="day-grid">
+      <div class="col-agenda">
+        <div class="heat-strip reveal">
+          <p class="col-head">Heat Window</p>
+          <div class="heat-track ht-depart"></div>
+          <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>12:30 &rarr; NRT</span></div>
+          <div class="heat-legend">
+            <div class="hl-item"><div class="hl-dot hd-safe"></div>8&ndash;11: Final morning</div>
+            <div class="hl-item"><div class="hl-dot hd-caution"></div>11&ndash;12:30: Pack, checkout</div>
+          </div>
+        </div>
+        <div class="reveal" style="padding-top:14px">
+          <p class="col-head">Departure Schedule</p>
+          <div class="tl">
+            <div class="tl-row"><div class="tl-dot td-gold"></div><div class="tl-time">8:00&ndash;9:30</div><div><div class="tl-title">Last breakfast</div><div class="tl-note">Tsukiji or combini. Some Wed vendors closed but enough for farewell.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-amber"></div><div class="tl-time">9:30&ndash;11:00</div><div><div class="tl-title">Final Ginza walk + omiyage</div><div class="tl-note">Mitsukoshi opens 10 AM. Wagashi, matcha, packaged souvenirs.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">11:00&ndash;12:15</div><div><div class="tl-title">Return &middot; Pack &middot; Check out</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-red"></div><div class="tl-time">12:30 PM</div><div><div class="tl-title">⚠️ DEPART HOTEL &mdash; NOT 1:00</div><div class="tl-note">12:30. The buffer matters.</div><span class="tag tag-book">Hard departure</span></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">~1:00 PM</div><div><div class="tl-title">Tokyo Station</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">1:30 PM</div><div><div class="tl-title">N'EX departs</div><div class="tl-note">&yen;3,070/pp. 60 min. Buy return tickets day before.</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-blue"></div><div class="tl-time">2:30 PM</div><div><div class="tl-title">Arrive Narita</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-purple"></div><div class="tl-time">2:30&ndash;4:00</div><div><div class="tl-title">Check-in &middot; Security &middot; Airside lunch</div></div></div>
+            <div class="tl-row"><div class="tl-dot td-amber"></div><div class="tl-time">6:00 PM</div><div><div class="tl-title">Flight departs NRT</div></div></div>
+          </div>
+        </div>
+        <div class="transport-box reveal" style="margin-top:14px">
+          <h5>🚆 Transport</h5>
+          <p><strong>Hotel&rarr;NRT:</strong> Taxi/Yurakucho to Tokyo Stn (~20 min) &rarr; N'EX 1:30 PM &rarr; Narita 2:30 PM. &yen;3,070&ndash;3,500/pp.</p>
+        </div>
+      </div>
+
+      <div class="col-highlights">
+        <p class="col-head" style="padding-top:20px">Final Morning</p>
+        <div class="act-card reveal">
+          <div class="act-vis av-tsukiji"><span>🐟</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Sendoff Breakfast &middot; Walk</div>
+            <div class="act-name">Last Tsukiji Morning</div>
+            <div class="act-desc">Wednesday market &mdash; some vendors closed, but tamagoyaki, scallops, standing sushi all available. A familiar neighborhood goodbye.</div>
+            <div class="act-meta"><span>⏱ 1 hr</span><span>💴 &yen;800&ndash;2,000</span></div>
+            <a href="https://maps.google.com/?q=Tsukiji+Outer+Market+Tokyo" target="_blank" class="act-map">📍 Maps</a>
+            <a href="https://www.tsukiji.or.jp/english/" target="_blank" class="act-web">🌐 Website</a>
+          </div>
+        </div>
+        <div class="act-card reveal">
+          <div class="act-vis av-station"><span>🚆</span></div>
+          <div class="act-body">
+            <div class="act-kicker">Airport Train &middot; Tokyo Station</div>
+            <div class="act-name">Narita Express (N'EX)</div>
+            <div class="act-desc">Same train you arrived on. Reserved seats, luggage space, 60 min. Buy return tickets at green JR machines the day before.</div>
+            <div class="act-meta"><span>💴 &yen;3,070/pp</span><span>⏱ 60 min</span></div>
+            <a href="https://www.jreast.co.jp/multi/en/nex/" target="_blank" class="act-web">🌐 Website</a>
+          </div>
+        </div>
+        <div class="warn-box reveal">⚠️ <strong>Takkyubin luggage forwarding:</strong> If shopping created a bag-weight problem, the hotel can arrange same-day forwarding to Narita. Must send by 10 AM. Ask front desk night before.</div>
+        <p class="sec-label">🎁 Omiyage Stops</p>
+        <div class="alt-grid">
+          <div class="act-mini reveal">
+            <span class="mini-em">🏬</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=Mitsukoshi+Ginza+Tokyo" target="_blank">Mitsukoshi B2</a></div>
+              <div class="mini-sub">Depachika &middot; Opens 10 AM</div>
+              <div class="mini-note">Last-minute packaged souvenirs. Tax-free.</div>
+            </div>
+          </div>
+          <div class="act-mini reveal">
+            <span class="mini-em">🏬</span>
+            <div class="mini-body">
+              <div class="mini-name"><a href="https://maps.google.com/?q=GINZA+SIX+Tokyo" target="_blank">Ginza Six B2</a></div>
+              <div class="mini-sub">Food Hall &middot; 5 min</div>
+              <div class="mini-note">Tsutaya bookstore + premium food basement.</div>
+              <div class="mini-links"><a href="https://ginza6.tokyo/" target="_blank">🌐 Site</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-food">
+        <p class="col-head" style="padding-top:20px">Last Meals</p>
+        <p class="meal-label">🌅 Breakfast &mdash; The sendoff</p>
+        <div class="meal-cards">
+          <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🥚</span><div class="fc-name">Tsukiji Outer Market</div><div class="fc-type">Street Market &middot; 10 min walk</div><div class="fc-desc">Last sendoff. Tamagoyaki, scallops, whatever you haven't had yet.</div><div class="fc-foot"><span class="fc-price">&yen;800&ndash;2,000</span><span class="fc-dist">🚶 10 min</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Tsukiji+Outer+Market+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">☕</span><div class="fc-name">Turret Coffee</div><div class="fc-type">Specialty &middot; 5 min walk</div><div class="fc-desc">Tiny standing counter near Tsukiji. Excellent pour-over. Last Tokyo coffee.</div><div class="fc-foot"><span class="fc-price">&yen;500&ndash;800</span><span class="fc-dist">🚶 5 min</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Turret+Coffee+Tsukiji+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
+          <div class="food-card reveal"><span class="fc-tag">C</span><span class="fc-em">🏪</span><div class="fc-name">Combini + Kitchenette</div><div class="fc-type">Hotel &middot; Zero effort</div><div class="fc-desc">If nobody wants to walk. Miso soup, onigiri, one last Boss coffee.</div><div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div></div>
+        </div>
+        <div class="note-box reveal">💡 No lunch needed before N'EX &mdash; Narita has excellent airside food once through security.</div>
+      </div>
+
+      <div class="day-full reveal">
+        <div class="map-zone"><div class="map-wrap" id="map-d8"></div></div>
+        <a href="https://www.google.com/maps/dir/MONday+Apart+Premium+Ginza+Shintomicho/Tsukiji+Outer+Market/Tokyo+Station/Narita+Airport" target="_blank" class="gmap-route">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Open Route in Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     BOOKING CHECKLIST
+══════════════════════════════════════════ -->
+<section class="booking" id="bookings">
+  <div class="booking-inner">
+    <h2 class="booking-head">BOOKING CHECKLIST</h2>
+    <p class="booking-sub">Check these off as you confirm &mdash; don't land without them done.</p>
+
+    <div class="cl-group">
+      <p class="cl-group-label">🔴 Book this week &mdash; sells out</p>
+      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>KEIKOKU Glamping Tent (Jul 20)</strong><span>Only 2 units. Booking.com or official site. Select Luxury or Suite Tent + BBQ + breakfast.</span></label></label>
+      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>DisneySea Tickets (Jul 17)</strong><span>tokyodisneyresort.jp &middot; Weekday = lower price tier. Fantasy Springs now has free standby lines.</span></label></label>
+      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>Special Dinner: Quintessence or Torishiki (Jul 18)</strong><span>4&ndash;6 weeks minimum. Phone or TABLEALL. Torishiki: Jun 1 at 5 PM JST.</span></label></label>
+      <label class="cl-item cl-urgent"><input type="checkbox"><label><strong>Nodaiwa Unagi (Jul 21)</strong><span>Phone: 03-3583-7852. Farewell dinner. Seasonal peak eel.</span></label></label>
+    </div>
+
+    <div class="cl-group">
+      <p class="cl-group-label">🟠 Book within 1&ndash;2 weeks</p>
+      <label class="cl-item cl-high"><input type="checkbox"><label><strong>TeamLab Planets (Jul 19 afternoon)</strong><span>teamlabplanets.dmm.com &middot; Afternoon slot. July sells out weeks ahead.</span></label></label>
+      <label class="cl-item cl-high"><input type="checkbox"><label><strong>Mom + Sister Spa (Jul 20 afternoon)</strong><span>WA SPA Ginza or Peninsula Tokyo Spa. Book 2&ndash;3 weeks out.</span></label></label>
+      <label class="cl-item cl-high"><input type="checkbox"><label><strong>PokePark KANTO Tickets (Jul 20)</strong><span>ticket-en.pokepark-kanto.co.jp &middot; Trainer's Pass &yen;7,900 or Ace &yen;14,000.</span></label></label>
+    </div>
+
+    <div class="cl-group">
+      <p class="cl-group-label">🟡 Book 1 week out or on specific dates</p>
+      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Ghibli Museum Tickets (Jul 18, 10 AM slot)</strong><span>June 10 at 10 AM JST SHARP. Lawson Tickets. Sells out in minutes.</span></label></label>
+      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Magellan's Priority Seating (Jul 17)</strong><span>Jun 17 at 10 AM JST via TDR App. Sells out instantly.</span></label></label>
+      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Shibuya Sky Sunset (Jul 18 ~6:30 PM)</strong><span>shibuyasky.jp or KKday/Klook. Book in advance.</span></label></label>
+      <label class="cl-item cl-mod"><input type="checkbox"><label><strong>Sushi Iwa (Jul 19 dinner)</strong><span>TableCheck. &yen;12,000&ndash;18,000/pp. Counter seats four.</span></label></label>
+    </div>
+
+    <div class="cl-group">
+      <p class="cl-group-label">✅ Prepare before landing</p>
+      <label class="cl-item"><input type="checkbox"><label><strong>Download: TDR App, GO taxi, Google Maps offline, LINE, Google Translate</strong><span>All essential apps for the trip.</span></label></label>
+      <label class="cl-item"><input type="checkbox"><label><strong>Mobile Suica (iPhone) or Welcome Suica at airport</strong><span>Everyone needs their own. Works on every metro, bus, and most convenience stores.</span></label></label>
+      <label class="cl-item"><input type="checkbox"><label><strong>Hotel address screenshot in Japanese</strong><span>For taxi drivers. They speak almost no English.</span></label></label>
+    </div>
+
+    <div class="booking-progress">
+      <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-text" id="progressText">0 / 14 completed</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  TOKYO &middot; JUL 15&ndash;22 2026 &nbsp;&middot;&nbsp; Itinerary by Maya Chen, Senior Travel Director &nbsp;&middot;&nbsp;
+  James Taggart (Transport) &middot; Sophie Laurent (Architecture) &middot; Takeshi Noda (Activities) &middot; Hana Suzuki (Food)
+</footer>
+
+<script>
+// ── Smooth scroll to day ──────────────────
+function goDay(n) {
+  const el = document.getElementById('day' + n);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── Active nav pill via scroll spy ────────
+const sections = Array.from({ length: 8 }, (_, i) => document.getElementById('day' + (i + 1)));
+const pills = document.querySelectorAll('.nav-pill');
+const navEl = document.getElementById('mainNav');
+let ticking = false;
+
+function updateNav() {
+  const offset = navEl ? navEl.offsetHeight + 40 : 60;
+  let active = 0;
+  sections.forEach((sec, i) => {
+    if (sec && sec.getBoundingClientRect().top <= offset) active = i;
+  });
+  pills.forEach((p, i) => p.classList.toggle('active', i === active));
+}
+
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => { updateNav(); ticking = false; });
+    ticking = true;
+  }
+}, { passive: true });
+
+// ── Scroll-reveal animation ─────────────
+const reveals = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+reveals.forEach(r => revealObs.observe(r));
+
+// ── Split tabs (Days 6-7) ───────────────
+function switchSplit(dayId, group) {
+  const sec = document.getElementById(dayId);
+  sec.querySelectorAll('.split-tab').forEach(t => t.classList.remove('active'));
+  sec.querySelectorAll('.split-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(dayId + '-' + group).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── Nightlife toggles (inline onclick handles toggle) ───────────────────
+
+// ── Maps (Leaflet.js) ───────────────────
+const maps = {};
+const routes = {
+  d1: { center: [35.6694, 139.7714], zoom: 11, points: [
+    { ll: [35.7720, 140.3929], label: 'Narita Airport', icon: 'plane' },
+    { ll: [35.6812, 139.7671], label: 'Tokyo Station', icon: 'train' },
+    { ll: [35.6694, 139.7714], label: 'Hotel', icon: 'hotel' },
+    { ll: [35.6731, 139.7625], label: 'Yurakucho Tracks', icon: 'food' }
+  ]},
+  d2: { center: [35.6694, 139.7714], zoom: 14, points: [
+    { ll: [35.6694, 139.7714], label: 'Hotel', icon: 'hotel' },
+    { ll: [35.6654, 139.7707], label: 'Tsukiji Market', icon: 'star' },
+    { ll: [35.6706, 139.7639], label: 'Kagari Ramen', icon: 'food' },
+    { ll: [35.6699, 139.7635], label: 'Ginza Six', icon: 'shop' }
+  ]},
+  d3: { center: [35.6267, 139.8850], zoom: 13, points: [
+    { ll: [35.6694, 139.7714], label: 'Hotel', icon: 'hotel' },
+    { ll: [35.6733, 139.7784], label: 'Hatchobori Stn', icon: 'train' },
+    { ll: [35.6267, 139.8850], label: 'DisneySea', icon: 'star' }
+  ]},
+  d4: { center: [35.6665, 139.6964], zoom: 12, points: [
+    { ll: [35.6694, 139.7714], label: 'Hotel', icon: 'hotel' },
+    { ll: [35.6963, 139.5705], label: 'Ghibli Museum', icon: 'star' },
+    { ll: [35.7032, 139.5793], label: 'Kichijoji', icon: 'food' },
+    { ll: [35.6613, 139.7009], label: 'SONIANDSMI', icon: 'shop' },
+    { ll: [35.6620, 139.6983], label: 'Shibuya PARCO', icon: 'shop' },
+    { ll: [35.6702, 139.7035], label: 'Kiddy Land', icon: 'shop' },
+    { ll: [35.6585, 139.7023], label: 'Shibuya Sky', icon: 'star' }
+  ]},
+  d5: { center: [35.6750, 139.7800], zoom: 13, points: [
+    { ll: [35.6694, 139.7714], label: 'Hotel', icon: 'hotel' },
+    { ll: [35.7148, 139.7967], label: 'Senso-ji', icon: 'star' },
+    { ll: [35.6592, 139.7632], label: 'Hamarikyu', icon: 'nature' },
+    { ll: [35.6505, 139.7840], label: 'TeamLab Planets', icon: 'star' },
+    { ll: [35.6706, 139.7639], label: 'Sushi Iwa', icon: 'food' }
+  ]},
+  d6: { center: [35.6694, 139.7714], zoom: 11, points: [
+    { ll: [35.6694, 139.7714], label: 'Hotel', icon: 'hotel' },
+    { ll: [35.6322, 139.5175], label: 'PokePark', icon: 'star' },
+    { ll: [35.7563, 139.3556], label: 'KEIKOKU', icon: 'star' }
+  ]},
+  d7: { center: [35.6694, 139.7714], zoom: 13, points: [
+    { ll: [35.6694, 139.7714], label: 'Hotel', icon: 'hotel' },
+    { ll: [35.6654, 139.7707], label: 'Tsukiji', icon: 'star' },
+    { ll: [35.6592, 139.7632], label: 'Hamarikyu', icon: 'nature' },
+    { ll: [35.6584, 139.7383], label: 'Nodaiwa', icon: 'food' },
+    { ll: [35.6712, 139.7626], label: 'Bar High Five', icon: 'drink' }
+  ]},
+  d8: { center: [35.6900, 139.7700], zoom: 11, points: [
+    { ll: [35.6694, 139.7714], label: 'Hotel', icon: 'hotel' },
+    { ll: [35.6812, 139.7671], label: 'Tokyo Station', icon: 'train' },
+    { ll: [35.7720, 140.3929], label: 'Narita Airport', icon: 'plane' }
+  ]}
+};
+
+const iconColors = { star: '#BC002D', food: '#C5973A', hotel: '#0F1117', train: '#3b82f6', shop: '#8b5cf6', nature: '#22c55e', plane: '#64748b', drink: '#a855f7' };
+
+function initMap(id) {
+  const el = document.getElementById('map-' + id);
+  if (!el || el.dataset.init) return;
+  const r = routes[id]; if (!r) return;
+  el.dataset.init = '1';
+  const map = L.map(el, { scrollWheelZoom: false }).setView(r.center, r.zoom);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 19
+  }).addTo(map);
+  const latlngs = [];
+  r.points.forEach(p => {
+    const color = iconColors[p.icon] || '#BC002D';
+    const marker = L.circleMarker(p.ll, { radius: 7, fillColor: color, color: '#fff', weight: 2, opacity: 1, fillOpacity: 0.9 }).addTo(map);
+    marker.bindTooltip(p.label, { permanent: false, direction: 'top', offset: [0, -10] });
+    latlngs.push(p.ll);
+  });
+  if (latlngs.length > 1) {
+    L.polyline(latlngs, { color: '#BC002D', weight: 3, opacity: 0.5, dashArray: '8 8' }).addTo(map);
+  }
+  maps[id] = map;
+  setTimeout(() => map.invalidateSize(), 200);
+}
+
+const mapObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id.replace('map-', '');
+      initMap(id);
+      mapObs.unobserve(e.target);
+    }
+  });
+}, { rootMargin: '200px' });
+document.querySelectorAll('.map-wrap[id]').forEach(m => mapObs.observe(m));
+
+// ── Booking checklist ───────────────────
+const STORAGE_KEY = 'tky26_checklist';
+const checkboxes = document.querySelectorAll('.cl-item input[type="checkbox"]');
+const total = checkboxes.length;
+
+function loadChecklist() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    checkboxes.forEach((cb, i) => {
+      cb.checked = saved[i] || false;
+      cb.closest('.cl-item').classList.toggle('checked', cb.checked);
+    });
+  } catch (e) {}
+  updateProgress();
+}
+
+function saveChecklist() {
+  try {
+    const state = {};
+    checkboxes.forEach((cb, i) => state[i] = cb.checked);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {}
+}
+
+function updateProgress() {
+  const done = Array.from(checkboxes).filter(cb => cb.checked).length;
+  const pct = (done / total) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = done + ' / ' + total + ' completed';
+  checkboxes.forEach(cb => cb.closest('.cl-item').classList.toggle('checked', cb.checked));
+  saveChecklist();
+}
+
+checkboxes.forEach(cb => cb.addEventListener('change', updateProgress));
+loadChecklist();
+updateNav();
+
+// ── Hero animation stagger ──────────────
+document.querySelectorAll('.hero > *').forEach((el, i) => {
+  el.style.animationDelay = (i * 0.1) + 's';
+});
+</script>
+</body>
+</html>
