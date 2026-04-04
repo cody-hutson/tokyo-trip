@@ -133,16 +133,17 @@ input[type=checkbox]{accent-color:#BC002D}
 .act-vis::before{content:'';position:absolute;inset:0;background:inherit}
 .act-vis span{position:relative;z-index:1;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.4))}
 .av-airport{background:linear-gradient(135deg,#101B2E,#1F4D8B)}.av-tsukiji{background:linear-gradient(135deg,#5C1808,#B5440E)}.av-ginza{background:linear-gradient(135deg,#2C3542,#6B7D8E)}.av-temple{background:linear-gradient(135deg,#700018,#BC002D)}.av-teamlab{background:linear-gradient(135deg,#050520,#0D0D8A)}.av-shrine{background:linear-gradient(135deg,#0D2414,#2A6040)}.av-harajuku{background:linear-gradient(135deg,#4A1B60,#A04BC0)}.av-shibuya{background:linear-gradient(135deg,#150028,#4A1888)}.av-coast{background:linear-gradient(135deg,#083248,#0F7060)}.av-disney{background:linear-gradient(135deg,#020210,#0A2060)}.av-garden{background:linear-gradient(135deg,#0A2018,#256040)}.av-station{background:linear-gradient(135deg,#1E2A38,#3A5268)}.av-ramen{background:linear-gradient(135deg,#3C1008,#8A300A)}.av-sushi{background:linear-gradient(135deg,#051828,#1060A0)}.av-ghibli{background:linear-gradient(135deg,#0A3818,#2D8A50)}.av-pokepark{background:linear-gradient(135deg,#8A6800,#E8B800)}.av-glamping{background:linear-gradient(135deg,#1A3020,#2A6840)}.av-unagi{background:linear-gradient(135deg,#3A1A00,#7A4008)}.av-sky{background:linear-gradient(135deg,#150028,#5030A0)}
-.act-body{padding:12px 14px}
+.act-body{padding:12px 14px;position:relative}
+.act-links{position:absolute;top:10px;right:12px;display:flex;gap:3px}
 .act-kicker{font-size:0.6rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
 .act-name{font-family:'DM Serif Display',serif;font-size:0.95rem;margin-bottom:4px}
 .act-desc{font-size:0.74rem;color:#3A3A4A;line-height:1.45;margin-bottom:8px}
 .act-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:0.66rem;color:var(--muted);margin-bottom:8px}
-.act-map{display:inline-flex;align-items:center;gap:4px;font-size:0.68rem;font-weight:700;color:#1252A0;background:#EBF3FF;padding:4px 10px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none}
+.act-map{display:inline-flex;align-items:center;gap:3px;font-size:0.58rem;font-weight:700;color:#1252A0;background:#EBF3FF;padding:3px 7px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none}
 .act-map:hover{background:#C8DEFF}
-.act-web{display:inline-flex;align-items:center;gap:4px;font-size:0.68rem;font-weight:700;color:#2A7D4F;background:#E8F5E9;padding:4px 10px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none;margin-left:4px}
+.act-web{display:inline-flex;align-items:center;gap:3px;font-size:0.58rem;font-weight:700;color:#2A7D4F;background:#E8F5E9;padding:3px 7px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none}
 .act-web:hover{background:#C8E6C9}
-.act-tix{display:inline-flex;align-items:center;gap:4px;font-size:0.68rem;font-weight:700;color:#BC002D;background:#fdecea;padding:4px 10px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none;margin-left:4px}
+.act-tix{display:inline-flex;align-items:center;gap:3px;font-size:0.58rem;font-weight:700;color:#BC002D;background:#fdecea;padding:3px 7px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none}
 .act-tix:hover{background:#f9d0d3}
 
 /* ── BOOKING STATUS (universal) ─────── */
@@ -151,8 +152,12 @@ input[type=checkbox]{accent-color:#BC002D}
 .book-status.ahead{background:#fff3e0;color:#C07000}
 .book-status.walkup{background:#f3f9f0;color:var(--safe)}
 .book-status.open{background:#f0f0f0;color:var(--muted)}
-.act-card .book-status{display:block;width:100%;text-align:center;font-size:0.56rem;padding:4px 8px;margin:6px 0}
-.food-card .book-status{display:block;width:100%;text-align:center;margin-top:4px}
+.act-card .act-body{display:flex;flex-direction:column}
+.act-card .book-status{order:99;display:block;width:100%;text-align:center;font-size:0.56rem;padding:5px 8px;margin-top:auto;border-top:1px solid var(--border)}
+.food-card{position:relative;display:flex;flex-direction:column}
+.food-card .book-status{order:99;display:block;width:100%;text-align:center;margin-top:auto;padding-top:4px;border-top:1px solid var(--border)}
+.food-card .fc-links{position:absolute;top:6px;right:6px;display:flex;gap:3px;z-index:1}
+.food-card .fc-links a{font-size:0.48rem;padding:1px 5px}
 .act-mini .book-status{font-size:0.48rem;padding:1px 5px;margin-top:2px}
 
 /* ── CARD TRANSIT (universal) ────────── */
@@ -1384,7 +1389,7 @@ input[type=checkbox]{accent-color:#BC002D}
           </div>
           </div>
         </div>
-        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife (Cody + Will + Natalie) <span class="chevron">&#9660;</span></div>
+        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife <span class="chevron">&#9660;</span></div>
         <div class="night-content">
           <div class="night-card"><div class="nc-em">🏮</div><div><div class="nc-name">Golden Gai</div><div class="nc-meta">Shinjuku &middot; 200 tiny bars &middot; &yen;500&ndash;1,000 cover</div><div class="nc-desc">The exploration IS the experience.</div></div></div>
           <div class="night-card"><div class="nc-em">🎷</div><div><div class="nc-name">New York Bar (Park Hyatt)</div><div class="nc-meta">Shinjuku &middot; 52F &middot; Live jazz &middot; &yen;2,000 cover</div><div class="nc-desc">The Lost in Translation one.</div></div></div>
@@ -1638,7 +1643,7 @@ input[type=checkbox]{accent-color:#BC002D}
           </div>
           </div>
         </div>
-        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife (Cody + Will + Natalie) <span class="chevron">&#9660;</span></div>
+        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife <span class="chevron">&#9660;</span></div>
         <div class="night-content">
           <div class="night-card"><div class="nc-em">🍺</div><div><div class="nc-name">Ginza Lion Beer Hall</div><div class="nc-meta">Ginza &middot; 5-min walk &middot; Open Sundays</div><div class="nc-desc">Japan&rsquo;s oldest beer hall (1934). Art Deco mosaic ceiling, cold Sapporo, yoshoku comfort food.</div><div class="nc-links"><a href="https://maps.google.com/?q=Ginza+Lion+Beer+Hall+Ginza" target="_blank">📍 Map</a></div></div></div>
           <div class="night-card"><div class="nc-em">🍶</div><div><div class="nc-name">Sake no Ana</div><div class="nc-meta">Ginza &middot; 200+ varieties</div><div class="nc-desc">English menu. Start light, go richer.</div><div class="nc-links"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">📍 Map</a></div></div></div>
@@ -2139,7 +2144,7 @@ input[type=checkbox]{accent-color:#BC002D}
           </div>
         </div>
         </div>
-        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Farewell Nightlife <span class="chevron">&#9660;</span></div>
+        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife <span class="chevron">&#9660;</span></div>
         <div class="night-content">
           <div class="night-card"><div class="nc-em">🍸</div><div><div class="nc-name">Bar High Five</div><div class="nc-meta">Ginza &middot; 8-min walk &middot; Open Tue 5&ndash;11:30</div><div class="nc-desc">World-class cocktails by Hidetsugu Ueno. Mom can join.</div><div class="nc-links"><a href="https://maps.google.com/?q=Bar+High+Five+Ginza" target="_blank">📍 Map</a></div></div></div>
           <div class="night-card"><div class="nc-em">🍶</div><div><div class="nc-name">Sake no Ana</div><div class="nc-meta">Ginza &middot; 200+ varieties</div><div class="nc-desc">Sake education before the flight home.</div><div class="nc-links"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">📍 Map</a></div></div></div>
@@ -2720,13 +2725,59 @@ function updateNav() {
 }
 window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(() => { updateNav(); ticking = false; }); ticking = true; } });
 
+// ── ACT-CARD LINK WRAPPING ─────────
+document.querySelectorAll('.act-card .act-body').forEach(body => {
+  const links = body.querySelectorAll('.act-map, .act-web, .act-tix');
+  if (links.length) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'act-links';
+    links.forEach(l => wrapper.appendChild(l));
+    body.prepend(wrapper);
+  }
+});
+
+// ── SCROLL POSITION PERSISTENCE ────
+const SCROLL_KEY = 'tky26_scroll';
+const SCROLL_TS_KEY = 'tky26_scroll_ts';
+const SCROLL_TTL = 5 * 60 * 1000; // 5 minutes
+
+function saveScrollPos() {
+  sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
+  sessionStorage.setItem(SCROLL_TS_KEY, String(Date.now()));
+}
+
+function restoreScrollPos() {
+  const saved = sessionStorage.getItem(SCROLL_KEY);
+  const ts = sessionStorage.getItem(SCROLL_TS_KEY);
+  if (saved && ts && (Date.now() - parseInt(ts)) < SCROLL_TTL) {
+    const y = parseInt(saved);
+    if (y > 100) { // only restore if was past hero
+      window.scrollTo(0, y);
+      return true;
+    }
+  }
+  return false;
+}
+
 // ── INIT ────────────────────────────
 function initFromHash() {
   const m = window.location.hash.match(/^#day(\d)$/);
-  const n = m ? parseInt(m[1]) : 1;
-  if (isMobile()) showDayMobile(n);
-  else { updatePill(n); scrollToDay(n); }
+  if (m) {
+    const n = parseInt(m[1]);
+    if (isMobile()) showDayMobile(n);
+    else { updatePill(n); scrollToDay(n); }
+    return;
+  }
+  // No hash — try restoring scroll position (within TTL)
+  if (restoreScrollPos()) {
+    updateNav();
+    return;
+  }
+  // Fresh visit — stay at hero (top of page), show Day 1 on mobile
+  if (isMobile()) showDayMobile(1);
 }
+
+window.addEventListener('beforeunload', saveScrollPos);
 
 // Overview cards
 document.querySelectorAll('.ov-card').forEach(c => c.addEventListener('click', () => navToDay(parseInt(c.dataset.n))));
@@ -2737,8 +2788,8 @@ document.querySelectorAll('.nav-pill').forEach(p => {
 
 // Booking checklist persistence
 const checks = document.querySelectorAll('.cl-item input[type=checkbox]');
-const saved = JSON.parse(localStorage.getItem('tokyoBooking') || '{}');
-checks.forEach((c, i) => { if (saved[i]) c.checked = true; });
+const savedChecks = JSON.parse(localStorage.getItem('tokyoBooking') || '{}');
+checks.forEach((c, i) => { if (savedChecks[i]) c.checked = true; });
 function saveChecks() {
   const state = {};
   checks.forEach((c, i) => { if (c.checked) state[i] = true; });
