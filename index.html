@@ -249,14 +249,14 @@ input[type=checkbox]{accent-color:#BC002D}
 /* ── FOOD CARDS (side-stacked in food column) ── */
 .meal-cards{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .meal-cards.single{grid-template-columns:1fr}
-.food-card{background:var(--white);border-radius:var(--r-sm);border:1.5px solid var(--border);padding:10px 11px;transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;position:relative}
+.food-card{background:var(--white);border-radius:var(--r-sm);border:1.5px solid var(--border);padding:10px 11px;transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;position:relative;display:flex;flex-direction:column}
 .food-card:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:var(--shadow)}
 .fc-tag{position:absolute;top:7px;right:9px;font-size:0.5rem;font-weight:900;letter-spacing:1px;color:var(--border)}
 .fc-em{font-size:1.15rem;margin-bottom:3px;display:block;line-height:1}
 .fc-name{font-family:'DM Serif Display',serif;font-size:0.88rem;margin-bottom:1px;line-height:1.2}
 .fc-type{font-size:0.62rem;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
 .fc-desc{font-size:0.74rem;color:#3A3A4A;line-height:1.4;margin-bottom:5px}
-.fc-foot{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:3px}
+.fc-foot{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:3px;margin-top:auto}
 .fc-price{font-size:0.76rem;font-weight:800;color:var(--navy)}
 .fc-dist{font-size:0.6rem;color:var(--muted)}
 .fc-res{display:inline-block;font-size:0.52rem;font-weight:800;letter-spacing:0.4px;padding:2px 6px;border-radius:6px;margin-top:3px;width:100%;text-align:center}
@@ -397,6 +397,8 @@ input[type=checkbox]{accent-color:#BC002D}
   .day-hero::after{display:none}
   .day-headline{font-size:clamp(1.4rem,4vw,2rem) !important}
   .day-tagline{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .day-section.hero-open .day-tagline{white-space:normal;overflow:visible;text-overflow:unset}
+  .day-section.hero-open .day-summary{display:flex !important;flex-wrap:wrap}
   .sec-toggle{display:flex}
   .map-trigger{display:none}
   .map-zone{display:block}
@@ -437,7 +439,7 @@ input[type=checkbox]{accent-color:#BC002D}
   .day-section.hero-open .day-headline{font-size:2rem !important}
 
   /* ══ GRID: 4 columns, fills remaining viewport ══ */
-  .day-grid{grid-template-columns:1fr 1.3fr 1fr 0.8fr !important;gap:4px 16px;flex:1;overflow-y:auto;overflow-x:hidden;min-height:0;align-content:space-evenly}
+  .day-grid{grid-template-columns:1fr 1.3fr 1fr 0.8fr !important;gap:4px 16px;flex:1;overflow-y:auto;overflow-x:hidden;min-height:0;align-content:start;grid-auto-rows:min-content}
 
   /* ══ MAP: col-4, fills full column ══ */
   .day-full{grid-column:4;grid-row:1/-1;align-self:stretch;display:flex;flex-direction:column}
@@ -545,7 +547,7 @@ input[type=checkbox]{accent-color:#BC002D}
 /* Detected via aspect-ratio < 1 (portrait) at desktop widths */
 @media(min-width:769px) and (max-aspect-ratio:4/3){
   /* More vertical space — use 2-column grid + map below */
-  .day-grid{grid-template-columns:1.2fr 1fr !important;gap:8px 20px}
+  .day-grid{grid-template-columns:1.2fr 1fr !important;gap:8px 20px;align-content:start;grid-auto-rows:min-content}
   .day-full{grid-column:1/-1 !important;grid-row:auto !important;align-self:auto !important}
   .day-full .map-zone{height:auto !important}
   .map-wrap{height:220px !important;min-height:auto !important;flex:none !important}
@@ -696,7 +698,7 @@ input[type=checkbox]{accent-color:#BC002D}
       <!-- COL 1: AGENDA -->
       <div class="col-agenda">
         <div class="heat-strip reveal">
-          <p class="col-head">Heat Window</p>
+          <p class="col-head">🌡 Heat Window</p>
           <div class="heat-track ht-arrival"></div>
           <div class="heat-times"><span>4 PM</span><span>6 PM</span><span>8 PM</span><span>10 PM</span></div>
           <div class="heat-legend">
@@ -734,7 +736,7 @@ input[type=checkbox]{accent-color:#BC002D}
 
       <!-- COL 2: HIGHLIGHTS -->
       <div class="col-highlights">
-        <p class="col-head" style="padding-top:20px">Tonight's Stops</p>
+        <p class="col-head" style="padding-top:20px">🎯 Tonight's Stops</p>
         <div class="act-card reveal">
           <div class="act-vis av-airport"><span>✈️</span></div>
           <div class="act-body">
@@ -809,7 +811,7 @@ input[type=checkbox]{accent-color:#BC002D}
 
       <!-- COL 3: FOOD -->
       <div class="col-food">
-        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="col-head" style="padding-top:20px">🍽 Where to Eat</p>
         <div class="sec-toggle" onclick="this.classList.toggle('open')">
           <span class="st-icon">🌙</span>
           <span class="st-label">Dinner</span>
@@ -877,7 +879,7 @@ input[type=checkbox]{accent-color:#BC002D}
       <!-- COL 1: AGENDA -->
       <div class="col-agenda">
         <div class="heat-strip reveal">
-          <p class="col-head">Heat Windows</p>
+          <p class="col-head">🌡 Heat Windows</p>
           <div class="heat-track ht-standard"></div>
           <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
           <div class="heat-legend">
@@ -915,7 +917,7 @@ input[type=checkbox]{accent-color:#BC002D}
 
       <!-- COL 2: HIGHLIGHTS -->
       <div class="col-highlights">
-        <p class="col-head" style="padding-top:20px">Featured Stops</p>
+        <p class="col-head" style="padding-top:20px">🎯 Featured Stops</p>
         <div class="act-card reveal">
           <div class="act-vis av-tsukiji"><span>🐟</span></div>
           <div class="act-body">
@@ -1043,7 +1045,7 @@ input[type=checkbox]{accent-color:#BC002D}
 
       <!-- COL 3: FOOD -->
       <div class="col-food">
-        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="col-head" style="padding-top:20px">🍽 Where to Eat</p>
         <div class="sec-toggle" onclick="this.classList.toggle('open')">
           <span class="st-icon">🌅</span>
           <span class="st-label">Breakfast</span>
@@ -1183,7 +1185,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <div class="day-grid">
       <div class="col-agenda">
         <div class="heat-strip reveal">
-          <p class="col-head">Heat Strategy</p>
+          <p class="col-head">🌡 Heat Strategy</p>
           <div class="heat-track ht-standard"></div>
           <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
           <div class="heat-legend">
@@ -1239,7 +1241,7 @@ input[type=checkbox]{accent-color:#BC002D}
       </div>
 
       <div class="col-highlights">
-        <p class="col-head" style="padding-top:20px">Park Highlights</p>
+        <p class="col-head" style="padding-top:20px">🎯 Park Highlights</p>
         <div class="act-card reveal">
           <div class="act-vis av-disney"><span>🎢</span></div>
           <div class="act-body">
@@ -1279,7 +1281,7 @@ input[type=checkbox]{accent-color:#BC002D}
       </div>
 
       <div class="col-food">
-        <p class="col-head" style="padding-top:20px">Park Food</p>
+        <p class="col-head" style="padding-top:20px">🍽 Park Food</p>
         <div class="sec-toggle" onclick="this.classList.toggle('open')">
           <span class="st-icon">🌅</span>
           <span class="st-label">Breakfast</span>
@@ -1406,7 +1408,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <div class="day-grid">
       <div class="col-agenda">
         <div class="heat-strip reveal">
-          <p class="col-head">Heat Windows</p>
+          <p class="col-head">🌡 Heat Windows</p>
           <div class="heat-track ht-standard"></div>
           <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
           <div class="heat-legend">
@@ -1451,7 +1453,7 @@ input[type=checkbox]{accent-color:#BC002D}
       </div>
 
       <div class="col-highlights">
-        <p class="col-head" style="padding-top:20px">Featured Stops</p>
+        <p class="col-head" style="padding-top:20px">🎯 Featured Stops</p>
         <div class="act-card reveal">
           <div class="act-vis av-ghibli"><span>🎬</span></div>
           <div class="act-body">
@@ -1595,7 +1597,7 @@ input[type=checkbox]{accent-color:#BC002D}
       </div>
 
       <div class="col-food">
-        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="col-head" style="padding-top:20px">🍽 Where to Eat</p>
         <div class="sec-toggle" onclick="this.classList.toggle('open')">
           <span class="st-icon">🌅</span>
           <span class="st-label">Breakfast</span>
@@ -1669,7 +1671,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <div class="day-grid">
       <div class="col-agenda">
         <div class="heat-strip reveal">
-          <p class="col-head">Heat Windows</p>
+          <p class="col-head">🌡 Heat Windows</p>
           <div class="heat-track ht-standard"></div>
           <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
           <div class="heat-legend">
@@ -1708,7 +1710,7 @@ input[type=checkbox]{accent-color:#BC002D}
       </div>
 
       <div class="col-highlights">
-        <p class="col-head" style="padding-top:20px">Featured Stops</p>
+        <p class="col-head" style="padding-top:20px">🎯 Featured Stops</p>
         <div class="act-card reveal">
           <div class="act-vis av-temple"><span>🏯</span></div>
           <div class="act-body">
@@ -1871,7 +1873,7 @@ input[type=checkbox]{accent-color:#BC002D}
       </div>
 
       <div class="col-food">
-        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="col-head" style="padding-top:20px">🍽 Where to Eat</p>
         <div class="sec-toggle" onclick="this.classList.toggle('open')">
           <span class="st-icon">🌅</span>
           <span class="st-label">Breakfast</span>
@@ -1945,7 +1947,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <div class="day-grid">
       <div class="col-agenda">
         <div class="heat-strip reveal">
-          <p class="col-head">Heat Windows</p>
+          <p class="col-head">🌡 Heat Windows</p>
           <div class="heat-track ht-standard"></div>
           <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
           <div class="heat-legend">
@@ -2011,7 +2013,7 @@ input[type=checkbox]{accent-color:#BC002D}
       </div>
 
       <div class="col-highlights">
-        <p class="col-head" style="padding-top:20px">Featured Stop</p>
+        <p class="col-head" style="padding-top:20px">🎯 Featured Stop</p>
         <div class="act-card reveal">
           <div class="act-vis av-pokepark"><span>⚡</span></div>
           <div class="act-body">
@@ -2130,7 +2132,7 @@ input[type=checkbox]{accent-color:#BC002D}
       </div>
 
       <div class="col-food">
-        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="col-head" style="padding-top:20px">🍽 Where to Eat</p>
         <div class="sec-toggle" onclick="this.classList.toggle('open')">
           <span class="st-icon">🌅</span>
           <span class="st-label">Breakfast</span>
@@ -2190,7 +2192,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <div class="day-grid">
       <div class="col-agenda">
         <div class="heat-strip reveal">
-          <p class="col-head">Heat Windows</p>
+          <p class="col-head">🌡 Heat Windows</p>
           <div class="heat-track ht-standard"></div>
           <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>3 PM</span><span>6 PM</span><span>10 PM</span></div>
           <div class="heat-legend">
@@ -2254,7 +2256,7 @@ input[type=checkbox]{accent-color:#BC002D}
       </div>
 
       <div class="col-highlights">
-        <p class="col-head" style="padding-top:20px">Featured Stops</p>
+        <p class="col-head" style="padding-top:20px">🎯 Featured Stops</p>
         <div class="act-card reveal">
           <div class="act-vis av-unagi"><span>🍽️</span></div>
           <div class="act-body">
@@ -2411,7 +2413,7 @@ input[type=checkbox]{accent-color:#BC002D}
       </div>
 
       <div class="col-food">
-        <p class="col-head" style="padding-top:20px">Where to Eat</p>
+        <p class="col-head" style="padding-top:20px">🍽 Where to Eat</p>
         <div class="sec-toggle" onclick="this.classList.toggle('open')">
           <span class="st-icon">🌅</span>
           <span class="st-label">Breakfast</span>
@@ -2484,7 +2486,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <div class="day-grid">
       <div class="col-agenda">
         <div class="heat-strip reveal">
-          <p class="col-head">Heat Window</p>
+          <p class="col-head">🌡 Heat Window</p>
           <div class="heat-track ht-depart"></div>
           <div class="heat-times"><span>8 AM</span><span>11 AM</span><span>12:30 &rarr; NRT</span></div>
           <div class="heat-legend">
@@ -2926,11 +2928,26 @@ function updatePill(n) {
   if (pill) pill.classList.add('active');
 }
 
-// ── TIMELINE TRUNCATION ──────────────
+// ── TIMELINE TRUNCATION (toggle) ──────────────
 function expandTimeline(btn) {
   const tl = btn.closest('.tl');
-  tl.querySelectorAll('.tl-hidden').forEach(r => r.classList.remove('tl-hidden'));
-  btn.remove();
+  const hidden = tl.querySelectorAll('.tl-collapsible');
+  const isExpanded = btn.dataset.expanded === '1';
+  if (isExpanded) {
+    // Collapse: re-hide rows
+    hidden.forEach(r => r.classList.add('tl-hidden'));
+    btn.textContent = btn.dataset.showText;
+    btn.dataset.expanded = '0';
+  } else {
+    // First expand: mark rows as collapsible so we can re-hide them
+    if (!hidden.length) {
+      tl.querySelectorAll('.tl-hidden').forEach(r => r.classList.add('tl-collapsible'));
+    }
+    tl.querySelectorAll('.tl-hidden').forEach(r => r.classList.remove('tl-hidden'));
+    btn.dataset.showText = btn.textContent;
+    btn.textContent = 'Collapse ▴';
+    btn.dataset.expanded = '1';
+  }
 }
 
 // ── MAP TOGGLE (mobile) ─────────────
@@ -3019,13 +3036,6 @@ if (!isMobile()) {
       }
     });
   });
-  // Click day-hero to expand tagline/summary or collapse
-  document.querySelectorAll('.day-hero').forEach(hero => {
-    hero.addEventListener('click', () => {
-      hero.closest('.day-section').classList.toggle('hero-open');
-    });
-  });
-
   // ── VIEWPORT FIT: expand-first, then collapse to fit ──
   // Rule 1: one day per screen
   // Rule 2: start with everything expanded
@@ -3084,6 +3094,14 @@ if (!isMobile()) {
     }, 300);
   });
 }
+
+// ── DAY HERO: click to expand/collapse (all devices) ─────────
+document.querySelectorAll('.day-hero').forEach(hero => {
+  hero.style.cursor = 'pointer';
+  hero.addEventListener('click', () => {
+    hero.closest('.day-section').classList.toggle('hero-open');
+  });
+});
 
 // ── PREP BOX: count injection + toggle (all devices) ─────────
 document.querySelectorAll('.prep-box').forEach(box => {
