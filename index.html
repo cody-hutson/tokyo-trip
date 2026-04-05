@@ -3091,12 +3091,12 @@ function initFromHash() {
     return;
   }
   // No hash — try restoring scroll position (within TTL)
-  if (restoreScrollPos()) {
+  if (!isMobile() && restoreScrollPos()) {
     updateNav();
     return;
   }
-  // Fresh visit — stay at hero (top of page), show Day 1 on mobile
-  if (isMobile()) showDayMobile(1);
+  // Fresh visit — stay at hero (top of page) on all devices
+  // Mobile: no day shown until user taps nav or overview card
 }
 
 window.addEventListener('beforeunload', saveScrollPos);
