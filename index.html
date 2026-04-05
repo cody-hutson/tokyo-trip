@@ -478,9 +478,15 @@ input[type=checkbox]{accent-color:#BC002D}
   .act-card:not(.card-open):hover .act-body::after{opacity:1;color:var(--gold)}
 
   .food-card{cursor:pointer}
-  .food-card .fc-desc,.food-card .fc-type,.food-card .fc-links{display:none}
-  .food-card.card-open .fc-desc,.food-card.card-open .fc-type{display:block}
+  .food-card .fc-desc,.food-card .fc-links{display:none}
+  .food-card .fc-type{display:block;font-size:0.55rem}
+  .food-card .fc-foot{display:flex}
+  .food-card .book-status{display:inline-block;font-size:0.52rem}
+  .food-card .card-transit{display:flex;font-size:0.58rem}
+  .food-card.card-open .fc-desc{display:block}
   .food-card.card-open .fc-links{display:flex}
+  /* Meal suggestion text in toggles — larger for readability */
+  .col-food .sec-toggle .st-meta{font-size:0.72rem;color:var(--navy);font-weight:600}
 
   .night-card .nc-desc{display:none}
   .night-card.card-open .nc-desc{display:block}
@@ -1896,19 +1902,19 @@ input[type=checkbox]{accent-color:#BC002D}
         <div class="sec-toggle" onclick="this.classList.toggle('open')">
           <span class="st-icon">🌙</span>
           <span class="st-label">Dinner</span>
-          <span class="st-meta">Split: Sushi Iwa + Family</span>
+          <span class="st-meta">Open Option: Sushi Iwa or Family</span>
           <span class="st-chev">▾</span>
         </div>
         <div class="sec-body">
-        <p class="meal-label">🌙 ⭐ Dinner &mdash; Split Night (7:00&ndash;9:00 PM)</p>
+        <p class="meal-label">🌙 ⭐ Dinner &mdash; Open Option (7:00&ndash;9:00 PM)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">C+W</span><span class="fc-em">🍣</span><div class="fc-name">Sushi Iwa ⭐</div><div class="fc-type">Omakase &middot; Ginza &middot; Cody + Will only</div><div class="fc-desc">Book for 2. Skilled chef, relaxed pace (~90 min). Counter seats four. The omakase experience we came for.</div><div class="fc-foot"><span class="fc-price">&yen;12,000&ndash;18,000/pp</span><span class="card-transit">🚶 8 min</span></div><div class="book-status advance"><a href="https://www.tablecheck.com/en/shops/ginza-iwa/reserve" target="_blank" style="color:inherit;text-decoration:underline">🔴 Book 2 covers via TableCheck</a></div><div class="fc-links"><a href="https://maps.google.com/?q=Sushi+Iwa+Ginza" target="_blank" class="fc-gmap">📍 Map</a><a href="https://www.tablecheck.com/en/shops/ginza-iwa/reserve" target="_blank" class="fc-site">🎟️ Book</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">Fam</span><span class="fc-em">🍽️</span><div class="fc-name">Family Dinner (Natalie + Mom + Abe)</div><div class="fc-type">Casual &middot; Near hotel</div><div class="fc-desc">Food court style or casual izakaya &mdash; no formal omakase. Let them choose on the night. Options: Ginza Lion Beer Hall, Coredo Muromachi food stalls, or depachika grazing.</div><div class="fc-foot"><span class="fc-price">&yen;2,000&ndash;4,000/pp</span><span class="card-transit">🚶 5&ndash;10 min</span></div><div class="book-status walkup">Walk-up &middot; multiple options near hotel</div></div>
         </div>
         </div><!-- /sec-body -->
-        <div class="note-box reveal">❤️ <strong>Split dinner:</strong> Cody + Will do omakase at Sushi Iwa (2 covers). Family eats casual nearby. Regroup at hotel after.</div>
+        <div class="note-box reveal">❤️ <strong>Open option:</strong> Cody + Will do omakase at Sushi Iwa (2 covers). Family eats casual nearby. Regroup at hotel after.</div>
       
-        <div class="note-box reveal">🍱 <strong>Family dinner (split night):</strong> Coredo Muromachi food hall (10-min walk, true food court) or depachika bento + eat at hotel. ¥1,000&ndash;2,500/pp.</div>
+        <div class="note-box reveal">🍱 <strong>Family dinner (open option):</strong> Coredo Muromachi food hall (10-min walk, true food court) or depachika bento + eat at hotel. ¥1,000&ndash;2,500/pp.</div>
       </div>
 
       <div class="day-full reveal">
@@ -3106,6 +3112,22 @@ if (!isMobile()) {
     cards.forEach(c => row.appendChild(c));
   });
 }
+
+// ── MEAL TOGGLES: pull time into toggle, remove duplicate label ─────
+document.querySelectorAll('.sec-body .meal-label').forEach(label => {
+  const body = label.closest('.sec-body');
+  if (!body) return;
+  const toggle = body.previousElementSibling;
+  if (!toggle || !toggle.classList.contains('sec-toggle')) return;
+  const text = label.textContent;
+  const dashIdx = text.indexOf('—');
+  if (dashIdx !== -1) {
+    const time = text.substring(dashIdx + 1).trim();
+    const stLabel = toggle.querySelector('.st-label');
+    if (stLabel && time) stLabel.textContent += ' · ' + time;
+  }
+  label.remove();
+});
 
 // ── ACT-CARD LINK WRAPPING ─────────
 document.querySelectorAll('.act-card .act-body').forEach(body => {
