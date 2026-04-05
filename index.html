@@ -383,14 +383,16 @@ input[type=checkbox]{accent-color:#BC002D}
   .ov-grid{grid-template-columns:1fr 1fr;gap:8px}
   .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px 32px;justify-items:center}
   .day-hero{padding:36px 20px 28px}
-  .day-body{padding:0 16px 36px}
   .booking{padding:48px 20px}
   .hero-title{font-size:clamp(6rem,18vw,10rem)}
   .day-headline{font-size:clamp(1.8rem,5vw,2.6rem)}
   .split-tabs{flex-wrap:wrap}
   .map-wrap{height:180px}
-  .day-section{display:none !important}
+  /* Mobile: override desktop viewport-fill rules */
+  .day-section{display:none !important;min-height:auto;flex-direction:column}
   .day-section.mob-active{display:block !important}
+  .day-body{display:block;flex:none;padding:0 16px 36px}
+  .day-grid{flex:none}
   .bottom-nav{display:flex}
   body{padding-bottom:64px}
   .day-hero{padding:20px 20px 16px}
@@ -417,34 +419,35 @@ input[type=checkbox]{accent-color:#BC002D}
   .nav-inner{justify-content:center;gap:0;padding:0}
   .nav-pill{flex:1;padding:10px 8px}
 
-  /* ══ DAY HERO: full width, minimal height ══ */
-  .day-hero{padding:10px 28px 8px;cursor:pointer}
+  /* ══ EACH DAY = ONE VIEWPORT ══ */
+  .day-section{min-height:calc(100vh - 52px);display:flex;flex-direction:column}
+  .day-body{flex:1;padding:0 20px 12px;max-width:100%;display:flex;flex-direction:column}
+
+  /* ══ DAY HERO: compact bar ══ */
+  .day-hero{padding:8px 28px 6px;cursor:pointer}
   .day-hero::after{display:none}
   .day-tagline{display:none}
-  .energy-pill{font-size:0.5rem;padding:2px 8px;margin-bottom:4px}
-  .day-label{font-size:0.6rem;margin-bottom:1px}
-  .day-headline{font-size:1.3rem !important;margin-bottom:4px}
-  .day-summary{display:inline-flex;gap:12px;margin-top:0;padding-top:0;border-top:none;font-size:0.5rem}
+  .energy-pill{font-size:0.5rem;padding:2px 8px;margin-bottom:2px}
+  .day-label{font-size:0.58rem;margin-bottom:0}
+  .day-headline{font-size:1.2rem !important;margin-bottom:2px}
+  .day-summary{display:inline-flex;gap:10px;margin-top:0;padding-top:0;border-top:none;font-size:0.48rem}
   .expand-hint{display:none}
-  /* Click hero to expand tagline */
   .day-section.hero-open .day-tagline{display:block}
-  .day-section.hero-open .day-hero{padding:16px 28px 14px}
-  .day-section.hero-open .day-headline{font-size:1.6rem !important}
+  .day-section.hero-open .day-hero{padding:14px 28px 12px}
+  .day-section.hero-open .day-headline{font-size:1.5rem !important}
 
-  /* ══ GRID: 4 columns — schedule | highlights | food | map ══ */
-  .day-grid{grid-template-columns:1fr 1.3fr 1fr 0.8fr !important;gap:6px 20px}
-  .day-full{grid-column:4;grid-row:1/-1}
-  .day-body{padding:0 20px 16px;max-width:100%}
+  /* ══ GRID: 4 columns, fills remaining viewport ══ */
+  .day-grid{grid-template-columns:1fr 1.3fr 1fr 0.8fr !important;gap:4px 16px;flex:1}
+  .day-body > .day-grid{min-height:0}
 
-  /* ══ MAP: in col-4, fills column height ══ */
+  /* ══ MAP: col-4, fills full column ══ */
+  .day-full{grid-column:4;grid-row:1/-1;align-self:stretch;display:flex;flex-direction:column}
   .map-trigger{display:none}
-  .map-zone{display:block !important;padding:4px 0}
-  .day-full{grid-column:4;grid-row:1/-1;align-self:stretch}
-  .day-full .map-zone{height:100%}
-  .map-wrap{height:100%;min-height:200px}
-  .gmap-route{font-size:0.6rem;padding:4px 10px;margin-top:4px}
+  .map-zone{display:flex !important;flex-direction:column;flex:1;padding:0}
+  .map-wrap{flex:1;height:auto;min-height:160px}
+  .gmap-route{font-size:0.55rem;padding:3px 8px;margin-top:3px;flex-shrink:0}
 
-  /* ══ FORCE REVEAL: no scroll animation on desktop ══ */
+  /* ══ FORCE REVEAL: no animation on desktop ══ */
   .reveal{opacity:1 !important;transform:none !important}
 
   /* ══ ALL TOGGLES: visible, compact, functional ══ */
