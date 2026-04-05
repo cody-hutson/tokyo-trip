@@ -2964,9 +2964,11 @@ if (!isMobile()) {
     });
   });
 
-  // Auto-expand sections to fill available viewport space
+  // ── VIEWPORT FIT: expand-first, then collapse to fit ──
+  // Rule 1: one day per screen
+  // Rule 2: start with everything expanded
+  // Rule 3: collapse sections until it fits
   function getNaturalHeight(daySection) {
-    // Temporarily remove min-height to measure actual content height
     const orig = daySection.style.minHeight;
     daySection.style.minHeight = '0';
     const h = daySection.scrollHeight;
@@ -2974,41 +2976,37 @@ if (!isMobile()) {
     return h;
   }
 
-  function autoExpandDay(daySection) {
+  function fitDayToViewport(daySection) {
     const vh = window.innerHeight - 66;
-    if (getNaturalHeight(daySection) >= vh) return;
 
-    const toggles = [
-      ...daySection.querySelectorAll('.meal-toggle:not(.open)'),
-      ...daySection.querySelectorAll('.sec-toggle:not(.open)'),
-      ...daySection.querySelectorAll('.night-toggle:not(.open)')
+    // Step 1: OPEN EVERYTHING
+    daySection.querySelectorAll('.meal-toggle, .sec-toggle, .night-toggle').forEach(t => t.classList.add('open'));
+
+    // Step 2: if it fits, done
+    if (getNaturalHeight(daySection) <= vh) return;
+
+    // Step 3: collapse in priority order (least important first)
+    // Collapse priority: night-toggles → sec-toggles → meal-toggles
+    const collapseOrder = [
+      ...daySection.querySelectorAll('.night-toggle.open'),
+      ...[...daySection.querySelectorAll('.sec-toggle.open')].reverse(),
+      ...[...daySection.querySelectorAll('.meal-toggle.open')].reverse()
     ];
 
-    // Open toggles greedily, track all opened so we can undo if we overshoot
-    const opened = [];
-    for (const toggle of toggles) {
-      toggle.classList.add('open');
-      opened.push(toggle);
-      if (getNaturalHeight(daySection) >= vh) {
-        // Went over — close this one and stop trying
-        toggle.classList.remove('open');
-        opened.pop();
-        break;
-      }
+    for (const toggle of collapseOrder) {
+      toggle.classList.remove('open');
+      if (getNaturalHeight(daySection) <= vh) return; // fits now
     }
-    // Final check: if total still overflows, undo last opened until it fits
-    while (opened.length > 0 && getNaturalHeight(daySection) > vh) {
-      const last = opened.pop();
-      last.classList.remove('open');
-    }
+    // If still doesn't fit after collapsing all toggles, that's ok —
+    // structural content (timeline, featured cards) is more important
   }
 
-  // Run auto-expand after layout settles
-  const runAutoExpand = () => setTimeout(() => {
-    document.querySelectorAll('.day-section').forEach(autoExpandDay);
+  // Run after layout settles
+  const runFit = () => setTimeout(() => {
+    document.querySelectorAll('.day-section').forEach(fitDayToViewport);
   }, 200);
-  if (document.readyState === 'complete') runAutoExpand();
-  else window.addEventListener('load', runAutoExpand);
+  if (document.readyState === 'complete') runFit();
+  else window.addEventListener('load', runFit);
 }
 
 // ── ACT-CARD LINK WRAPPING ─────────
