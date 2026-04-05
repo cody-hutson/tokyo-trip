@@ -412,21 +412,30 @@ input[type=checkbox]{accent-color:#BC002D}
   .booking-backdrop{display:none}
   .booking-slide{transform:none !important;position:static;max-height:none;border-radius:0}
   .booking-x{display:none}
-  /* Desktop: keep sec-toggles visible but compact — alternatives start collapsed */
+  /* Desktop sec-toggles: visible as compact section headers */
   .sec-toggle{display:flex;padding:6px 10px;margin:4px 0;background:none;border:1px solid var(--border);border-radius:var(--r-sm)}
   .sec-toggle .st-icon{font-size:0.75rem}
   .sec-toggle .st-label{font-size:0.68rem}
   .sec-toggle .st-meta{font-size:0.55rem}
-  .sec-toggle .st-chev{font-size:0.42rem}
-  .sec-body.force-open{display:block}
+  .sec-toggle .st-chev{display:none}
+  /* Desktop: ALL sections visible — single-page itinerary */
+  .sec-body{display:block !important}
+  .night-content{display:block !important}
+  /* Nightlife toggle: match sec-toggle style on desktop */
+  .night-toggle{display:flex;align-items:center;gap:8px;padding:6px 10px;margin:4px 0;background:none;border:1px solid var(--border);border-radius:var(--r-sm);font-size:0.68rem;letter-spacing:0.5px;border-bottom:none}
+  .night-toggle .chevron{display:none}
   .map-trigger{display:none}
   .map-zone{display:block !important}
   .meal-cards-wrap{display:block !important}
   .meal-toggle{display:none}
-  /* Desktop: keep timeline truncation with subtle expand link */
-  .show-more-tl{display:block;border:none;color:var(--muted);font-size:0.6rem;padding:4px 0;text-decoration:underline;text-underline-offset:2px}
-  .show-more-tl:hover{color:var(--gold)}
+  .show-more-tl{display:none}
+  .tl-row.tl-hidden{display:block !important}
   .day-summary{display:flex}
+  /* Desktop: featured stops side by side */
+  .col-highlights .col-head+.act-card{display:inline-block;vertical-align:top;width:calc(50% - 6px);margin-right:8px}
+  .col-highlights .act-card+.act-card{display:inline-block;vertical-align:top;width:calc(50% - 6px);margin-right:0}
+  /* Desktop: map more square */
+  .map-wrap{height:280px}
 }
 @media(max-width:480px){
   .ov-grid{grid-template-columns:1fr}
