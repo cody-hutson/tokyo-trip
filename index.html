@@ -418,7 +418,7 @@ input[type=checkbox]{accent-color:#BC002D}
   .nav-pill{flex:1;padding:10px 8px}
 
   /* ══ EACH DAY = ONE VIEWPORT TARGET ══ */
-  .day-section{min-height:calc(100vh - 66px);display:flex;flex-direction:column}
+  .day-section{min-height:calc(100svh - var(--nav-h,66px));display:flex;flex-direction:column}
   .day-body{flex:1;padding:0 20px 12px;max-width:100%;display:flex;flex-direction:column}
 
   /* ══ DAY HERO: compact bar ══ */
@@ -2977,7 +2977,8 @@ if (!isMobile()) {
   }
 
   function fitDayToViewport(daySection) {
-    const vh = window.innerHeight - 66;
+    const navEl = document.querySelector('.day-nav');
+    const vh = window.innerHeight - (navEl ? navEl.offsetHeight : 0);
 
     // Step 1: OPEN EVERYTHING
     daySection.querySelectorAll('.meal-toggle, .sec-toggle, .night-toggle').forEach(t => t.classList.add('open'));
@@ -3003,10 +3004,22 @@ if (!isMobile()) {
 
   // Run after layout settles
   const runFit = () => setTimeout(() => {
+    // Set CSS variable for actual nav height
+    const navH = document.querySelector('.day-nav')?.offsetHeight || 0;
+    document.documentElement.style.setProperty('--nav-h', navH + 'px');
     document.querySelectorAll('.day-section').forEach(fitDayToViewport);
   }, 200);
   if (document.readyState === 'complete') runFit();
   else window.addEventListener('load', runFit);
+
+  // Re-fit on resize (screen rotation, window resize)
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (!isMobile()) runFit();
+    }, 300);
+  });
 }
 
 // ── ACT-CARD LINK WRAPPING ─────────
