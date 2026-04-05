@@ -412,32 +412,52 @@ input[type=checkbox]{accent-color:#BC002D}
   .booking-backdrop{display:none}
   .booking-slide{transform:none !important;position:static;max-height:none;border-radius:0}
   .booking-x{display:none}
-  .day-summary{display:flex}
 
-  /* ── DAY HERO: collapsible to thin bar ── */
-  .day-hero{cursor:pointer;transition:padding 0.3s}
-  .day-hero .expand-hint{position:absolute;bottom:8px;right:16px;font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);z-index:2}
-  .day-section.hero-compact .day-hero{padding:12px 24px 10px}
-  .day-section.hero-compact .day-hero::after{display:none}
-  .day-section.hero-compact .day-tagline,.day-section.hero-compact .day-summary,.day-section.hero-compact .expand-hint{display:none}
-  .day-section.hero-compact .day-headline{font-size:1.2rem}
-  .day-section.hero-compact .energy-pill{font-size:0.5rem;padding:2px 8px;margin-bottom:4px}
+  /* ══ DAY HERO: compact — one viewport per day ══ */
+  .day-hero{padding:16px 28px 12px;cursor:pointer}
+  .day-hero::after{font-size:120px;bottom:-10px}
+  .day-headline{font-size:clamp(1.4rem,3vw,2rem) !important}
+  .day-tagline{display:none}
+  .day-summary{display:flex;margin-top:8px;padding-top:6px;font-size:0.55rem}
+  .energy-pill{font-size:0.55rem;padding:2px 10px;margin-bottom:6px}
+  .day-label{font-size:0.65rem;margin-bottom:2px}
+  /* Click hero to expand/collapse tagline */
+  .day-section.hero-open .day-tagline{display:block}
+  .day-section.hero-open .day-hero{padding:28px 28px 20px}
+  .day-section.hero-open .day-headline{font-size:clamp(1.8rem,4vw,2.6rem) !important}
 
-  /* ── DAY BODY: always visible when jumped to ── */
-  .sec-toggle{display:none}
-  .sec-body{display:block !important}
-  .night-content{display:block !important}
+  /* ══ COLLAPSE SYSTEM: use mobile toggles on desktop ══ */
+  /* Sec-toggles: visible, compact, functional */
+  .sec-toggle{display:flex;padding:5px 10px;margin:3px 0;background:none;border:1px solid var(--border);border-radius:var(--r-sm)}
+  .sec-toggle .st-icon{font-size:0.7rem}
+  .sec-toggle .st-label{font-size:0.65rem}
+  .sec-toggle .st-meta{font-size:0.5rem}
+  .sec-toggle .st-chev{font-size:0.4rem}
+  /* sec-body controlled by toggle click (base CSS handles .open+.sec-body) */
+
+  /* Meal-toggles: visible, compact */
+  .meal-toggle{display:flex;padding:6px 2px}
+  .meal-toggle .mt-label{font-size:0.6rem}
+  .meal-toggle .mt-pick{font-size:0.65rem}
+  /* meal-cards-wrap controlled by toggle click */
+
+  /* Night-toggle: visible, compact, matches sec-toggle style */
+  .night-toggle{padding:5px 10px;margin:3px 0;background:none;border:1px solid var(--border);border-radius:var(--r-sm);font-size:0.65rem;letter-spacing:0.5px;border-bottom:none}
+  /* night-content controlled by toggle click */
+
+  /* Timeline: truncated, show-more visible */
+  .show-more-tl{display:block;border:none;color:var(--muted);font-size:0.58rem;padding:3px 0;text-decoration:underline;text-underline-offset:2px}
+  .show-more-tl:hover{color:var(--gold)}
+  /* tl-hidden rows stay hidden until user clicks show-more */
+
+  /* Map: visible but compact */
   .map-trigger{display:none}
   .map-zone{display:block !important}
-  .meal-cards-wrap{display:block !important}
-  .meal-toggle{display:none}
-  .show-more-tl{display:none}
-  .tl-row.tl-hidden{display:block !important}
+  .map-wrap{height:160px}
 
-  /* ── COMPACT CARDS: collapsed by default, click to expand ── */
-  /* Act-cards: show emoji bar (smaller) + name + transit + booking pill */
-  .act-card .act-vis{height:40px;font-size:1.4rem}
+  /* ══ COMPACT CARDS: click to expand details ══ */
   .act-card{cursor:pointer;margin-bottom:6px}
+  .act-card .act-vis{height:36px;font-size:1.2rem}
   .act-card .act-desc,.act-card .act-meta,.act-card .act-tip,
   .act-card .act-timing,.act-card .act-group,.act-card .act-links{display:none}
   .act-card.card-open .act-vis{height:80px;font-size:2.4rem}
@@ -445,19 +465,25 @@ input[type=checkbox]{accent-color:#BC002D}
   .act-card.card-open .act-timing,.act-card.card-open .act-group,.act-card.card-open .act-links{display:block}
   .act-card.card-open .act-links{display:flex}
 
-  /* Food-cards: show emoji + name + price + booking pill */
   .food-card{cursor:pointer}
   .food-card .fc-desc,.food-card .fc-type,.food-card .fc-links{display:none}
   .food-card.card-open .fc-desc,.food-card.card-open .fc-type{display:block}
   .food-card.card-open .fc-links{display:flex}
 
-  /* Night-cards: compact by default */
   .night-card .nc-desc{display:none}
   .night-card.card-open .nc-desc{display:block}
 
-  /* ── FEATURED STOPS: side by side ── */
+  /* ══ LAYOUT: featured stops side by side ══ */
   .col-highlights .col-head+.act-card{display:inline-block;vertical-align:top;width:calc(50% - 6px);margin-right:8px}
   .col-highlights .act-card+.act-card{display:inline-block;vertical-align:top;width:calc(50% - 6px);margin-right:0}
+
+  /* Tighter grid spacing */
+  .day-body{padding:0 24px 24px}
+  .col-head{padding-top:12px;margin-bottom:6px;font-size:0.52rem}
+  .heat-strip{padding:10px 0 8px}
+  .prep-box{padding:8px 12px;font-size:0.72rem}
+  .transport-box{padding:8px 12px;font-size:0.72rem}
+  .tl-row{margin-bottom:8px}
 }
 @media(max-width:480px){
   .ov-grid{grid-template-columns:1fr}
@@ -2870,20 +2896,19 @@ function updateNav() {
 }
 window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(() => { updateNav(); ticking = false; }); ticking = true; } });
 
-// ── DESKTOP: card-level expand + hero collapse ─────────
+// ── DESKTOP: card expand + hero toggle ─────────
 if (!isMobile()) {
   // Click cards to expand/collapse details
   document.querySelectorAll('.act-card, .food-card, .night-card').forEach(card => {
     card.addEventListener('click', (e) => {
-      // Don't toggle if clicking a link
       if (e.target.tagName === 'A' || e.target.closest('a')) return;
       card.classList.toggle('card-open');
     });
   });
-  // Click day-hero to collapse/expand the hero banner
+  // Click day-hero to expand tagline/summary or collapse
   document.querySelectorAll('.day-hero').forEach(hero => {
     hero.addEventListener('click', () => {
-      hero.closest('.day-section').classList.toggle('hero-compact');
+      hero.closest('.day-section').classList.toggle('hero-open');
     });
   });
 }
