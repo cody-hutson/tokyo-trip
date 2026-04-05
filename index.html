@@ -92,6 +92,7 @@ input[type=checkbox]{accent-color:#BC002D}
 .day-body{max-width:1920px;margin:0 auto;padding:0 32px 40px}
 .day-grid{display:grid;grid-template-columns:1fr 1.4fr 1.1fr;gap:8px 32px;align-items:start}
 .day-full{grid-column:1/-1}
+@media(min-width:1201px){.day-full{grid-column:1;grid-row:auto}}
 
 /* column section labels */
 .col-head{font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:10px;padding-top:20px;display:flex;align-items:center;gap:8px}
@@ -260,6 +261,7 @@ input[type=checkbox]{accent-color:#BC002D}
 /* ── MAP SECTION (full width) ────────────── */
 .map-zone{padding:16px 0 12px;position:relative;z-index:1}
 .map-wrap{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);position:relative;background:#E8E4DE;height:220px}
+@media(min-width:1201px){.map-wrap{height:180px}}
 .leaflet-container{width:100%}
 
 /* ── TRANSPORT (compact) ──────────────── */
@@ -406,14 +408,22 @@ input[type=checkbox]{accent-color:#BC002D}
   .booking-backdrop{display:none}
   .booking-slide{transform:none !important;position:static;max-height:none;border-radius:0}
   .booking-x{display:none}
-  .sec-toggle{display:none}
-  .sec-body{display:block !important}
+  /* Desktop sec-toggle: compact inline disclosure (not hidden) */
+  .sec-toggle{display:flex;padding:8px 10px;margin:4px 0;background:none;border:1px solid var(--border);border-radius:var(--r-sm)}
+  .sec-toggle .st-icon{font-size:0.75rem}
+  .sec-toggle .st-label{font-size:0.7rem}
+  .sec-toggle .st-meta{font-size:0.58rem}
+  .sec-toggle .st-chev{font-size:0.45rem}
+  /* sec-body stays collapsed by default on desktop (toggle controls it) */
+  .sec-body.force-open{display:block}
   .map-trigger{display:none}
   .map-zone{display:block !important}
   .meal-cards-wrap{display:block !important}
   .meal-toggle{display:none}
-  .show-more-tl{display:none}
-  .tl-row.tl-hidden{display:block !important}
+  /* Desktop show-more: subtle text link style instead of dashed button */
+  .show-more-tl{display:block;border:none;color:var(--muted);font-size:0.62rem;padding:4px 0;text-decoration:underline;text-underline-offset:2px}
+  .show-more-tl:hover{color:var(--gold);text-decoration-color:var(--gold)}
+  /* Timeline hidden rows stay hidden until expanded (not force-shown) */
 }
 @media(max-width:480px){
   .ov-grid{grid-template-columns:1fr}
@@ -609,7 +619,7 @@ input[type=checkbox]{accent-color:#BC002D}
           <span class="st-meta">3 cards</span>
           <span class="st-chev">▾</span>
         </div>
-        <div class="sec-body">
+        <div class="sec-body force-open">
           <div class="alt-grid">
           <div class="act-mini reveal">
             <span class="mini-em">🌃</span>
@@ -792,7 +802,7 @@ input[type=checkbox]{accent-color:#BC002D}
           <span class="st-meta">2 cards</span>
           <span class="st-chev">▾</span>
         </div>
-        <div class="sec-body">
+        <div class="sec-body force-open">
           <div class="alt-grid">
           <div class="act-mini reveal">
             <span class="mini-em">☕</span>
@@ -1345,7 +1355,7 @@ input[type=checkbox]{accent-color:#BC002D}
           <span class="st-meta">2 cards</span>
           <span class="st-chev">▾</span>
         </div>
-        <div class="sec-body">
+        <div class="sec-body force-open">
           <div class="alt-grid">
           <div class="act-mini reveal">
             <span class="mini-em">☕</span>
@@ -1614,7 +1624,7 @@ input[type=checkbox]{accent-color:#BC002D}
           <span class="st-meta">6 cards</span>
           <span class="st-chev">▾</span>
         </div>
-        <div class="sec-body">
+        <div class="sec-body force-open">
           <div class="alt-grid">
           <div class="act-mini reveal">
             <span class="mini-em">☕</span>
@@ -1921,7 +1931,7 @@ input[type=checkbox]{accent-color:#BC002D}
           <span class="st-meta">2 cards</span>
           <span class="st-chev">▾</span>
         </div>
-        <div class="sec-body">
+        <div class="sec-body force-open">
           <div class="alt-grid">
           <div class="act-mini reveal">
             <span class="mini-em">💆</span>
@@ -2164,7 +2174,7 @@ input[type=checkbox]{accent-color:#BC002D}
           <span class="st-meta">3 cards</span>
           <span class="st-chev">▾</span>
         </div>
-        <div class="sec-body">
+        <div class="sec-body force-open">
         <div class="alt-grid">
           <div class="act-mini reveal">
             <span class="mini-em">☕</span>
@@ -2374,7 +2384,7 @@ input[type=checkbox]{accent-color:#BC002D}
           <span class="st-label">Prep & Transport</span>
           <span class="st-chev">▾</span>
         </div>
-        <div class="sec-body">
+        <div class="sec-body force-open">
         <div class="prep-box reveal">
           <h5>🎒 Prep for Today</h5>
           <ul>
