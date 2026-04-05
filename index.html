@@ -421,23 +421,22 @@ input[type=checkbox]{accent-color:#BC002D}
   .nav-inner{justify-content:center;gap:0;padding:0}
   .nav-pill{flex:1;padding:10px 8px}
 
-  /* ══ EACH DAY = EXACTLY ONE VIEWPORT ══ */
-  .day-section{height:calc(100vh - 66px);display:flex;flex-direction:column;overflow:hidden}
-  .day-body{flex:1;padding:0 16px 8px;max-width:100%;display:flex;flex-direction:column;overflow:hidden}
+  /* ══ EACH DAY = ONE VIEWPORT TARGET ══ */
+  .day-section{min-height:calc(100vh - 66px);display:flex;flex-direction:column}
+  .day-body{flex:1;padding:0 20px 12px;max-width:100%;display:flex;flex-direction:column}
 
-  /* ══ DAY HERO: ultra-compact single bar ══ */
-  .day-hero{padding:4px 24px;cursor:pointer;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  /* ══ DAY HERO: compact bar ══ */
+  .day-hero{padding:8px 24px 6px;cursor:pointer}
   .day-hero::after{display:none}
-  .day-hero>*{position:relative;z-index:2}
   .day-tagline{display:none}
-  .energy-pill{font-size:0.45rem;padding:1px 6px;margin-bottom:0;order:-1}
-  .day-label{font-size:0.5rem;margin-bottom:0;opacity:0.5}
-  .day-headline{font-size:1.1rem !important;margin-bottom:0;flex-shrink:0}
-  .day-summary{display:inline-flex;gap:8px;margin:0;padding:0;border:none;font-size:0.45rem;margin-left:auto}
-  .day-summary strong{font-size:0.5rem}
+  .energy-pill{font-size:0.55rem;padding:2px 8px;margin-bottom:4px}
+  .day-label{font-size:0.65rem;margin-bottom:1px}
+  .day-headline{font-size:1.4rem !important;margin-bottom:2px}
+  .day-summary{display:flex;gap:12px;margin-top:4px;padding:0;border:none;font-size:0.55rem}
   .expand-hint{display:none}
-  .day-section.hero-open .day-hero{flex-wrap:wrap;padding:10px 24px 8px}
-  .day-section.hero-open .day-tagline{display:block;width:100%}
+  .day-section.hero-open .day-hero{padding:14px 24px 10px}
+  .day-section.hero-open .day-tagline{display:block}
+  .day-section.hero-open .day-headline{font-size:1.8rem !important}
 
   /* ══ GRID: 4 columns, fills remaining viewport ══ */
   .day-grid{grid-template-columns:1fr 1.3fr 1fr 0.8fr !important;gap:2px 14px;flex:1;overflow-y:auto;overflow-x:hidden;min-height:0}
@@ -497,30 +496,17 @@ input[type=checkbox]{accent-color:#BC002D}
   .col-highlights .col-head+.act-card{display:inline-block;vertical-align:top;width:calc(50% - 4px);margin-right:4px}
   .col-highlights .act-card+.act-card{display:inline-block;vertical-align:top;width:calc(50% - 4px);margin-right:0}
 
-  /* ══ TIGHTER SPACING ══ */
-  .col-head{padding-top:8px;margin-bottom:4px;font-size:0.5rem}
-  .heat-strip{padding:6px 0 4px}
-  .heat-track{height:8px}
-  .heat-times{font-size:0.5rem}
-  .heat-legend{gap:8px}
-  .hl-item{font-size:0.55rem}
-  .prep-box{padding:6px 10px;font-size:0.68rem}
-  .prep-box h5{font-size:0.52rem}
-  .prep-box li{margin-bottom:0;font-size:0.65rem}
-  .transport-box{padding:6px 10px;font-size:0.68rem}
-  .transport-box h5{font-size:0.52rem}
-  .tl-row{margin-bottom:6px}
-  .tl-time{font-size:0.6rem}
-  .tl-title{font-size:0.76rem}
-  .tl-note{font-size:0.68rem}
-  .tl-dot{width:8px;height:8px}
-  .act-kicker{font-size:0.52rem}
-  .act-name{font-size:0.82rem}
-  .act-body{padding:8px 10px}
-  .note-box,.warn-box{font-size:0.66rem;padding:6px 10px}
-  .meal-label{font-size:0.5rem;margin:6px 0 4px}
-  .split-tabs{margin:6px 0 0}
-  .split-tab{padding:4px 10px;font-size:0.58rem}
+  /* ══ COMPACT SPACING (readable) ══ */
+  .col-head{padding-top:10px;margin-bottom:6px;font-size:0.56rem}
+  .heat-strip{padding:8px 0 6px}
+  .prep-box{padding:8px 12px;font-size:0.74rem}
+  .transport-box{padding:8px 12px;font-size:0.74rem}
+  .tl-row{margin-bottom:8px}
+  .act-body{padding:10px 12px}
+  .note-box,.warn-box{font-size:0.72rem;padding:8px 12px}
+  .meal-label{font-size:0.55rem;margin:8px 0 4px}
+  .split-tabs{margin:8px 0 0}
+  .split-tab{padding:6px 12px;font-size:0.65rem}
 }
 @media(max-width:480px){
   .ov-grid{grid-template-columns:1fr}
@@ -2933,7 +2919,7 @@ function updateNav() {
 }
 window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(() => { updateNav(); ticking = false; }); ticking = true; } });
 
-// ── DESKTOP: card expand + hero toggle ─────────
+// ── DESKTOP: card expand + hero toggle + auto-expand ─────────
 if (!isMobile()) {
   // Click cards to expand/collapse details
   document.querySelectorAll('.act-card, .food-card, .night-card').forEach(card => {
@@ -2947,6 +2933,30 @@ if (!isMobile()) {
     hero.addEventListener('click', () => {
       hero.closest('.day-section').classList.toggle('hero-open');
     });
+  });
+
+  // Auto-expand sections to fill available viewport space
+  function autoExpandDay(daySection) {
+    const vh = window.innerHeight - 66; // minus nav
+    const getH = () => daySection.scrollHeight;
+    if (getH() >= vh) return; // already fills or overflows
+
+    // Priority order: meal-toggles first (show food), then sec-toggles, then night-toggles
+    const toggles = [
+      ...daySection.querySelectorAll('.meal-toggle:not(.open)'),
+      ...daySection.querySelectorAll('.sec-toggle:not(.open)'),
+      ...daySection.querySelectorAll('.night-toggle:not(.open)')
+    ];
+
+    for (const toggle of toggles) {
+      toggle.classList.add('open');
+      if (getH() >= vh) break; // stop when viewport is filled
+    }
+  }
+
+  // Run auto-expand on all days after a frame
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.day-section').forEach(autoExpandDay);
   });
 }
 
