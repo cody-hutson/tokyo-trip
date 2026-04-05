@@ -3010,12 +3010,44 @@ if (!isMobile()) {
     // structural content (timeline, featured cards) is more important
   }
 
+  // Step 4: Fill remaining viewport space by increasing spacing
+  function fillRemainingSpace(daySection) {
+    const navH = document.querySelector('.day-nav')?.offsetHeight || 0;
+    const vh = window.innerHeight - navH;
+    const grid = daySection.querySelector('.day-grid');
+    if (!grid) return;
+
+    // Reset previous adjustments
+    grid.style.rowGap = '';
+    grid.style.paddingTop = '';
+    grid.style.paddingBottom = '';
+
+    const contentH = getNaturalHeight(daySection);
+    if (contentH >= vh || contentH <= 0) return;
+
+    const remaining = vh - contentH;
+    if (remaining < 10) return; // negligible
+
+    // Distribute remaining space: row-gap increase + top/bottom padding
+    const newRowGap = Math.min(8 + remaining * 0.3, 40); // base 8px + 30% of remaining, cap 40px
+    const vertPad = Math.min(remaining * 0.35, 30); // 35% of remaining as top/bottom padding, cap 30px
+
+    grid.style.rowGap = newRowGap + 'px';
+    grid.style.paddingTop = vertPad + 'px';
+    grid.style.paddingBottom = vertPad + 'px';
+  }
+
   // Run after layout settles
   const runFit = () => setTimeout(() => {
     // Set CSS variable for actual nav height
     const navH = document.querySelector('.day-nav')?.offsetHeight || 0;
     document.documentElement.style.setProperty('--nav-h', navH + 'px');
+    // Phase 1: expand/collapse to fit
     document.querySelectorAll('.day-section').forEach(fitDayToViewport);
+    // Phase 2: fill remaining space with increased spacing
+    setTimeout(() => {
+      document.querySelectorAll('.day-section').forEach(fillRemainingSpace);
+    }, 50);
   }, 200);
   if (document.readyState === 'complete') runFit();
   else window.addEventListener('load', runFit);
