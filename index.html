@@ -2946,25 +2946,31 @@ if (!isMobile()) {
   }
 
   function autoExpandDay(daySection) {
-    const vh = window.innerHeight - 66; // minus nav
-    const contentH = getNaturalHeight(daySection);
-    if (contentH >= vh) return; // already fills or overflows
+    const vh = window.innerHeight - 66;
+    if (getNaturalHeight(daySection) >= vh) return;
 
-    // Priority order: meal-toggles first, then sec-toggles, then night-toggles
     const toggles = [
       ...daySection.querySelectorAll('.meal-toggle:not(.open)'),
       ...daySection.querySelectorAll('.sec-toggle:not(.open)'),
       ...daySection.querySelectorAll('.night-toggle:not(.open)')
     ];
 
+    // Open toggles greedily, track all opened so we can undo if we overshoot
+    const opened = [];
     for (const toggle of toggles) {
       toggle.classList.add('open');
-      const newH = getNaturalHeight(daySection);
-      if (newH >= vh) {
-        // This toggle pushed us over — close it and stop
+      opened.push(toggle);
+      if (getNaturalHeight(daySection) >= vh) {
+        // Went over — close this one and stop trying
         toggle.classList.remove('open');
+        opened.pop();
         break;
       }
+    }
+    // Final check: if total still overflows, undo last opened until it fits
+    while (opened.length > 0 && getNaturalHeight(daySection) > vh) {
+      const last = opened.pop();
+      last.classList.remove('open');
     }
   }
 
