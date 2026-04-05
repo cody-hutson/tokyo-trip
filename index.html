@@ -535,17 +535,34 @@ input[type=checkbox]{accent-color:#BC002D}
 /* ══ DESKTOP PORTRAIT: wide enough for desktop but taller than wide ══ */
 /* Detected via aspect-ratio < 1 (portrait) at desktop widths */
 @media(min-width:769px) and (max-aspect-ratio:4/3){
-  /* More vertical space available — use 2-column grid + map below */
-  .day-grid{grid-template-columns:1.2fr 1fr !important;gap:6px 20px}
+  /* More vertical space — use 2-column grid + map below */
+  .day-grid{grid-template-columns:1.2fr 1fr !important;gap:8px 20px}
   .day-full{grid-column:1/-1 !important;grid-row:auto !important;align-self:auto !important}
   .day-full .map-zone{height:auto !important}
-  .map-wrap{height:200px !important;min-height:auto !important;flex:none !important}
-  /* With more height, the hero can breathe */
-  .day-hero{padding:14px 28px 12px !important}
+  .map-wrap{height:220px !important;min-height:auto !important;flex:none !important}
+  /* Hero breathes */
+  .day-hero{padding:16px 28px 14px !important}
   .day-headline{font-size:1.8rem !important}
-  /* More sections can stay expanded — the fitDayToViewport JS handles this
-     automatically since it measures actual viewport height */
-  /* Featured stops still side by side */
+  .day-tagline{display:block !important}
+  .day-summary{font-size:0.62rem}
+  /* Cards fully expanded by default in portrait */
+  .act-card .act-vis{height:60px !important;font-size:2rem !important}
+  .act-card .act-desc,.act-card .act-meta,.act-card .act-tip,
+  .act-card .act-timing,.act-card .act-group,.act-card .act-links{display:block !important}
+  .act-card .act-links{display:flex !important}
+  .food-card .fc-desc,.food-card .fc-type{display:block !important}
+  .food-card .fc-links{display:flex !important}
+  .night-card .nc-desc{display:block !important}
+  /* Prep + transport expanded */
+  .prep-box{max-height:none !important;overflow:visible !important}
+  .transport-box{max-height:none !important;overflow:visible !important}
+  .split-panel .warn-box{max-height:none !important;overflow:visible !important}
+  /* All timeline rows visible */
+  .show-more-tl{display:none !important}
+  .tl-row.tl-hidden{display:block !important}
+  .split-panel .tl-row{display:block !important}
+  .split-panel .tl-row::after{display:none !important}
+  /* Featured stops side by side */
   .col-highlights .act-card{min-width:160px}
 }
 
