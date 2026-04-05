@@ -439,8 +439,13 @@ input[type=checkbox]{accent-color:#BC002D}
   /* ══ MAP: in col-4, fills column height ══ */
   .map-trigger{display:none}
   .map-zone{display:block !important;padding:4px 0}
-  .map-wrap{height:100%;min-height:180px;max-height:400px}
+  .day-full{grid-column:4;grid-row:1/-1;align-self:stretch}
+  .day-full .map-zone{height:100%}
+  .map-wrap{height:100%;min-height:200px}
   .gmap-route{font-size:0.6rem;padding:4px 10px;margin-top:4px}
+
+  /* ══ FORCE REVEAL: no scroll animation on desktop ══ */
+  .reveal{opacity:1 !important;transform:none !important}
 
   /* ══ ALL TOGGLES: visible, compact, functional ══ */
   .sec-toggle{display:flex;padding:4px 8px;margin:2px 0;background:none;border:1px solid var(--border);border-radius:var(--r-sm)}
@@ -505,6 +510,8 @@ input[type=checkbox]{accent-color:#BC002D}
   .act-body{padding:8px 10px}
   .note-box,.warn-box{font-size:0.66rem;padding:6px 10px}
   .meal-label{font-size:0.5rem;margin:6px 0 4px}
+  .split-tabs{margin:6px 0 0}
+  .split-tab{padding:4px 10px;font-size:0.58rem}
 }
 @media(max-width:480px){
   .ov-grid{grid-template-columns:1fr}
