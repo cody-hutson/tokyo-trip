@@ -2974,12 +2974,12 @@ if (!isMobile()) {
     }
   }
 
-  // Run auto-expand after fonts + layout settle
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.querySelectorAll('.day-section').forEach(autoExpandDay);
-    }, 100);
-  });
+  // Run auto-expand after layout settles
+  const runAutoExpand = () => setTimeout(() => {
+    document.querySelectorAll('.day-section').forEach(autoExpandDay);
+  }, 200);
+  if (document.readyState === 'complete') runAutoExpand();
+  else window.addEventListener('load', runAutoExpand);
 }
 
 // ── ACT-CARD LINK WRAPPING ─────────
