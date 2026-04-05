@@ -270,11 +270,16 @@ input[type=checkbox]{accent-color:#BC002D}
 .leaflet-container{width:100%}
 
 /* ── TRANSPORT (compact) ──────────────── */
-.prep-box{padding:12px 16px;background:#FFF8EE;border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:0.78rem;margin-bottom:12px}
-.prep-box h5{font-size:0.6rem;text-transform:uppercase;letter-spacing:1.5px;color:#8B6914;margin-bottom:4px}
-.prep-box ul{margin:0;padding-left:16px;color:#4A3A10;line-height:1.7}
+.prep-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);margin:6px 0;overflow:hidden;user-select:none;transition:all 0.2s}
+.prep-box:hover{border-color:var(--gold);background:#FEFCF8}
+.prep-box h5{display:flex;align-items:center;gap:8px;padding:12px 14px;font-family:'Karla',sans-serif;font-size:0.8rem;font-weight:700;color:var(--navy);margin:0;cursor:pointer;letter-spacing:0;text-transform:none}
+.prep-box h5::after{content:'▾';font-size:0.55rem;color:var(--muted);transition:transform 0.25s;margin-left:auto}
+.prep-box.prep-open h5::after{transform:rotate(180deg)}
+.prep-box ul{max-height:0;overflow:hidden;transition:max-height 0.3s ease;padding:0 14px 0 36px;margin:0;color:#4A3A10;line-height:1.7;font-size:0.78rem}
+.prep-box.prep-open ul{max-height:500px;padding-bottom:10px}
 .prep-box li{margin-bottom:2px}
 .prep-box strong{color:#3A2A00}
+.prep-meta{font-size:0.65rem;color:var(--muted);font-weight:400}
 .transport-box{padding:12px 16px;background:#EEF3FF;border-left:3px solid #3B5BD9;border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:0.78rem;margin-top:8px}
 .transport-box h5{font-size:0.6rem;text-transform:uppercase;letter-spacing:1.5px;color:#3B5BD9;margin-bottom:4px}
 .transport-box p{color:#2A3050;line-height:1.5}
@@ -291,12 +296,14 @@ input[type=checkbox]{accent-color:#BC002D}
 .split-panel{display:none;padding-top:10px}
 .split-panel.active{display:block}
 
-/* ── NIGHTLIFE (now uses sec-toggle/sec-body — legacy CSS removed) ── */
-.night-card{display:flex;gap:10px;padding:10px 12px;background:var(--navy);color:#fff;border-radius:var(--r-sm);margin-bottom:6px}
-.night-card .nc-em{font-size:1.3rem;flex-shrink:0}
-.night-card .nc-name{font-family:'DM Serif Display',serif;font-size:0.85rem;margin-bottom:1px}
-.night-card .nc-meta{font-size:0.65rem;color:rgba(255,255,255,0.4);margin-bottom:2px}
-.night-card .nc-desc{font-size:0.7rem;color:rgba(255,255,255,0.6);line-height:1.35}
+/* ── NIGHTLIFE ── */
+.night-cards-body{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.night-card{display:flex;gap:8px;padding:8px 10px;background:#1E1E28;color:#fff;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,0.06);transition:border-color 0.2s,transform 0.2s}
+.night-card:hover{border-color:rgba(255,255,255,0.15);transform:translateY(-1px)}
+.night-card .nc-em{font-size:1.1rem;flex-shrink:0}
+.night-card .nc-name{font-family:'DM Serif Display',serif;font-size:0.78rem;margin-bottom:1px}
+.night-card .nc-meta{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-bottom:2px}
+.night-card .nc-desc{font-size:0.65rem;color:rgba(255,255,255,0.55);line-height:1.35}
 .night-card .nc-links{display:flex;gap:4px;margin-top:4px}
 .night-card .nc-links a{font-size:0.52rem;font-weight:700;padding:2px 6px;border-radius:4px;text-decoration:none;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.1);transition:background 0.15s}
 .night-card .nc-links a:hover{background:rgba(255,255,255,0.2)}
@@ -397,6 +404,8 @@ input[type=checkbox]{accent-color:#BC002D}
   .booking{height:0;overflow:visible;padding:0 !important;margin:0;border:none}
   .hero{min-height:70svh}
   .day-summary{display:none}
+  /* Nightlife: stack vertically on mobile */
+  .night-cards-body{grid-template-columns:1fr}
 }
 @media(min-width:769px){
   .day-section{display:block !important}
@@ -452,7 +461,7 @@ input[type=checkbox]{accent-color:#BC002D}
   .show-more-tl:hover{color:var(--gold)}
 
   /* ══ COMPACT CARDS: click to expand ══ */
-  .act-card{cursor:pointer;margin-bottom:4px}
+  .act-card{cursor:pointer;margin-bottom:4px;position:relative}
   .act-card .act-vis{height:32px;font-size:1.1rem}
   .act-card .act-desc,.act-card .act-meta,.act-card .act-tip,
   .act-card .act-timing,.act-card .act-group,.act-card .act-links{display:none}
@@ -460,6 +469,13 @@ input[type=checkbox]{accent-color:#BC002D}
   .act-card.card-open .act-desc,.act-card.card-open .act-meta,.act-card.card-open .act-tip,
   .act-card.card-open .act-timing,.act-card.card-open .act-group,.act-card.card-open .act-links{display:block}
   .act-card.card-open .act-links{display:flex}
+  /* Pill overlap fix: clear space for absolutely-positioned link pills */
+  .act-card .act-kicker,.act-card .act-name{padding-right:90px}
+  .act-card.card-open .act-kicker,.act-card.card-open .act-name{padding-right:14px}
+  .act-card.card-open .act-links{position:static;margin-bottom:6px;gap:6px}
+  /* Expand affordance: hint that compact cards are clickable */
+  .act-card:not(.card-open) .act-body::after{content:'▾ expand';display:block;font-size:0.48rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:2px;opacity:0.5}
+  .act-card:not(.card-open):hover .act-body::after{opacity:1;color:var(--gold)}
 
   .food-card{cursor:pointer}
   .food-card .fc-desc,.food-card .fc-type,.food-card .fc-links{display:none}
@@ -486,11 +502,9 @@ input[type=checkbox]{accent-color:#BC002D}
   .heat-track{height:6px}
   .heat-legend{display:none}
   .heat-times{margin-bottom:2px}
-  /* Prep box: collapsed by default on desktop */
-  .prep-box{padding:0;max-height:28px;overflow:hidden;cursor:pointer;transition:max-height 0.3s}
-  .prep-box h5{padding:6px 14px;margin:0}
-  .prep-box ul{padding:6px 14px 10px 30px}
-  .prep-box.prep-open{max-height:500px}
+  /* Prep box: collapsed by default on desktop — styled as sec-toggle */
+  .prep-box{margin:3px 0}
+  .prep-box h5{padding:5px 10px}
   .transport-box{padding:4px 10px;max-height:40px;overflow:hidden;cursor:pointer;transition:max-height 0.3s}
   .transport-box.prep-open{max-height:200px}
   .tl-row{margin-bottom:6px}
@@ -543,7 +557,8 @@ input[type=checkbox]{accent-color:#BC002D}
   .food-card .fc-links{display:flex !important}
   .night-card .nc-desc{display:block !important}
   /* Prep + transport expanded */
-  .prep-box{max-height:none !important;overflow:visible !important}
+  .prep-box ul{max-height:500px !important;padding-bottom:10px !important}
+  .prep-box h5::after{transform:rotate(180deg)}
   .transport-box{max-height:none !important;overflow:visible !important}
   .split-panel .warn-box{max-height:none !important;overflow:visible !important}
   /* All timeline rows visible */
@@ -1498,8 +1513,8 @@ input[type=checkbox]{accent-color:#BC002D}
         </div>
         <div class="sec-toggle" onclick="this.classList.toggle('open')">
           <span class="st-icon">⛩️</span>
-          <span class="st-label">Nearby Stops</span>
-          <span class="st-meta">2 cards</span>
+          <span class="st-label">Explore Nearby</span>
+          <span class="st-meta">4 cards</span>
           <span class="st-chev">▾</span>
         </div>
         <div class="sec-body">
@@ -1508,7 +1523,7 @@ input[type=checkbox]{accent-color:#BC002D}
             <span class="mini-em">⛩️</span>
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Meiji+Jingu+Shrine" target="_blank">Meiji Jingu</a></div>
-              <div class="mini-sub">Shrine · Near Harajuku</div>
+              <div class="mini-sub">Shrine &middot; Near Harajuku</div>
               <div class="card-transit"><span class="ct-mode">Metro</span> 15 min from hotel</div>
               <div class="mini-note">Early morning before Ghibli departure. Free entry.</div>
               <span class="book-status open">Free / open</span>
@@ -1518,27 +1533,17 @@ input[type=checkbox]{accent-color:#BC002D}
             <span class="mini-em">🌿</span>
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Inokashira+Park+Kichijoji" target="_blank">Inokashira Park</a></div>
-              <div class="mini-sub">Park · Kichijoji</div>
+              <div class="mini-sub">Park &middot; Kichijoji</div>
               <div class="card-transit"><span class="ct-mode">JR Chuo</span> 40 min via Shinjuku</div>
               <div class="mini-note">Walk through on the way to Ghibli Museum.</div>
               <span class="book-status open">Free / open</span>
             </div>
           </div>
-          </div>
-        </div>
-        <div class="sec-toggle" onclick="this.classList.toggle('open')">
-          <span class="st-icon">⛩️</span>
-          <span class="st-label">Outdoor Stops</span>
-          <span class="st-meta">2 cards</span>
-          <span class="st-chev">▾</span>
-        </div>
-        <div class="sec-body">
-          <div class="alt-grid">
           <div class="act-mini reveal">
             <span class="mini-em">🛍️</span>
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Cat+Street+Harajuku+Shibuya" target="_blank">Cat Street</a></div>
-              <div class="mini-sub">Shopping · Harajuku→Shibuya</div>
+              <div class="mini-sub">Shopping &middot; Harajuku&rarr;Shibuya</div>
               <div class="card-transit"><span class="ct-mode">Metro</span> 15 min from hotel</div>
               <div class="mini-note">Indie boutiques, vintage shops. Already on the D4 walking corridor. 20-min stroll.</div>
               <span class="book-status open">Free / open</span>
@@ -1548,7 +1553,7 @@ input[type=checkbox]{accent-color:#BC002D}
             <span class="mini-em">🎸</span>
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Shimokitazawa+Tokyo" target="_blank">Shimokitazawa</a></div>
-              <div class="mini-sub">Neighborhood · 2 stops from Shibuya</div>
+              <div class="mini-sub">Neighborhood &middot; 2 stops from Shibuya</div>
               <div class="card-transit"><span class="ct-mode">Metro</span> 15 min from hotel</div>
               <div class="mini-note">Vintage shops, record stores, indie caf&eacute;s. Feels like a different city. 90-120 min.</div>
               <span class="book-status open">Free / open</span>
@@ -1576,7 +1581,7 @@ input[type=checkbox]{accent-color:#BC002D}
           </div>
           </div>
         </div>
-        <div class="sec-toggle" onclick="this.classList.toggle('open')"><span class="st-icon">🏮</span><span class="st-label">Nightlife &#9660;</span><span class="st-meta"></span><span class="st-chev">▾</span></div>
+        <div class="sec-toggle" onclick="this.classList.toggle('open')"><span class="st-icon">🏮</span><span class="st-label">Nightlife</span><span class="st-meta"></span><span class="st-chev">▾</span></div>
         <div class="sec-body night-cards-body">
           <div class="night-card"><div class="nc-em">🏮</div><div><div class="nc-name">Golden Gai</div><div class="nc-meta">Shinjuku &middot; 200 tiny bars &middot; &yen;500&ndash;1,000 cover</div><div class="nc-desc">The exploration IS the experience.</div></div></div>
           <div class="night-card"><div class="nc-em">🎷</div><div><div class="nc-name">New York Bar (Park Hyatt)</div><div class="nc-meta">Shinjuku &middot; 52F &middot; Live jazz &middot; &yen;2,000 cover</div><div class="nc-desc">The Lost in Translation one.</div></div></div>
@@ -1803,8 +1808,8 @@ input[type=checkbox]{accent-color:#BC002D}
           </div>
         </div>
         <div class="sec-toggle" onclick="this.classList.toggle('open')">
-          <span class="st-icon">⛩️</span>
-          <span class="st-label">Outdoor Stops</span>
+          <span class="st-icon">🌳</span>
+          <span class="st-label">Explore Nearby</span>
           <span class="st-meta">2 cards</span>
           <span class="st-chev">▾</span>
         </div>
@@ -1852,7 +1857,7 @@ input[type=checkbox]{accent-color:#BC002D}
           </div>
           </div>
         </div>
-        <div class="sec-toggle" onclick="this.classList.toggle('open')"><span class="st-icon">🏮</span><span class="st-label">Nightlife &#9660;</span><span class="st-meta"></span><span class="st-chev">▾</span></div>
+        <div class="sec-toggle" onclick="this.classList.toggle('open')"><span class="st-icon">🏮</span><span class="st-label">Nightlife</span><span class="st-meta"></span><span class="st-chev">▾</span></div>
         <div class="sec-body night-cards-body">
           <div class="night-card"><div class="nc-em">🍺</div><div><div class="nc-name">Ginza Lion Beer Hall</div><div class="nc-meta">Ginza &middot; 5-min walk &middot; Open Sundays</div><div class="nc-desc">Japan&rsquo;s oldest beer hall (1934). Art Deco mosaic ceiling, cold Sapporo, yoshoku comfort food.</div><div class="nc-links"><a href="https://maps.google.com/?q=Ginza+Lion+Beer+Hall+Ginza" target="_blank">📍 Map</a></div></div></div>
           <div class="night-card"><div class="nc-em">🍶</div><div><div class="nc-name">Sake no Ana</div><div class="nc-meta">Ginza &middot; 200+ varieties</div><div class="nc-desc">English menu. Start light, go richer.</div><div class="nc-links"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">📍 Map</a></div></div></div>
@@ -2391,7 +2396,7 @@ input[type=checkbox]{accent-color:#BC002D}
           </div>
         </div>
         </div>
-        <div class="sec-toggle" onclick="this.classList.toggle('open')"><span class="st-icon">🏮</span><span class="st-label">Nightlife &#9660;</span><span class="st-meta"></span><span class="st-chev">▾</span></div>
+        <div class="sec-toggle" onclick="this.classList.toggle('open')"><span class="st-icon">🏮</span><span class="st-label">Nightlife</span><span class="st-meta"></span><span class="st-chev">▾</span></div>
         <div class="sec-body night-cards-body">
           <div class="night-card"><div class="nc-em">🍸</div><div><div class="nc-name">Bar High Five</div><div class="nc-meta">Ginza &middot; 8-min walk &middot; Open Tue 5&ndash;11:30</div><div class="nc-desc">World-class cocktails by Hidetsugu Ueno. Mom can join.</div><div class="nc-links"><a href="https://maps.google.com/?q=Bar+High+Five+Ginza" target="_blank">📍 Map</a></div></div></div>
           <div class="night-card"><div class="nc-em">🍶</div><div><div class="nc-name">Sake no Ana</div><div class="nc-meta">Ginza &middot; 200+ varieties</div><div class="nc-desc">Sake education before the flight home.</div><div class="nc-links"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">📍 Map</a></div></div></div>
@@ -2995,8 +3000,8 @@ if (!isMobile()) {
       card.classList.toggle('card-open');
     });
   });
-  // Click collapsible boxes to expand/collapse
-  document.querySelectorAll('.prep-box, .transport-box, .split-panel .warn-box').forEach(box => {
+  // Click collapsible boxes to expand/collapse (transport + warn only — prep handled below for all devices)
+  document.querySelectorAll('.transport-box, .split-panel .warn-box').forEach(box => {
     box.addEventListener('click', () => box.classList.toggle('prep-open'));
   });
   // Click split-panel truncated timeline to expand
@@ -3073,6 +3078,22 @@ if (!isMobile()) {
     }, 300);
   });
 }
+
+// ── PREP BOX: count injection + toggle (all devices) ─────────
+document.querySelectorAll('.prep-box').forEach(box => {
+  const h5 = box.querySelector('h5');
+  const ul = box.querySelector('ul');
+  if (h5 && ul) {
+    const count = ul.querySelectorAll('li').length;
+    const meta = document.createElement('span');
+    meta.className = 'prep-meta';
+    meta.textContent = count + ' items';
+    h5.appendChild(meta);
+  }
+  if (h5) h5.addEventListener('click', (e) => { e.stopPropagation(); box.classList.toggle('prep-open'); });
+  // Mobile: default expanded
+  if (isMobile()) box.classList.add('prep-open');
+});
 
 // ── FEATURED STOPS: wrap act-cards in flex row ─────────
 if (!isMobile()) {
