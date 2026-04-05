@@ -53,8 +53,9 @@ input[type=checkbox]{accent-color:#BC002D}
 .ov-head{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:4px;color:rgba(255,255,255,0.25);margin-bottom:20px;text-align:center}
 .ov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .ov-card{position:relative;padding:16px 18px 14px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:all 0.2s;overflow:hidden;min-height:90px}
+.ov-card>*{position:relative;z-index:1}
 .ov-card:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12)}
-.ov-card::before{content:attr(data-n);position:absolute;right:8px;bottom:-4px;font-family:'Bebas Neue',sans-serif;font-size:3.5rem;line-height:1;color:rgba(255,255,255,0.08);pointer-events:none}
+.ov-card::before{content:attr(data-n);position:absolute;right:8px;bottom:-6px;font-family:'Bebas Neue',sans-serif;font-size:3.2rem;line-height:1;color:rgba(255,255,255,0.05);pointer-events:none;z-index:0}
 .ov-pip{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;flex-shrink:0;vertical-align:middle}
 .ov-date{font-size:0.62rem;letter-spacing:1.5px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:5px}
 .ov-name{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.5px;line-height:1.1;margin-bottom:6px}
@@ -421,19 +422,18 @@ input[type=checkbox]{accent-color:#BC002D}
   .day-section{min-height:calc(100svh - var(--nav-h,66px));display:flex;flex-direction:column}
   .day-body{flex:1;padding:0 20px 12px;max-width:100%;display:flex;flex-direction:column}
 
-  /* ══ DAY HERO: compact bar ══ */
-  .day-hero{padding:6px 24px 4px;cursor:pointer;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  /* ══ DAY HERO: visible bar ══ */
+  .day-hero{padding:12px 28px 10px;cursor:pointer}
   .day-hero::after{display:none}
-  .day-hero>*{position:relative;z-index:2}
   .day-tagline{display:none}
-  .energy-pill{font-size:0.5rem;padding:1px 7px;margin:0;order:-1}
-  .day-label{font-size:0.58rem;margin:0;opacity:0.6}
-  .day-headline{font-size:1.2rem !important;margin:0}
-  .day-summary{display:inline-flex;gap:10px;margin:0 0 0 auto;padding:0;border:none;font-size:0.48rem}
+  .energy-pill{font-size:0.58rem;padding:2px 10px;margin-bottom:4px}
+  .day-label{font-size:0.68rem;margin-bottom:2px}
+  .day-headline{font-size:1.6rem !important;margin-bottom:4px}
+  .day-summary{display:flex;gap:14px;margin-top:4px;padding:0;border:none;font-size:0.56rem}
   .expand-hint{display:none}
-  .day-section.hero-open .day-hero{padding:12px 24px 8px;flex-wrap:wrap}
-  .day-section.hero-open .day-tagline{display:block;width:100%}
-  .day-section.hero-open .day-headline{font-size:1.5rem !important}
+  .day-section.hero-open .day-hero{padding:18px 28px 14px}
+  .day-section.hero-open .day-tagline{display:block}
+  .day-section.hero-open .day-headline{font-size:2rem !important}
 
   /* ══ GRID: 4 columns, fills remaining viewport ══ */
   .day-grid{grid-template-columns:1fr 1.3fr 1fr 0.8fr !important;gap:2px 14px;flex:1;overflow-y:auto;overflow-x:hidden;min-height:0}
@@ -490,18 +490,25 @@ input[type=checkbox]{accent-color:#BC002D}
   .col-highlights > .alt-grid{display:none}
 
   /* ══ LAYOUT: featured stops side by side, wrap when needed ══ */
-  .col-highlights .act-card-row{display:flex;flex-wrap:wrap;gap:4px}
-  .col-highlights .act-card{flex:1 1 calc(50% - 4px);min-width:180px;margin-bottom:4px}
+  .col-highlights{display:flex;flex-direction:column}
+  .col-highlights .col-head{width:100%}
+  .col-highlights .act-card{margin-bottom:4px}
+  .act-card-row{display:flex;flex-wrap:wrap;gap:4px;width:100%}
+  .act-card-row .act-card{flex:1 1 calc(50% - 4px);min-width:180px}
 
   /* ══ COMPACT SPACING (no font-size overrides — use base sizes) ══ */
   .col-head{padding-top:8px;margin-bottom:4px}
-  .heat-strip{padding:6px 0 4px}
+  .heat-strip{padding:4px 0 2px}
+  .heat-track{height:6px}
+  .heat-legend{display:none}
+  .heat-times{margin-bottom:2px}
   /* Prep box: collapsed by default on desktop */
   .prep-box{padding:0;max-height:28px;overflow:hidden;cursor:pointer;transition:max-height 0.3s}
   .prep-box h5{padding:6px 14px;margin:0}
   .prep-box ul{padding:6px 14px 10px 30px}
   .prep-box.prep-open{max-height:500px}
-  .transport-box{padding:6px 12px}
+  .transport-box{padding:4px 10px;max-height:40px;overflow:hidden;cursor:pointer;transition:max-height 0.3s}
+  .transport-box.prep-open{max-height:200px}
   .tl-row{margin-bottom:6px}
   .act-body{padding:10px 12px}
   .note-box,.warn-box{padding:8px 12px}
@@ -512,6 +519,12 @@ input[type=checkbox]{accent-color:#BC002D}
   .split-panel .tl-row:nth-child(n+4){display:none}
   .split-panel .tl-row:nth-child(4){display:block}
   .split-panel .tl-row:nth-child(4)::after{content:'... click to expand';display:block;font-size:0.55rem;color:var(--muted);text-decoration:underline;margin-top:4px;cursor:pointer}
+  /* Split panels: collapse warn-box + truncate to 2 visible rows */
+  .split-panel .warn-box{max-height:22px;overflow:hidden;cursor:pointer;transition:max-height 0.3s}
+  .split-panel .warn-box.prep-open{max-height:300px}
+  .split-panel .tl-row:nth-child(n+3){display:none}
+  .split-panel .tl-row:nth-child(3){display:block}
+  .split-panel .tl-row:nth-child(3)::after{content:'… expand';display:block;font-size:0.55rem;color:var(--muted);text-decoration:underline;margin-top:3px;cursor:pointer}
 }
 /* ══ TABLET: 769-1200px — 3 columns, map full-width, recalc viewport fit ══ */
 @media(max-width:1200px) and (min-width:769px){
@@ -2944,8 +2957,8 @@ if (!isMobile()) {
       card.classList.toggle('card-open');
     });
   });
-  // Click prep-box to expand/collapse
-  document.querySelectorAll('.prep-box').forEach(box => {
+  // Click collapsible boxes to expand/collapse
+  document.querySelectorAll('.prep-box, .transport-box, .split-panel .warn-box').forEach(box => {
     box.addEventListener('click', () => box.classList.toggle('prep-open'));
   });
   // Click split-panel truncated timeline to expand
@@ -3019,6 +3032,18 @@ if (!isMobile()) {
     resizeTimer = setTimeout(() => {
       if (!isMobile()) runFit();
     }, 300);
+  });
+}
+
+// ── FEATURED STOPS: wrap act-cards in flex row ─────────
+if (!isMobile()) {
+  document.querySelectorAll('.col-highlights').forEach(col => {
+    const cards = col.querySelectorAll(':scope > .act-card');
+    if (cards.length < 2) return;
+    const row = document.createElement('div');
+    row.className = 'act-card-row';
+    cards[0].parentNode.insertBefore(row, cards[0]);
+    cards.forEach(c => row.appendChild(c));
   });
 }
 
