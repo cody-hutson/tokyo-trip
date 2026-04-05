@@ -2936,12 +2936,21 @@ if (!isMobile()) {
   });
 
   // Auto-expand sections to fill available viewport space
+  function getNaturalHeight(daySection) {
+    // Temporarily remove min-height to measure actual content height
+    const orig = daySection.style.minHeight;
+    daySection.style.minHeight = '0';
+    const h = daySection.scrollHeight;
+    daySection.style.minHeight = orig;
+    return h;
+  }
+
   function autoExpandDay(daySection) {
     const vh = window.innerHeight - 66; // minus nav
-    const getH = () => daySection.scrollHeight;
-    if (getH() >= vh) return; // already fills or overflows
+    const contentH = getNaturalHeight(daySection);
+    if (contentH >= vh) return; // already fills or overflows
 
-    // Priority order: meal-toggles first (show food), then sec-toggles, then night-toggles
+    // Priority order: meal-toggles first, then sec-toggles, then night-toggles
     const toggles = [
       ...daySection.querySelectorAll('.meal-toggle:not(.open)'),
       ...daySection.querySelectorAll('.sec-toggle:not(.open)'),
@@ -2950,7 +2959,12 @@ if (!isMobile()) {
 
     for (const toggle of toggles) {
       toggle.classList.add('open');
-      if (getH() >= vh) break; // stop when viewport is filled
+      const newH = getNaturalHeight(daySection);
+      if (newH >= vh) {
+        // This toggle pushed us over — close it and stop
+        toggle.classList.remove('open');
+        break;
+      }
     }
   }
 
