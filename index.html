@@ -291,12 +291,7 @@ input[type=checkbox]{accent-color:#BC002D}
 .split-panel{display:none;padding-top:10px}
 .split-panel.active{display:block}
 
-/* ── NIGHTLIFE (collapsible) ── */
-.night-toggle{cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:0.58rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid var(--border)}
-.night-toggle .chevron{transition:transform 0.3s;font-size:0.7rem}
-.night-toggle.open .chevron{transform:rotate(180deg)}
-.night-content{display:none;padding:10px 0}
-.night-toggle.open+.night-content{display:block}
+/* ── NIGHTLIFE (now uses sec-toggle/sec-body — legacy CSS removed) ── */
 .night-card{display:flex;gap:10px;padding:10px 12px;background:var(--navy);color:#fff;border-radius:var(--r-sm);margin-bottom:6px}
 .night-card .nc-em{font-size:1.3rem;flex-shrink:0}
 .night-card .nc-name{font-family:'DM Serif Display',serif;font-size:0.85rem;margin-bottom:1px}
@@ -340,14 +335,7 @@ input[type=checkbox]{accent-color:#BC002D}
 .sec-body{display:none;overflow:hidden}
 .sec-toggle.open+.sec-body,.sec-body.force-open{display:block}
 
-.meal-toggle{display:flex;align-items:center;gap:6px;padding:10px 2px;cursor:pointer;border-bottom:1px solid var(--border);margin-bottom:4px;user-select:none}
-.meal-toggle .mt-icon{font-size:0.85rem}
-.meal-toggle .mt-label{font-size:0.65rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
-.meal-toggle .mt-pick{flex:1;text-align:right;font-size:0.72rem;color:var(--navy);font-family:'DM Serif Display',serif;margin-right:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meal-toggle .mt-chev{font-size:0.5rem;color:var(--muted);transition:transform 0.25s}
-.meal-toggle.open .mt-chev{transform:rotate(180deg)}
-.meal-cards-wrap{display:none}
-.meal-toggle.open+.meal-cards-wrap{display:block}
+/* ── MEAL TOGGLES (now uses sec-toggle/sec-body — legacy CSS removed) ── */
 
 .tl-row.tl-hidden{display:none}
 .show-more-tl{display:block;width:100%;padding:8px;text-align:center;font-size:0.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);background:transparent;border:1px dashed var(--border);border-radius:var(--r-sm);cursor:pointer;margin:6px 0;transition:all 0.15s}
@@ -399,8 +387,8 @@ input[type=checkbox]{accent-color:#BC002D}
   .day-headline{font-size:clamp(1.4rem,4vw,2rem) !important}
   .day-tagline{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .sec-toggle{display:flex}
-  .map-trigger{display:block}
-  .map-zone{display:none}
+  .map-trigger{display:none}
+  .map-zone{display:block}
   .map-zone.mob-open{display:block}
   .booking{height:0;overflow:visible;padding:0 !important;margin:0;border:none}
   .hero{min-height:70svh}
@@ -453,10 +441,7 @@ input[type=checkbox]{accent-color:#BC002D}
   .col-agenda>:last-child,.col-highlights>:last-child,.col-food>:last-child{margin-top:auto}
 
   /* ══ ALL TOGGLES: visible, compact, functional ══ */
-  .sec-toggle{display:flex;padding:4px 8px;margin:2px 0;background:none;border:1px solid var(--border);border-radius:var(--r-sm)}
   .sec-toggle{display:flex;padding:5px 10px;margin:3px 0;background:none;border:1px solid var(--border);border-radius:var(--r-sm)}
-  .meal-toggle{display:flex;padding:5px 2px}
-  .night-toggle{padding:5px 10px;margin:3px 0;background:none;border:1px solid var(--border);border-radius:var(--r-sm);border-bottom:none}
 
   /* Timeline: truncated */
   .show-more-tl{display:block;border:none;color:var(--muted);font-size:0.55rem;padding:2px 0;text-decoration:underline;text-underline-offset:2px}
@@ -800,13 +785,13 @@ input[type=checkbox]{accent-color:#BC002D}
       <!-- COL 3: FOOD -->
       <div class="col-food">
         <p class="col-head" style="padding-top:20px">Where to Eat</p>
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌙</span>
-          <span class="mt-label">Dinner</span>
-          <span class="mt-pick">Yurakucho Under the Tracks</span>
-          <span class="mt-chev">▾</span>
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌙</span>
+          <span class="st-label">Dinner</span>
+          <span class="st-meta">Yurakucho Under the Tracks</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌙 Dinner &mdash; 7:30&ndash;9:00 PM</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span>
@@ -832,7 +817,7 @@ input[type=checkbox]{accent-color:#BC002D}
             </div>
           </div>
         </div>
-        </div><!-- /meal-cards-wrap -->
+        </div><!-- /sec-body -->
       
         <div class="note-box reveal">🍱 <strong>Casual backup:</strong> Too jet-lagged for yakitori? Mitsukoshi B2 depachika (4-min walk) &mdash; buy bento, eat at hotel. ¥800&ndash;1,500/pp.</div>
       </div>
@@ -1034,13 +1019,13 @@ input[type=checkbox]{accent-color:#BC002D}
       <!-- COL 3: FOOD -->
       <div class="col-food">
         <p class="col-head" style="padding-top:20px">Where to Eat</p>
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌅</span>
-          <span class="mt-label">Breakfast</span>
-          <span class="mt-pick">Full Market Wander</span>
-          <span class="mt-chev">▾</span>
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌅</span>
+          <span class="st-label">Breakfast</span>
+          <span class="st-meta">Full Market Wander</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌅 Breakfast &mdash; Tsukiji Market Grazing (7:30&ndash;9:30 AM)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span>
@@ -1061,14 +1046,14 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div>
           </div>
         </div>
-        </div><!-- /meal-cards-wrap -->
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">☀️</span>
-          <span class="mt-label">Lunch</span>
-          <span class="mt-pick">Kagari Ramen</span>
-          <span class="mt-chev">▾</span>
+        </div><!-- /sec-body -->
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">☀️</span>
+          <span class="st-label">Lunch</span>
+          <span class="st-meta">Kagari Ramen</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">☀️ Lunch &mdash; 11:30 AM&ndash;1:00 PM</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span>
@@ -1094,14 +1079,14 @@ input[type=checkbox]{accent-color:#BC002D}
             </div>
           </div>
         </div>
-        </div><!-- /meal-cards-wrap -->
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌙</span>
-          <span class="mt-label">Dinner</span>
-          <span class="mt-pick">Ginza Lion Beer Hall</span>
-          <span class="mt-chev">▾</span>
+        </div><!-- /sec-body -->
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌙</span>
+          <span class="st-label">Dinner</span>
+          <span class="st-meta">Ginza Lion Beer Hall</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌙 Dinner &mdash; 7:00&ndash;9:00 PM</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span>
@@ -1140,7 +1125,7 @@ input[type=checkbox]{accent-color:#BC002D}
             </div>
           </div>
         </div>
-        </div><!-- /meal-cards-wrap -->
+        </div><!-- /sec-body -->
       
         <div class="note-box reveal">🍱 <strong>Casual options:</strong> Mitsukoshi B2 depachika grazing (croquettes, karaage) or Tsukishima Monjayaki (cook-at-table pancakes, 1 metro stop). All cooked.</div>
       </div>
@@ -1270,13 +1255,13 @@ input[type=checkbox]{accent-color:#BC002D}
 
       <div class="col-food">
         <p class="col-head" style="padding-top:20px">Park Food</p>
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌅</span>
-          <span class="mt-label">Breakfast</span>
-          <span class="mt-pick">Combini Pre-Pack</span>
-          <span class="mt-chev">▾</span>
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌅</span>
+          <span class="st-label">Breakfast</span>
+          <span class="st-meta">Combini Pre-Pack</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌅 Breakfast &mdash; 6:45&ndash;7:15 AM (before park)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span>
@@ -1294,14 +1279,14 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="fc-foot"><span class="fc-price">&yen;400&ndash;700</span></div>
           </div>
         </div>
-        </div><!-- /meal-cards-wrap -->
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">☀️</span>
-          <span class="mt-label">Lunch</span>
-          <span class="mt-pick">Magellan's</span>
-          <span class="mt-chev">▾</span>
+        </div><!-- /sec-body -->
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">☀️</span>
+          <span class="st-label">Lunch</span>
+          <span class="st-meta">Magellan's</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">☀️ Lunch &mdash; 11:30 AM&ndash;1:00 PM (in park)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span>
@@ -1331,14 +1316,14 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="fc-links"><a href="https://maps.google.com/?q=Tokyo+DisneySea" target="_blank" class="fc-gmap">📍 Map</a></div>
           </div>
         </div>
-        </div><!-- /meal-cards-wrap -->
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌙</span>
-          <span class="mt-label">Dinner</span>
-          <span class="mt-pick">Zambini Brothers'</span>
-          <span class="mt-chev">▾</span>
+        </div><!-- /sec-body -->
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌙</span>
+          <span class="st-label">Dinner</span>
+          <span class="st-meta">Zambini Brothers'</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌙 Dinner &mdash; 7:00&ndash;8:30 PM (in park or back at hotel)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span>
@@ -1365,7 +1350,7 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="fc-foot"><span class="fc-price">&yen;500&ndash;1,200</span></div>
           </div>
         </div>
-        </div><!-- /meal-cards-wrap -->
+        </div><!-- /sec-body -->
       </div>
 
       <div class="day-full reveal">
@@ -1587,8 +1572,8 @@ input[type=checkbox]{accent-color:#BC002D}
           </div>
           </div>
         </div>
-        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife <span class="chevron">&#9660;</span></div>
-        <div class="night-content">
+        <div class="sec-toggle" onclick="this.classList.toggle('open')"><span class="st-icon">🏮</span><span class="st-label">Nightlife &#9660;</span><span class="st-meta"></span><span class="st-chev">▾</span></div>
+        <div class="sec-body night-cards-body">
           <div class="night-card"><div class="nc-em">🏮</div><div><div class="nc-name">Golden Gai</div><div class="nc-meta">Shinjuku &middot; 200 tiny bars &middot; &yen;500&ndash;1,000 cover</div><div class="nc-desc">The exploration IS the experience.</div></div></div>
           <div class="night-card"><div class="nc-em">🎷</div><div><div class="nc-name">New York Bar (Park Hyatt)</div><div class="nc-meta">Shinjuku &middot; 52F &middot; Live jazz &middot; &yen;2,000 cover</div><div class="nc-desc">The Lost in Translation one.</div></div></div>
         </div>
@@ -1596,46 +1581,46 @@ input[type=checkbox]{accent-color:#BC002D}
 
       <div class="col-food">
         <p class="col-head" style="padding-top:20px">Where to Eat</p>
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌅</span>
-          <span class="mt-label">Breakfast</span>
-          <span class="mt-pick">Combini</span>
-          <span class="mt-chev">▾</span>
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌅</span>
+          <span class="st-label">Breakfast</span>
+          <span class="st-meta">Combini</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌅 Breakfast &mdash; 7:30&ndash;8:15 AM</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🏪</span><div class="fc-name">Combini</div><div class="fc-type">Quick &middot; 2 min</div><div class="fc-desc">Early start. Onigiri + Boss coffee. Best for a big day.</div><div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🥐</span><div class="fc-name">Viron French Bakery</div><div class="fc-type">Marunouchi &middot; Sit-down</div><div class="fc-desc">Serious croissants, French flour. Calm before a big day.</div><div class="fc-foot"><span class="fc-price">&yen;1,200&ndash;2,500</span><span class="card-transit">🚇 10 min</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Viron+Bakery+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">☀️</span>
-          <span class="mt-label">Lunch</span>
-          <span class="mt-pick">Harmonica Yokocho</span>
-          <span class="mt-chev">▾</span>
+        </div><!-- /sec-body -->
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">☀️</span>
+          <span class="st-label">Lunch</span>
+          <span class="st-meta">Harmonica Yokocho</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">☀️ Lunch &mdash; Kichijoji (12:30&ndash;1:30 PM)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍢</span><div class="fc-name">Harmonica Yokocho</div><div class="fc-type">Izakaya Alley &middot; Kichijoji</div><div class="fc-desc">Narrow alleys packed with small izakayas and lunch counters.</div><div class="fc-foot"><span class="fc-price">&yen;800&ndash;1,500</span></div><div class="book-status open">No reservation</div><div class="fc-links"><a href="https://maps.google.com/?q=Harmonica+Yokocho+Kichijoji" target="_blank" class="fc-gmap">📍 Map</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">☕</span><div class="fc-name">Light Up Coffee</div><div class="fc-type">Micro-roaster &middot; Kichijoji</div><div class="fc-desc">Award-winning micro-roaster for Cody's coffee. Grab a sandwich nearby.</div><div class="fc-foot"><span class="fc-price">&yen;1,000&ndash;1,800</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Light+Up+Coffee+Kichijoji" target="_blank" class="fc-gmap">📍 Map</a><a href="https://lightupcoffee.com/" target="_blank" class="fc-site">🌐 Site</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">C</span><span class="fc-em">🥩</span><div class="fc-name">Maisen Tonkatsu</div><div class="fc-type">Omotesando &middot; Later</div><div class="fc-desc">Panko-breaded pork cutlet in a converted bathhouse. No reservation.</div><div class="fc-foot"><span class="fc-price">&yen;1,500&ndash;3,000</span></div><div class="book-status open">No reservation</div><div class="fc-links"><a href="https://maps.google.com/?q=Maisen+Tonkatsu+Omotesando" target="_blank" class="fc-gmap">📍 Map</a><a href="https://mai-sen.com/" target="_blank" class="fc-site">🌐 Site</a></div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌙</span>
-          <span class="mt-label">Dinner</span>
-          <span class="mt-pick">Torishiki Yakitori</span>
-          <span class="mt-chev">▾</span>
+        </div><!-- /sec-body -->
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌙</span>
+          <span class="st-label">Dinner</span>
+          <span class="st-meta">Torishiki Yakitori</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌙 ⭐ Dinner &mdash; 9:00&ndash;11:30 PM</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍗</span><div class="fc-name">Torishiki ⭐</div><div class="fc-type">Yakitori Omakase &middot; Meguro</div><div class="fc-desc">Best yakitori in Tokyo. Each cut from specific chicken breeds. ~2 hrs. All cooked &mdash; whole group will love this.</div><div class="fc-foot"><span class="fc-price">&yen;12,000&ndash;18,000/pp</span><span class="card-transit">🚕 10 min</span></div><div class="book-status advance">🔴 Phone: 03-3440-7656 (Jun 1 at 5 PM JST)</div><div class="fc-links"><a href="https://maps.google.com/?q=Torishiki+Meguro+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🍷</span><div class="fc-name">Quintessence</div><div class="fc-type">French-Japanese &middot; Shiroganedai</div><div class="fc-desc">~10 courses, 3 hrs. Backup if Torishiki is full. ⚠️ May be too formal for group &mdash; Cody + Will only?</div><div class="fc-foot"><span class="fc-price">&yen;25,000&ndash;35,000/pp</span><span class="card-transit">🚕 10 min</span></div><div class="book-status advance"><a href="https://www.tableall.com/restaurant/67" target="_blank" style="color:inherit;text-decoration:underline">🔴 Book via TABLEALL</a></div><div class="fc-links"><a href="https://maps.google.com/?q=Quintessence+Restaurant+Shinagawa+Tokyo" target="_blank" class="fc-gmap">📍 Map</a><a href="https://www.tableall.com/restaurant/67" target="_blank" class="fc-site">🎟️ Book</a></div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
+        </div><!-- /sec-body -->
         <div class="note-box reveal">👩 <strong>Mom-friendly:</strong> <strong>Gonpachi</strong> (Nishi-Azabu, ~10 min taxi) &mdash; &ldquo;Kill Bill&rdquo; restaurant. Robata grill, soba, tempura. Everything cooked. &yen;3,000&ndash;5,000/pp. English menus. No reservation.</div>
       
         <div class="note-box reveal">🍱 <strong>Casual lunch:</strong> Shibuya PARCO B1 food court (already in the building!) or Shibuya Hikarie B2 (at the station). ¥900&ndash;2,000/pp.</div>
@@ -1863,8 +1848,8 @@ input[type=checkbox]{accent-color:#BC002D}
           </div>
           </div>
         </div>
-        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife <span class="chevron">&#9660;</span></div>
-        <div class="night-content">
+        <div class="sec-toggle" onclick="this.classList.toggle('open')"><span class="st-icon">🏮</span><span class="st-label">Nightlife &#9660;</span><span class="st-meta"></span><span class="st-chev">▾</span></div>
+        <div class="sec-body night-cards-body">
           <div class="night-card"><div class="nc-em">🍺</div><div><div class="nc-name">Ginza Lion Beer Hall</div><div class="nc-meta">Ginza &middot; 5-min walk &middot; Open Sundays</div><div class="nc-desc">Japan&rsquo;s oldest beer hall (1934). Art Deco mosaic ceiling, cold Sapporo, yoshoku comfort food.</div><div class="nc-links"><a href="https://maps.google.com/?q=Ginza+Lion+Beer+Hall+Ginza" target="_blank">📍 Map</a></div></div></div>
           <div class="night-card"><div class="nc-em">🍶</div><div><div class="nc-name">Sake no Ana</div><div class="nc-meta">Ginza &middot; 200+ varieties</div><div class="nc-desc">English menu. Start light, go richer.</div><div class="nc-links"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">📍 Map</a></div></div></div>
         </div>
@@ -1872,46 +1857,46 @@ input[type=checkbox]{accent-color:#BC002D}
 
       <div class="col-food">
         <p class="col-head" style="padding-top:20px">Where to Eat</p>
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌅</span>
-          <span class="mt-label">Breakfast</span>
-          <span class="mt-pick">Combini Pre-Pack</span>
-          <span class="mt-chev">▾</span>
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌅</span>
+          <span class="st-label">Breakfast</span>
+          <span class="st-meta">Combini Pre-Pack</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌅 Breakfast &mdash; 7:00&ndash;7:30 AM</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🏪</span><div class="fc-name">Combini Pre-Pack</div><div class="fc-type">Quick &middot; Hotel</div><div class="fc-desc">Fastest for early Asakusa departure. Onigiri + coffee.</div><div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🍳</span><div class="fc-name">Asakusa Teishoku</div><div class="fc-type">Japanese Set &middot; Near Senso-ji</div><div class="fc-desc">Grilled fish, rice, miso, pickles. Proper sit-down Japanese breakfast.</div><div class="fc-foot"><span class="fc-price">&yen;1,000&ndash;1,800</span></div></div>
           <div class="food-card reveal"><span class="fc-tag">C</span><span class="fc-em">🍵</span><div class="fc-name">Tsumugi at Tsukiji Honganji</div><div class="fc-type">Temple Caf&eacute; &middot; 5 min walk</div><div class="fc-desc">Famous &ldquo;18 Items Breakfast&rdquo; &mdash; 18 small dishes inside a stunning Indian-Mogul style Buddhist temple. Reserve or arrive pre-8 AM.</div><div class="fc-foot"><span class="fc-price">&yen;1,800&ndash;2,200</span><span class="card-transit">🚶 5 min</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Tsukiji+Honganji+Temple+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">☀️</span>
-          <span class="mt-label">Lunch</span>
-          <span class="mt-pick">Asakusa Soba / Tempura</span>
-          <span class="mt-chev">▾</span>
+        </div><!-- /sec-body -->
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">☀️</span>
+          <span class="st-label">Lunch</span>
+          <span class="st-meta">Asakusa Soba / Tempura</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">☀️ Lunch &mdash; 11:30 AM&ndash;1:00 PM</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍜</span><div class="fc-name">Asakusa Soba / Tempura</div><div class="fc-type">Counter &middot; Near Nakamise</div><div class="fc-desc">Small lunch counters. Soba set or tempura rice bowl.</div><div class="fc-foot"><span class="fc-price">&yen;900&ndash;1,400</span></div><div class="book-status open">No reservation</div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">☕</span><div class="fc-name">Kiyosumi Coffee District</div><div class="fc-type">Coffee &middot; En route</div><div class="fc-desc">Blue Bottle Japan's first location + excellent small roasters. Light lunch en route to TeamLab.</div><div class="fc-foot"><span class="fc-price">&yen;800&ndash;1,500</span></div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌙</span>
-          <span class="mt-label">Dinner</span>
-          <span class="mt-pick">Split: Sushi Iwa + Family</span>
-          <span class="mt-chev">▾</span>
+        </div><!-- /sec-body -->
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌙</span>
+          <span class="st-label">Dinner</span>
+          <span class="st-meta">Split: Sushi Iwa + Family</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌙 ⭐ Dinner &mdash; Split Night (7:00&ndash;9:00 PM)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">C+W</span><span class="fc-em">🍣</span><div class="fc-name">Sushi Iwa ⭐</div><div class="fc-type">Omakase &middot; Ginza &middot; Cody + Will only</div><div class="fc-desc">Book for 2. Skilled chef, relaxed pace (~90 min). Counter seats four. The omakase experience we came for.</div><div class="fc-foot"><span class="fc-price">&yen;12,000&ndash;18,000/pp</span><span class="card-transit">🚶 8 min</span></div><div class="book-status advance"><a href="https://www.tablecheck.com/en/shops/ginza-iwa/reserve" target="_blank" style="color:inherit;text-decoration:underline">🔴 Book 2 covers via TableCheck</a></div><div class="fc-links"><a href="https://maps.google.com/?q=Sushi+Iwa+Ginza" target="_blank" class="fc-gmap">📍 Map</a><a href="https://www.tablecheck.com/en/shops/ginza-iwa/reserve" target="_blank" class="fc-site">🎟️ Book</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">Fam</span><span class="fc-em">🍽️</span><div class="fc-name">Family Dinner (Natalie + Mom + Abe)</div><div class="fc-type">Casual &middot; Near hotel</div><div class="fc-desc">Food court style or casual izakaya &mdash; no formal omakase. Let them choose on the night. Options: Ginza Lion Beer Hall, Coredo Muromachi food stalls, or depachika grazing.</div><div class="fc-foot"><span class="fc-price">&yen;2,000&ndash;4,000/pp</span><span class="card-transit">🚶 5&ndash;10 min</span></div><div class="book-status walkup">Walk-up &middot; multiple options near hotel</div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
+        </div><!-- /sec-body -->
         <div class="note-box reveal">❤️ <strong>Split dinner:</strong> Cody + Will do omakase at Sushi Iwa (2 covers). Family eats casual nearby. Regroup at hotel after.</div>
       
         <div class="note-box reveal">🍱 <strong>Family dinner (split night):</strong> Coredo Muromachi food hall (10-min walk, true food court) or depachika bento + eat at hotel. ¥1,000&ndash;2,500/pp.</div>
@@ -2131,33 +2116,33 @@ input[type=checkbox]{accent-color:#BC002D}
 
       <div class="col-food">
         <p class="col-head" style="padding-top:20px">Where to Eat</p>
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌅</span>
-          <span class="mt-label">Breakfast</span>
-          <span class="mt-pick">Combini + Kitchenette</span>
-          <span class="mt-chev">▾</span>
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌅</span>
+          <span class="st-label">Breakfast</span>
+          <span class="st-meta">Combini + Kitchenette</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌅 Breakfast &mdash; 7:30&ndash;8:15 AM (quick for PokePark)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🏪</span><div class="fc-name">Combini + Kitchenette</div><div class="fc-type">Hotel &middot; Quick</div><div class="fc-desc">Onigiri, miso soup, coffee. Fast start for PokePark.</div><div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🍳</span><div class="fc-name">Teishoku Near Hotel</div><div class="fc-type">Japanese Set &middot; Sit-down</div><div class="fc-desc">Grilled fish, rice, miso, pickles. Proper breakfast if the group wants to sit down.</div><div class="fc-foot"><span class="fc-price">&yen;1,000&ndash;1,800</span></div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌙</span>
-          <span class="mt-label">Dinner</span>
-          <span class="mt-pick">Uoshin</span>
-          <span class="mt-chev">▾</span>
+        </div><!-- /sec-body -->
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌙</span>
+          <span class="st-label">Dinner</span>
+          <span class="st-meta">Uoshin</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌙 Dinner &mdash; Natalie + Mom + Abe (7:00&ndash;9:00 PM)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🐟</span><div class="fc-name">Uoshin</div><div class="fc-type">Fish Izakaya &middot; Shimbashi</div><div class="fc-desc">Own fishing boats, sea-to-table. Half menu cooked (grilled, karaage). Excellent sake.</div><div class="fc-foot"><span class="fc-price">&yen;3,500&ndash;6,000</span><span class="card-transit">🚶 Walk</span></div><div class="book-status open">No reservation</div><div class="fc-links"><a href="https://maps.google.com/?q=Uoshin+Shimbashi+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🥞</span><div class="fc-name">Tsukishima Monjayaki</div><div class="fc-type">Teppan &middot; 15 min metro</div><div class="fc-desc">Interactive cooking at your table. Fun, social, local.</div><div class="fc-foot"><span class="fc-price">&yen;1,500&ndash;3,000</span><span class="card-transit">🚇 15 min</span></div><div class="book-status open">No reservation</div><div class="fc-links"><a href="https://maps.google.com/?q=Tsukishima+Monja+Street+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">C</span><span class="fc-em">🥩</span><div class="fc-name">Imahan Sukiyaki</div><div class="fc-type">Nihonbashi &middot; Meiji Era</div><div class="fc-desc">Wagyu in sweet soy, dipped in raw egg. Communal, comfortable. Since the 1800s.</div><div class="fc-foot"><span class="fc-price">&yen;4,000&ndash;10,000</span><span class="card-transit">🚶 Walk</span></div><div class="book-status walkup">Walk-in OK, reserve for dinner rush</div><div class="fc-links"><a href="https://maps.google.com/?q=Imahan+Nihonbashi+Tokyo" target="_blank" class="fc-gmap">📍 Map</a><a href="https://www.imahan.com/" target="_blank" class="fc-site">🌐 Site</a></div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
+        </div><!-- /sec-body -->
       
         <div class="note-box reveal">🍱 <strong>Family dinner:</strong> Mitsukoshi depachika after 6 PM (discount markdowns!) or Yurakucho food stall strip (6-min walk). ¥800&ndash;2,000/pp.</div>
       </div>
@@ -2402,8 +2387,8 @@ input[type=checkbox]{accent-color:#BC002D}
           </div>
         </div>
         </div>
-        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife <span class="chevron">&#9660;</span></div>
-        <div class="night-content">
+        <div class="sec-toggle" onclick="this.classList.toggle('open')"><span class="st-icon">🏮</span><span class="st-label">Nightlife &#9660;</span><span class="st-meta"></span><span class="st-chev">▾</span></div>
+        <div class="sec-body night-cards-body">
           <div class="night-card"><div class="nc-em">🍸</div><div><div class="nc-name">Bar High Five</div><div class="nc-meta">Ginza &middot; 8-min walk &middot; Open Tue 5&ndash;11:30</div><div class="nc-desc">World-class cocktails by Hidetsugu Ueno. Mom can join.</div><div class="nc-links"><a href="https://maps.google.com/?q=Bar+High+Five+Ginza" target="_blank">📍 Map</a></div></div></div>
           <div class="night-card"><div class="nc-em">🍶</div><div><div class="nc-name">Sake no Ana</div><div class="nc-meta">Ginza &middot; 200+ varieties</div><div class="nc-desc">Sake education before the flight home.</div><div class="nc-links"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">📍 Map</a></div></div></div>
           <div class="night-card"><div class="nc-em">🍻</div><div><div class="nc-name">Andy&rsquo;s Shin Hinomoto</div><div class="nc-meta">Yurakucho &middot; 6-min walk &middot; Cash only</div><div class="nc-desc">English-speaking owner, legendary izakaya under the tracks. Open Tuesdays. Reserve ahead.</div><div class="nc-links"><a href="https://maps.google.com/?q=Shin+Hinomoto+Yurakucho+Tokyo" target="_blank">📍 Map</a></div></div></div>
@@ -2412,46 +2397,46 @@ input[type=checkbox]{accent-color:#BC002D}
 
       <div class="col-food">
         <p class="col-head" style="padding-top:20px">Where to Eat</p>
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌅</span>
-          <span class="mt-label">Breakfast</span>
-          <span class="mt-pick">Tsumugi at Tsukiji Honganji</span>
-          <span class="mt-chev">▾</span>
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌅</span>
+          <span class="st-label">Breakfast</span>
+          <span class="st-meta">Tsumugi at Tsukiji Honganji</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌅 Breakfast &mdash; Natalie + Mom + Abe (7:00&ndash;7:30 AM)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍵</span><div class="fc-name">Tsumugi at Tsukiji Honganji</div><div class="fc-type">Temple Caf&eacute; &middot; 5 min walk</div><div class="fc-desc">Famous 18 Items Breakfast. Reserve or arrive before 8 AM. Last chance before departure tomorrow.</div><div class="fc-foot"><span class="fc-price">&yen;1,800&ndash;2,200</span><span class="card-transit">🚶 5 min</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Tsukiji+Honganji+Temple+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🏪</span><div class="fc-name">Combini + Kitchenette</div><div class="fc-type">Hotel &middot; Quick</div><div class="fc-desc">Fastest option. Eat before Hamarikyu walk.</div><div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">☀️</span>
-          <span class="mt-label">Lunch</span>
-          <span class="mt-pick">Tenichi Tempura</span>
-          <span class="mt-chev">▾</span>
+        </div><!-- /sec-body -->
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">☀️</span>
+          <span class="st-label">Lunch</span>
+          <span class="st-meta">Tenichi Tempura</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">☀️ Lunch &mdash; Full Group (1:30&ndash;3:00 PM)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍤</span><div class="fc-name">Tenichi Tempura</div><div class="fc-type">Ginza &middot; Since 1930</div><div class="fc-desc">Seasonal vegetables + seafood in impossibly light batter. All cooked, elegant, mother-friendly.</div><div class="fc-foot"><span class="fc-price">&yen;3,000&ndash;6,000</span><span class="card-transit">🚶 Walk</span></div><div class="book-status walkup">Book 1 wk</div><div class="fc-links"><a href="https://maps.google.com/?q=Tenichi+Tempura+Ginza" target="_blank" class="fc-gmap">📍 Map</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🥩</span><div class="fc-name">Ginza Bairin</div><div class="fc-type">Tonkatsu &middot; Since 1927</div><div class="fc-desc">Crispy, impossibly light panko crust. Different style from Maisen (D4). No reservation needed.</div><div class="fc-foot"><span class="fc-price">&yen;1,200&ndash;2,000</span><span class="card-transit">🚶 5 min</span></div><div class="book-status open">No reservation</div><div class="fc-links"><a href="https://maps.google.com/?q=Ginza+Bairin+Tonkatsu+Ginza" target="_blank" class="fc-gmap">📍 Map</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">C</span><span class="fc-em">🏬</span><div class="fc-name">Coredo Muromachi</div><div class="fc-type">Food Hall &middot; Nihonbashi</div><div class="fc-desc">Curated Japanese food stalls &mdash; soba, tempura, rice bowls. Different neighborhood feel from Ginza.</div><div class="fc-foot"><span class="fc-price">&yen;1,000&ndash;3,000</span><span class="card-transit">🚶 10 min</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Coredo+Muromachi+Nihonbashi+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌙</span>
-          <span class="mt-label">Farewell Dinner</span>
-          <span class="mt-pick">Nodaiwa Unagi</span>
-          <span class="mt-chev">▾</span>
+        </div><!-- /sec-body -->
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌙</span>
+          <span class="st-label">Farewell Dinner</span>
+          <span class="st-meta">Nodaiwa Unagi</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌙 ⭐ Farewell Dinner (7:00&ndash;9:00 PM)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🍽️</span><div class="fc-name">Nodaiwa Unagi</div><div class="fc-type">Edo-period &middot; Azabu</div><div class="fc-desc">Wild-caught eel, charcoal-grilled. Order hitsumabushi set &mdash; eat three ways. <strong>Everything cooked.</strong></div><div class="fc-foot"><span class="fc-price">&yen;4,000&ndash;8,000/pp</span><span class="card-transit">🚇 20 min</span></div><div class="book-status ahead">🟠 Phone: 03-3583-7852 (1 week out)</div><div class="fc-links"><a href="https://maps.google.com/?q=Nodaiwa+Azabu+Tokyo" target="_blank" class="fc-gmap">📍 Map</a><a href="https://www.nodaiwa.co.jp/" target="_blank" class="fc-site">🌐 Site</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">🍤</span><div class="fc-name">Tenichi Tempura</div><div class="fc-type">Ginza &middot; Backup</div><div class="fc-desc">If Nodaiwa unavailable. Walking distance. Same elegance.</div><div class="fc-foot"><span class="fc-price">&yen;3,000&ndash;8,000</span><span class="card-transit">🚶 Walk</span></div><div class="book-status walkup">Book 1 wk</div><div class="fc-links"><a href="https://maps.google.com/?q=Tenichi+Tempura+Ginza" target="_blank" class="fc-gmap">📍 Map</a></div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
+        </div><!-- /sec-body -->
       
         <div class="note-box reveal">🍱 <strong>Casual lunch:</strong> Ginza Bairin tonkatsu (¥1,200, since 1927) or Coredo Muromachi food hall. Both walkable, no reservation.</div>
       </div>
@@ -2599,20 +2584,20 @@ input[type=checkbox]{accent-color:#BC002D}
 
       <div class="col-food">
         <p class="col-head" style="padding-top:20px">Last Meals</p>
-        <div class="meal-toggle" onclick="this.classList.toggle('open')">
-          <span class="mt-icon">🌅</span>
-          <span class="mt-label">Breakfast</span>
-          <span class="mt-pick">Tsukiji Outer Market</span>
-          <span class="mt-chev">▾</span>
+        <div class="sec-toggle" onclick="this.classList.toggle('open')">
+          <span class="st-icon">🌅</span>
+          <span class="st-label">Breakfast</span>
+          <span class="st-meta">Tsukiji Outer Market</span>
+          <span class="st-chev">▾</span>
         </div>
-        <div class="meal-cards-wrap">
+        <div class="sec-body">
         <p class="meal-label">🌅 Breakfast &mdash; 8:00&ndash;9:30 AM (the sendoff)</p>
         <div class="meal-cards">
           <div class="food-card reveal"><span class="fc-tag">A</span><span class="fc-em">🥚</span><div class="fc-name">Tsukiji Outer Market</div><div class="fc-type">Street Market &middot; 10 min walk</div><div class="fc-desc">Last sendoff. Tamagoyaki, scallops, whatever you haven't had yet.</div><div class="fc-foot"><span class="fc-price">&yen;800&ndash;2,000</span><span class="card-transit">🚶 10 min</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Tsukiji+Outer+Market+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">B</span><span class="fc-em">☕</span><div class="fc-name">Turret Coffee</div><div class="fc-type">Specialty &middot; 5 min walk</div><div class="fc-desc">Tiny standing counter near Tsukiji. Excellent pour-over. Last Tokyo coffee.</div><div class="fc-foot"><span class="fc-price">&yen;500&ndash;800</span><span class="card-transit">🚶 5 min</span></div><div class="fc-links"><a href="https://maps.google.com/?q=Turret+Coffee+Tsukiji+Tokyo" target="_blank" class="fc-gmap">📍 Map</a></div></div>
           <div class="food-card reveal"><span class="fc-tag">C</span><span class="fc-em">🏪</span><div class="fc-name">Combini + Kitchenette</div><div class="fc-type">Hotel &middot; Zero effort</div><div class="fc-desc">If nobody wants to walk. Miso soup, onigiri, one last Boss coffee.</div><div class="fc-foot"><span class="fc-price">&yen;400&ndash;600</span></div></div>
         </div>
-        </div><!-- /meal-cards-wrap -->
+        </div><!-- /sec-body -->
         <div class="note-box reveal">💡 No lunch needed before N'EX &mdash; Narita has excellent airside food once through security.</div>
       
         <div class="note-box reveal">🍱 <strong>Departure lunch:</strong> Mitsukoshi depachika ekiben (boxed lunch for the N'EX train) &mdash; a genuine Japanese travel tradition. ¥500&ndash;1,500.</div>
@@ -3039,18 +3024,14 @@ if (!isMobile()) {
     const vh = window.innerHeight - (navEl ? navEl.offsetHeight : 0);
 
     // Step 1: OPEN EVERYTHING
-    daySection.querySelectorAll('.meal-toggle, .sec-toggle, .night-toggle').forEach(t => t.classList.add('open'));
+    daySection.querySelectorAll('.sec-toggle').forEach(t => t.classList.add('open'));
 
     // Step 2: if it fits, done
     if (getNaturalHeight(daySection) <= vh) return;
 
     // Step 3: collapse in priority order (least important first)
     // Collapse priority: night-toggles → sec-toggles → meal-toggles
-    const collapseOrder = [
-      ...daySection.querySelectorAll('.night-toggle.open'),
-      ...[...daySection.querySelectorAll('.sec-toggle.open')].reverse(),
-      ...[...daySection.querySelectorAll('.meal-toggle.open')].reverse()
-    ];
+    const collapseOrder = [...daySection.querySelectorAll('.sec-toggle.open')].reverse();
 
     for (const toggle of collapseOrder) {
       toggle.classList.remove('open');
