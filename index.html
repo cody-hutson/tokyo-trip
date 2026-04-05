@@ -380,8 +380,7 @@ input[type=checkbox]{accent-color:#BC002D}
   .day-grid{flex:none !important;overflow:visible !important}
   .col-agenda,.col-highlights,.col-food{display:block !important}
   .day-hero{display:block !important;padding:20px 20px 16px !important}
-  .bottom-nav{display:flex}
-  body{padding-bottom:64px}
+  /* bottom-nav removed */
   .day-hero{padding:20px 20px 16px}
   .day-hero::after{display:none}
   .day-headline{font-size:clamp(1.4rem,4vw,2rem) !important}
@@ -396,7 +395,7 @@ input[type=checkbox]{accent-color:#BC002D}
 }
 @media(min-width:769px){
   .day-section{display:block !important}
-  .bottom-nav{display:none !important}
+  /* bottom-nav removed */
   .booking-overlay{display:block !important;position:static;z-index:auto}
   .booking-backdrop{display:none}
   .booking-slide{transform:none !important;position:static;max-height:none;border-radius:0}
@@ -2880,10 +2879,14 @@ function navToDay(n) {
 function showDayMobile(n) {
   document.querySelectorAll('.day-section').forEach(s => s.classList.remove('mob-active'));
   const section = document.getElementById('day' + n);
+  const nav = document.querySelector('.day-nav');
   if (section) {
     section.classList.add('mob-active');
     section.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
-    window.scrollTo(0, document.querySelector('.day-nav').offsetTop);
+    // Scroll so day hero sits right below the sticky nav
+    const navH = nav ? nav.offsetHeight : 0;
+    const heroTop = section.offsetTop;
+    window.scrollTo(0, heroTop - navH);
   }
   updatePill(n);
   currentDay = n;
@@ -3163,13 +3166,5 @@ window.addEventListener('resize', () => {
   if (isMobile() && !document.querySelector('.day-section.mob-active')) showDayMobile(currentDay);
 });
 </script>
-<nav class="bottom-nav">
-  <div class="bn-inner">
-    <button class="bn-btn" onclick="bnAction('map')"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Map</button>
-    <button class="bn-btn" onclick="bnAction('eat')"><svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>Eat</button>
-    <button class="bn-btn" onclick="bnAction('schedule')"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>Schedule</button>
-    <button class="bn-btn" onclick="bnAction('bookings')"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Bookings</button>
-  </div>
-</nav>
 </body>
 </html>
