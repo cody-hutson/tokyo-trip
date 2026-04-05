@@ -133,33 +133,34 @@ input[type=checkbox]{accent-color:#BC002D}
 .act-vis::before{content:'';position:absolute;inset:0;background:inherit}
 .act-vis span{position:relative;z-index:1;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.4))}
 .av-airport{background:linear-gradient(135deg,#101B2E,#1F4D8B)}.av-tsukiji{background:linear-gradient(135deg,#5C1808,#B5440E)}.av-ginza{background:linear-gradient(135deg,#2C3542,#6B7D8E)}.av-temple{background:linear-gradient(135deg,#700018,#BC002D)}.av-teamlab{background:linear-gradient(135deg,#050520,#0D0D8A)}.av-shrine{background:linear-gradient(135deg,#0D2414,#2A6040)}.av-harajuku{background:linear-gradient(135deg,#4A1B60,#A04BC0)}.av-shibuya{background:linear-gradient(135deg,#150028,#4A1888)}.av-coast{background:linear-gradient(135deg,#083248,#0F7060)}.av-disney{background:linear-gradient(135deg,#020210,#0A2060)}.av-garden{background:linear-gradient(135deg,#0A2018,#256040)}.av-station{background:linear-gradient(135deg,#1E2A38,#3A5268)}.av-ramen{background:linear-gradient(135deg,#3C1008,#8A300A)}.av-sushi{background:linear-gradient(135deg,#051828,#1060A0)}.av-ghibli{background:linear-gradient(135deg,#0A3818,#2D8A50)}.av-pokepark{background:linear-gradient(135deg,#8A6800,#E8B800)}.av-glamping{background:linear-gradient(135deg,#1A3020,#2A6840)}.av-unagi{background:linear-gradient(135deg,#3A1A00,#7A4008)}.av-sky{background:linear-gradient(135deg,#150028,#5030A0)}
-.act-body{padding:12px 14px}
+.act-body{padding:12px 14px;position:relative}
+.act-links{position:absolute;top:10px;right:12px;display:flex;gap:3px}
 .act-kicker{font-size:0.6rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
 .act-name{font-family:'DM Serif Display',serif;font-size:0.95rem;margin-bottom:4px}
 .act-desc{font-size:0.74rem;color:#3A3A4A;line-height:1.45;margin-bottom:8px}
 .act-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:0.66rem;color:var(--muted);margin-bottom:8px}
-.act-map{display:inline-flex;align-items:center;gap:4px;font-size:0.68rem;font-weight:700;color:#1252A0;background:#EBF3FF;padding:4px 10px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none}
+.act-map{display:inline-flex;align-items:center;gap:3px;font-size:0.58rem;font-weight:700;color:#1252A0;background:#EBF3FF;padding:3px 7px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none}
 .act-map:hover{background:#C8DEFF}
-.act-web{display:inline-flex;align-items:center;gap:4px;font-size:0.68rem;font-weight:700;color:#2A7D4F;background:#E8F5E9;padding:4px 10px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none;margin-left:4px}
+.act-web{display:inline-flex;align-items:center;gap:3px;font-size:0.58rem;font-weight:700;color:#2A7D4F;background:#E8F5E9;padding:3px 7px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none}
 .act-web:hover{background:#C8E6C9}
-.act-tix{display:inline-flex;align-items:center;gap:4px;font-size:0.68rem;font-weight:700;color:#BC002D;background:#fdecea;padding:4px 10px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none;margin-left:4px}
+.act-tix{display:inline-flex;align-items:center;gap:3px;font-size:0.58rem;font-weight:700;color:#BC002D;background:#fdecea;padding:3px 7px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none}
 .act-tix:hover{background:#f9d0d3}
 
 /* ── BOOKING STATUS (universal) ─────── */
-.book-status{display:inline-block;font-size:0.52rem;font-weight:800;letter-spacing:0.4px;padding:2px 8px;border-radius:6px;margin-top:4px}
 .book-status.advance{background:#fdecea;color:var(--red)}
-.book-status.ahead{background:#fff3e0;color:#C07000}
 .book-status.walkup{background:#f3f9f0;color:var(--safe)}
 .book-status.open{background:#f0f0f0;color:var(--muted)}
-.act-card .book-status{display:block;width:100%;text-align:center;font-size:0.56rem;padding:4px 8px;margin:6px 0}
-.food-card .book-status{display:block;width:100%;text-align:center;margin-top:4px}
+.act-card .act-body{display:flex;flex-direction:column}
+.act-card .book-status{order:99;display:block;width:100%;text-align:center;font-size:0.56rem;padding:5px 8px;margin-top:auto;border-top:1px solid var(--border)}
+.food-card{position:relative;display:flex;flex-direction:column}
+.food-card .book-status{order:99;display:block;width:100%;text-align:center;margin-top:auto;padding-top:4px;border-top:1px solid var(--border)}
+.food-card .fc-links{position:absolute;top:6px;right:6px;display:flex;gap:3px;z-index:1}
+.food-card .fc-links a{font-size:0.48rem;padding:1px 5px}
 .act-mini .book-status{font-size:0.48rem;padding:1px 5px;margin-top:2px}
 
 /* ── CARD TRANSIT (universal) ────────── */
 .card-transit{font-size:0.6rem;color:var(--muted);display:flex;align-items:center;gap:3px;margin:2px 0}
-.card-transit .ct-mode{font-weight:700;color:#3A3A4A}
 .act-card .card-transit{margin-bottom:4px;font-size:0.62rem}
-.act-mini .card-transit{font-size:0.52rem;margin-top:1px}
 .food-card .card-transit{font-size:0.58rem}
 
 /* ── ACT-CARD ENHANCEMENTS ────────── */
@@ -609,7 +610,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Ginza+Chuo+Dori+Tokyo" target="_blank">Ginza Neon Walk</a></div>
               <div class="mini-sub">Walk &middot; 8 min from hotel</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> from hotel</div>
               <div class="mini-note">Central Ginza at night. Department store facades lit up. Good first-night wander.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -617,7 +620,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Tsukiji+Outer+Market+Tokyo" target="_blank">Tsukiji Evening Stroll</a></div>
               <div class="mini-sub">Walk &middot; 10 min from hotel</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> from hotel</div>
               <div class="mini-note">Market closed, but lanterns and exterior atmosphere. Preview for tomorrow.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -625,7 +630,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=7-Eleven+Shintomicho+Tokyo" target="_blank">Combini Night Tour</a></div>
               <div class="mini-sub">Walk &middot; 2&ndash;5 min</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> from hotel</div>
               <div class="mini-note">7-Eleven, Lawson, FamilyMart. Stock up: onigiri, Pocari Sweat, Strong Zero, Boss coffee.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           </div>
@@ -783,7 +790,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Turret+Coffee+Tsukiji+Tokyo" target="_blank">Turret Coffee</a></div>
               <div class="mini-sub">☕ 5 min walk · Tsukiji</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> 5–10 min from hotel</div>
               <div class="mini-note">Tiny standing counter near Tsukiji. Excellent pour-over. Perfect pre-market stop.</div>
+              <span class="book-status walkup">Walk-up</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -791,7 +800,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Sarutahiko+Coffee+Ginza" target="_blank">Sarutahiko Coffee</a></div>
               <div class="mini-sub">☕ 10 min · Ginza</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> 5–10 min from hotel</div>
               <div class="mini-note">Clean, modern, single-origin. Multiple Ginza locations.</div>
+              <span class="book-status walkup">Walk-up</span>
             </div>
           </div>
           </div>
@@ -809,7 +820,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Kabukiza+Theatre+Tokyo" target="_blank">Kabukiza Theatre</a></div>
               <div class="mini-sub">Culture &middot; Free gallery &middot; 3 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Free 4F gallery or &yen;1-2K single-act ticket (~30 min live kabuki).</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -817,7 +830,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Tsukiji+Honganji+Temple+Tokyo" target="_blank">Tsukiji Honganji</a></div>
               <div class="mini-sub">Temple &middot; Free &middot; 5 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Indian-Mogul style Buddhist temple. Stunning interior, pipe organ. Always quiet.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -825,7 +840,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=UNIQLO+Ginza+Flagship+Tokyo" target="_blank">UNIQLO Ginza</a></div>
               <div class="mini-sub">Shopping &middot; 12 floors &middot; 8 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Japan-exclusive UT collabs, Airism for the heat. Tax-free.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -833,7 +850,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Imperial+Palace+East+Gardens+Tokyo" target="_blank">Imperial Palace Gardens</a></div>
               <div class="mini-sub">Gardens &middot; Free &middot; 15 min walk</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> from hotel</div>
               <div class="mini-note">Free, uncrowded. Morning only. Closes 4:30 PM. Closed Mon+Fri (open Marine Day, closed Tue Jul 21 instead).</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -841,7 +860,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Don+Quijote+Ginza+Tokyo" target="_blank">Don Quijote Ginza</a></div>
               <div class="mini-sub">Shopping &middot; 7 AM&ndash;4 AM &middot; 10 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Discount mega-store. Snacks, cosmetics, electronics, souvenirs, tax-free. Abe's paradise.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
         </div>
@@ -1301,7 +1322,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Light+Up+Coffee+Kichijoji" target="_blank">Light Up Coffee</a></div>
               <div class="mini-sub">Micro-roaster · Kichijoji</div>
+              <div class="card-transit"><span class="ct-mode">JR Chuo</span> 40 min via Shinjuku</div>
               <div class="mini-note">Award-winning. Grab a sandwich nearby.</div>
+              <span class="book-status walkup">Walk-up</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -1309,7 +1332,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Koffee+Mameya+Omotesando" target="_blank">Koffee Mameya</a></div>
               <div class="mini-sub">Specialty · Omotesando</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> 15 min from hotel</div>
               <div class="mini-note">Beans selected for you by the barista. No menu.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           </div>
@@ -1327,7 +1352,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Meiji+Jingu+Shrine" target="_blank">Meiji Jingu</a></div>
               <div class="mini-sub">Shrine · Near Harajuku</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> 15 min from hotel</div>
               <div class="mini-note">Early morning before Ghibli departure. Free entry.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -1335,7 +1362,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Inokashira+Park+Kichijoji" target="_blank">Inokashira Park</a></div>
               <div class="mini-sub">Park · Kichijoji</div>
+              <div class="card-transit"><span class="ct-mode">JR Chuo</span> 40 min via Shinjuku</div>
               <div class="mini-note">Walk through on the way to Ghibli Museum.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           </div>
@@ -1353,7 +1382,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Cat+Street+Harajuku+Shibuya" target="_blank">Cat Street</a></div>
               <div class="mini-sub">Shopping · Harajuku→Shibuya</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> 15 min from hotel</div>
               <div class="mini-note">Indie boutiques, vintage shops. Already on the D4 walking corridor. 20-min stroll.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -1361,7 +1392,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Shimokitazawa+Tokyo" target="_blank">Shimokitazawa</a></div>
               <div class="mini-sub">Neighborhood · 2 stops from Shibuya</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> 15 min from hotel</div>
               <div class="mini-note">Vintage shops, record stores, indie caf&eacute;s. Feels like a different city. 90-120 min.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           </div>
@@ -1379,12 +1412,14 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Omotesando+Hills+Tokyo" target="_blank">Omotesando Hills</a></div>
               <div class="mini-sub">Shopping · AC · Tadao Ando</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Spiral mall designed by Tadao Ando. Architecture alone is worth it. AC.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           </div>
         </div>
-        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife (Cody + Will + Natalie) <span class="chevron">&#9660;</span></div>
+        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife <span class="chevron">&#9660;</span></div>
         <div class="night-content">
           <div class="night-card"><div class="nc-em">🏮</div><div><div class="nc-name">Golden Gai</div><div class="nc-meta">Shinjuku &middot; 200 tiny bars &middot; &yen;500&ndash;1,000 cover</div><div class="nc-desc">The exploration IS the experience.</div></div></div>
           <div class="night-card"><div class="nc-em">🎷</div><div><div class="nc-name">New York Bar (Park Hyatt)</div><div class="nc-meta">Shinjuku &middot; 52F &middot; Live jazz &middot; &yen;2,000 cover</div><div class="nc-desc">The Lost in Translation one.</div></div></div>
@@ -1548,7 +1583,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Fuglen+Asakusa" target="_blank">Fuglen Asakusa</a></div>
               <div class="mini-sub">Norwegian roasters &middot; Kaminarimon</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> 20 min from hotel</div>
               <div class="mini-note">Excellent single-origin. Quiet morning vibe.</div>
+              <span class="book-status walkup">Walk-up</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -1556,7 +1593,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Arabica+Coffee+Asakusa" target="_blank">% Arabica Asakusa</a></div>
               <div class="mini-sub">Kyoto-born &middot; Riverside</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> from Senso-ji area</div>
               <div class="mini-note">Scenic riverside location near Kaminarimon.</div>
+              <span class="book-status walkup">Walk-up</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -1564,7 +1603,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Suzukien+Asakusa" target="_blank">Suzukien</a></div>
               <div class="mini-sub">Matcha gelato &middot; 7 levels</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">World's richest matcha gelato. Will must try.</div>
+              <span class="book-status walkup">Walk-up</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -1572,7 +1613,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Asakusa+Water+Bus+Terminal" target="_blank">Water Bus</a></div>
               <div class="mini-sub">Asakusa &rarr; Hamarikyu &middot; 40 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> 20 min from hotel</div>
               <div class="mini-note">&yen;780, river breeze. Alternative to metro.</div>
+              <span class="book-status ahead">Book ahead</span>
               <div class="mini-links"><a href="https://www.suijobus.co.jp/en/" target="_blank">🌐 Site</a></div>
             </div>
           </div>
@@ -1581,7 +1624,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Hamarikyu+Gardens+Tokyo" target="_blank">Hamarikyu Gardens</a></div>
               <div class="mini-sub">Tidal gardens &middot; &yen;300</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Matcha at the tea house with city skyline views.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -1589,7 +1634,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">Sake no Ana</a></div>
               <div class="mini-sub">200+ sake varieties &middot; Ginza</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> 5–10 min from hotel</div>
               <div class="mini-note">Evening drink option. 8-min walk from hotel.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           </div>
@@ -1607,7 +1654,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Kappabashi+Kitchen+Street+Tokyo" target="_blank">Kappabashi Kitchen St.</a></div>
               <div class="mini-sub">Shopping &middot; 10 min from Senso-ji</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Plastic food replicas, Japanese knives, ceramics. ~45 min. ⚠️ Most shops closed Sundays.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -1615,7 +1664,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Sumida+Riverwalk+Asakusa" target="_blank">Sumida Riverwalk</a></div>
               <div class="mini-sub">Walk &middot; Asakusa→Skytree</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> from hotel</div>
               <div class="mini-note">Pedestrian bridge with river views. Nice evening light. 15-min stroll.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           </div>
@@ -1633,12 +1684,14 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Coredo+Muromachi+Nihonbashi+Tokyo" target="_blank">Coredo Muromachi</a></div>
               <div class="mini-sub">Shopping &middot; AC &middot; Nihonbashi</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> 10 min from hotel</div>
               <div class="mini-note">Traditional craft shops + food stalls. En route between Asakusa and TeamLab.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           </div>
         </div>
-        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife (Cody + Will + Natalie) <span class="chevron">&#9660;</span></div>
+        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife <span class="chevron">&#9660;</span></div>
         <div class="night-content">
           <div class="night-card"><div class="nc-em">🍺</div><div><div class="nc-name">Ginza Lion Beer Hall</div><div class="nc-meta">Ginza &middot; 5-min walk &middot; Open Sundays</div><div class="nc-desc">Japan&rsquo;s oldest beer hall (1934). Art Deco mosaic ceiling, cold Sapporo, yoshoku comfort food.</div><div class="nc-links"><a href="https://maps.google.com/?q=Ginza+Lion+Beer+Hall+Ginza" target="_blank">📍 Map</a></div></div></div>
           <div class="night-card"><div class="nc-em">🍶</div><div><div class="nc-name">Sake no Ana</div><div class="nc-meta">Ginza &middot; 200+ varieties</div><div class="nc-desc">English menu. Start light, go richer.</div><div class="nc-links"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">📍 Map</a></div></div></div>
@@ -1829,7 +1882,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=WA+SPA+Ginza" target="_blank">WA SPA Ginza</a></div>
               <div class="mini-sub">Mid-range &middot; Walking distance</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> from hotel</div>
               <div class="mini-note">Facial + mani/pedi, &yen;18-22K/pp. Open holidays.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -1837,7 +1892,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Peninsula+Tokyo+Spa" target="_blank">Peninsula Spa</a></div>
               <div class="mini-sub">Luxury &middot; 10 min taxi</div>
+              <div class="card-transit"><span class="ct-mode">Walk/Taxi</span> from hotel</div>
               <div class="mini-note">&yen;25-40K/pp. Open daily.</div>
+              <span class="book-status ahead">Book ahead</span>
               <div class="mini-links"><a href="https://www.peninsula.com/en/tokyo/hotel-fine-dining/the-peninsula-spa" target="_blank">🌐 Site</a></div>
             </div>
           </div>
@@ -1856,7 +1913,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Don+Quijote+Ginza+Tokyo" target="_blank">Don Quijote Ginza</a></div>
               <div class="mini-sub">Shopping &middot; 7 AM&ndash;4 AM &middot; 15 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Discount mega-store. Snacks, cosmetics, souvenirs. Tax-free. Abe's paradise.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -1864,7 +1923,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Ginza+Itoya+Tokyo" target="_blank">Ginza Itoya</a></div>
               <div class="mini-sub">Stationery &middot; 12 floors &middot; 8 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Pens, washi tape, notebooks. Tax-free. Opens 10 AM.</div>
+              <span class="book-status ahead">Book ahead</span>
               <div class="mini-links"><a href="https://www.ito-ya.co.jp/en/" target="_blank">🌐 Site</a></div>
             </div>
           </div>
@@ -1873,7 +1934,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Kabukiza+Theatre+Tokyo" target="_blank">Kabukiza Theatre</a></div>
               <div class="mini-sub">Culture &middot; Free gallery &middot; 3 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Free 4F gallery or &yen;1-2K single-act ticket. ~30 min.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -1881,7 +1944,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Tsukishima+Monja+Street+Tokyo" target="_blank">Tsukishima Monja Street</a></div>
               <div class="mini-sub">Food &middot; 15 min metro</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Interactive cooking at your table. Fun, social, local neighborhood.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           </div>
@@ -2054,7 +2119,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Turret+Coffee+Tsukiji+Tokyo" target="_blank">Turret Coffee</a></div>
               <div class="mini-sub">Standing counter &middot; 5 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Perfect pre-Tsukiji pour-over.</div>
+              <span class="book-status walkup">Walk-up</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -2062,7 +2129,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Ginza+Itoya+Tokyo" target="_blank">Ginza Itoya</a></div>
               <div class="mini-sub">Stationery &middot; 12 floors &middot; 8 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Pens, washi tape, notebooks, art supplies. Tax-free. Natalie + Mom + Abe paradise.</div>
+              <span class="book-status ahead">Book ahead</span>
               <div class="mini-links"><a href="https://www.ito-ya.co.jp/en/" target="_blank">🌐 Site</a></div>
             </div>
           </div>
@@ -2071,7 +2140,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Kabukiza+Theatre+Tokyo" target="_blank">Kabukiza Theatre</a></div>
               <div class="mini-sub">Culture &middot; Free gallery or &yen;1-2K act</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Free 4F gallery of kabuki costumes. Or buy a single-act ticket for ~30 min of live performance.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
         </div>
@@ -2090,7 +2161,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Coredo+Muromachi+Nihonbashi+Tokyo" target="_blank">Coredo Muromachi</a></div>
               <div class="mini-sub">Craft shops &middot; Nihonbashi &middot; 10 min</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> 10 min from hotel</div>
               <div class="mini-note">Knives, sake, ceramics + curated food stalls. AC. Different feel from Ginza.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -2098,7 +2171,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Kitte+Marunouchi+Tokyo" target="_blank">Kitte Rooftop</a></div>
               <div class="mini-sub">Views &middot; Free &middot; 10 min walk</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> from hotel</div>
               <div class="mini-note">Tokyo Station brick facade from above. Free terrace. Quick photo stop.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -2106,7 +2181,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Don+Quijote+Ginza+Tokyo" target="_blank">Don Quijote Ginza</a></div>
               <div class="mini-sub">Shopping &middot; 7 AM&ndash;4 AM &middot; 10 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Last-minute souvenirs, snacks, cosmetics. Tax-free.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
         </div>
@@ -2125,7 +2202,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Pokemon+Cafe+Nihonbashi+Tokyo" target="_blank">Pok&eacute;mon Caf&eacute;</a></div>
               <div class="mini-sub">Nihonbashi &middot; 90 min &middot; Takashimaya 5F</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> 10 min from hotel</div>
               <div class="mini-note">Themed dining + exclusive merch. ¥3&ndash;5K/pp. ⚠️ <strong>Closed for renovation until late June 2026</strong> &mdash; monitor <a href="https://www.pokemon-cafe.jp/en/cafe/" target="_blank">official site</a> for reopening.</div>
+              <span class="book-status walkup">Walk-up</span>
               <div class="mini-links"><a href="https://reserve.pokemon-cafe.jp/" target="_blank">🎟️ Reserve (31 days out, 6 PM JST)</a></div>
             </div>
           </div>
@@ -2134,12 +2213,14 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Pokemon+Center+Tokyo+DX+Nihonbashi" target="_blank">Pok&eacute;mon Center Tokyo DX</a></div>
               <div class="mini-sub">Nihonbashi &middot; Same floor as caf&eacute;</div>
+              <div class="card-transit"><span class="ct-mode">Walk</span> 10 min from hotel</div>
               <div class="mini-note">Flagship store. Largest selection in Tokyo. Nihonbashi-exclusive items. <strong>Open during renovation.</strong></div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
         </div>
         </div>
-        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Farewell Nightlife <span class="chevron">&#9660;</span></div>
+        <div class="night-toggle" onclick="this.classList.toggle('open')">🏮 Nightlife <span class="chevron">&#9660;</span></div>
         <div class="night-content">
           <div class="night-card"><div class="nc-em">🍸</div><div><div class="nc-name">Bar High Five</div><div class="nc-meta">Ginza &middot; 8-min walk &middot; Open Tue 5&ndash;11:30</div><div class="nc-desc">World-class cocktails by Hidetsugu Ueno. Mom can join.</div><div class="nc-links"><a href="https://maps.google.com/?q=Bar+High+Five+Ginza" target="_blank">📍 Map</a></div></div></div>
           <div class="night-card"><div class="nc-em">🍶</div><div><div class="nc-name">Sake no Ana</div><div class="nc-meta">Ginza &middot; 200+ varieties</div><div class="nc-desc">Sake education before the flight home.</div><div class="nc-links"><a href="https://maps.google.com/?q=Sake+no+Ana+Ginza" target="_blank">📍 Map</a></div></div></div>
@@ -2310,7 +2391,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=Mitsukoshi+Ginza+Tokyo" target="_blank">Mitsukoshi B2</a></div>
               <div class="mini-sub">Depachika &middot; Opens 10 AM</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Last-minute packaged souvenirs. Tax-free.</div>
+              <span class="book-status ahead">Book ahead</span>
             </div>
           </div>
           <div class="act-mini reveal">
@@ -2318,7 +2401,9 @@ input[type=checkbox]{accent-color:#BC002D}
             <div class="mini-body">
               <div class="mini-name"><a href="https://maps.google.com/?q=GINZA+SIX+Tokyo" target="_blank">Ginza Six B2</a></div>
               <div class="mini-sub">Food Hall &middot; 5 min</div>
+              <div class="card-transit"><span class="ct-mode">Metro</span> from hotel</div>
               <div class="mini-note">Tsutaya bookstore + premium food basement.</div>
+              <span class="book-status ahead">Book ahead</span>
               <div class="mini-links"><a href="https://ginza6.tokyo/" target="_blank">🌐 Site</a></div>
             </div>
           </div>
@@ -2720,13 +2805,59 @@ function updateNav() {
 }
 window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(() => { updateNav(); ticking = false; }); ticking = true; } });
 
+// ── ACT-CARD LINK WRAPPING ─────────
+document.querySelectorAll('.act-card .act-body').forEach(body => {
+  const links = body.querySelectorAll('.act-map, .act-web, .act-tix');
+  if (links.length) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'act-links';
+    links.forEach(l => wrapper.appendChild(l));
+    body.prepend(wrapper);
+  }
+});
+
+// ── SCROLL POSITION PERSISTENCE ────
+const SCROLL_KEY = 'tky26_scroll';
+const SCROLL_TS_KEY = 'tky26_scroll_ts';
+const SCROLL_TTL = 5 * 60 * 1000; // 5 minutes
+
+function saveScrollPos() {
+  sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
+  sessionStorage.setItem(SCROLL_TS_KEY, String(Date.now()));
+}
+
+function restoreScrollPos() {
+  const saved = sessionStorage.getItem(SCROLL_KEY);
+  const ts = sessionStorage.getItem(SCROLL_TS_KEY);
+  if (saved && ts && (Date.now() - parseInt(ts)) < SCROLL_TTL) {
+    const y = parseInt(saved);
+    if (y > 100) { // only restore if was past hero
+      window.scrollTo(0, y);
+      return true;
+    }
+  }
+  return false;
+}
+
 // ── INIT ────────────────────────────
 function initFromHash() {
   const m = window.location.hash.match(/^#day(\d)$/);
-  const n = m ? parseInt(m[1]) : 1;
-  if (isMobile()) showDayMobile(n);
-  else { updatePill(n); scrollToDay(n); }
+  if (m) {
+    const n = parseInt(m[1]);
+    if (isMobile()) showDayMobile(n);
+    else { updatePill(n); scrollToDay(n); }
+    return;
+  }
+  // No hash — try restoring scroll position (within TTL)
+  if (restoreScrollPos()) {
+    updateNav();
+    return;
+  }
+  // Fresh visit — stay at hero (top of page), show Day 1 on mobile
+  if (isMobile()) showDayMobile(1);
 }
+
+window.addEventListener('beforeunload', saveScrollPos);
 
 // Overview cards
 document.querySelectorAll('.ov-card').forEach(c => c.addEventListener('click', () => navToDay(parseInt(c.dataset.n))));
@@ -2737,8 +2868,8 @@ document.querySelectorAll('.nav-pill').forEach(p => {
 
 // Booking checklist persistence
 const checks = document.querySelectorAll('.cl-item input[type=checkbox]');
-const saved = JSON.parse(localStorage.getItem('tokyoBooking') || '{}');
-checks.forEach((c, i) => { if (saved[i]) c.checked = true; });
+const savedChecks = JSON.parse(localStorage.getItem('tokyoBooking') || '{}');
+checks.forEach((c, i) => { if (savedChecks[i]) c.checked = true; });
 function saveChecks() {
   const state = {};
   checks.forEach((c, i) => { if (c.checked) state[i] = true; });
