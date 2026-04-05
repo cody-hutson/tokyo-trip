@@ -57,16 +57,16 @@ input[type=checkbox]{accent-color:#BC002D}
 .ov-card:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12)}
 .ov-card::before{content:attr(data-n);position:absolute;right:8px;bottom:-6px;font-family:'Bebas Neue',sans-serif;font-size:3.2rem;line-height:1;color:rgba(255,255,255,0.05);pointer-events:none;z-index:0}
 .ov-pip{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;flex-shrink:0;vertical-align:middle}
-.ov-date{font-size:0.62rem;letter-spacing:1.5px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:5px}
-.ov-name{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.5px;line-height:1.1;margin-bottom:6px}
-.ov-highlights{font-size:0.7rem;color:rgba(255,255,255,0.4);line-height:1.5}
-.ov-highlights strong{color:rgba(255,255,255,0.65)}
+.ov-date{font-size:0.72rem;letter-spacing:1.5px;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:5px}
+.ov-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.5px;line-height:1.1;margin-bottom:6px}
+.ov-highlights{font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.5}
+.ov-highlights strong{color:rgba(255,255,255,0.7)}
 
 /* ── NAV ──────────────────────────────── */
 .day-nav{position:sticky;top:0;z-index:200;background:rgba(15,17,23,0.96);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(255,255,255,0.06)}
 .nav-inner{display:flex;gap:0;padding:0 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .nav-inner::-webkit-scrollbar{display:none}
-.nav-pill{flex-shrink:0;padding:14px 16px;font-size:0.68rem;font-weight:700;text-align:center;letter-spacing:0.5px;line-height:1.35;color:rgba(255,255,255,0.35);border-bottom:3px solid transparent;transition:all 0.2s;white-space:nowrap;position:relative}
+.nav-pill{flex-shrink:0;padding:14px 16px;font-size:0.82rem;font-weight:700;text-align:center;letter-spacing:0.5px;line-height:1.35;color:rgba(255,255,255,0.35);border-bottom:3px solid transparent;transition:all 0.2s;white-space:nowrap;position:relative}
 .nav-pill:hover,.nav-pill.active{color:rgba(255,255,255,0.9)}
 .nav-pill::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:3px;background:var(--pill-color,var(--red));transform:scaleX(0);transition:transform 0.25s;transform-origin:left}
 .nav-pill.active::after,.nav-pill:hover::after{transform:scaleX(1)}
@@ -436,7 +436,7 @@ input[type=checkbox]{accent-color:#BC002D}
   .day-section.hero-open .day-headline{font-size:2rem !important}
 
   /* ══ GRID: 4 columns, fills remaining viewport ══ */
-  .day-grid{grid-template-columns:1fr 1.3fr 1fr 0.8fr !important;gap:2px 14px;flex:1;overflow-y:auto;overflow-x:hidden;min-height:0}
+  .day-grid{grid-template-columns:1fr 1.3fr 1fr 0.8fr !important;gap:4px 16px;flex:1;overflow-y:auto;overflow-x:hidden;min-height:0;align-content:space-evenly}
 
   /* ══ MAP: col-4, fills full column ══ */
   .day-full{grid-column:4;grid-row:1/-1;align-self:stretch;display:flex;flex-direction:column}
@@ -3010,32 +3010,8 @@ if (!isMobile()) {
     // structural content (timeline, featured cards) is more important
   }
 
-  // Step 4: Fill remaining viewport space by increasing spacing
-  function fillRemainingSpace(daySection) {
-    const navH = document.querySelector('.day-nav')?.offsetHeight || 0;
-    const vh = window.innerHeight - navH;
-    const grid = daySection.querySelector('.day-grid');
-    if (!grid) return;
-
-    // Reset previous adjustments
-    grid.style.rowGap = '';
-    grid.style.paddingTop = '';
-    grid.style.paddingBottom = '';
-
-    const contentH = getNaturalHeight(daySection);
-    if (contentH >= vh || contentH <= 0) return;
-
-    const remaining = vh - contentH;
-    if (remaining < 10) return; // negligible
-
-    // Distribute remaining space: row-gap increase + top/bottom padding
-    const newRowGap = Math.min(8 + remaining * 0.3, 40); // base 8px + 30% of remaining, cap 40px
-    const vertPad = Math.min(remaining * 0.35, 30); // 35% of remaining as top/bottom padding, cap 30px
-
-    grid.style.rowGap = newRowGap + 'px';
-    grid.style.paddingTop = vertPad + 'px';
-    grid.style.paddingBottom = vertPad + 'px';
-  }
+  // Step 4: CSS align-content:space-evenly on .day-grid handles
+  // remaining space distribution automatically — no JS needed
 
   // Run after layout settles
   const runFit = () => setTimeout(() => {
@@ -3044,10 +3020,7 @@ if (!isMobile()) {
     document.documentElement.style.setProperty('--nav-h', navH + 'px');
     // Phase 1: expand/collapse to fit
     document.querySelectorAll('.day-section').forEach(fitDayToViewport);
-    // Phase 2: fill remaining space with increased spacing
-    setTimeout(() => {
-      document.querySelectorAll('.day-section').forEach(fillRemainingSpace);
-    }, 50);
+    // Phase 2: CSS align-content:space-evenly handles remaining space
   }, 200);
   if (document.readyState === 'complete') runFit();
   else window.addEventListener('load', runFit);
