@@ -371,11 +371,7 @@ input[type=checkbox]{accent-color:#BC002D}
 .booking-x button:hover{color:#fff}
 
 /* ── RESPONSIVE ──────────────────────── */
-@media(max-width:1200px) and (min-width:769px){
-  .day-grid{grid-template-columns:1fr 1.2fr 1fr !important;gap:6px 16px}
-  .day-full{grid-column:1/-1}
-  .meal-cards{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important}
-}
+/* tablet breakpoint moved after desktop block — see below */
 @media(max-width:768px){
   .day-grid{grid-template-columns:1fr !important}
   .day-full{grid-column:1}
@@ -493,9 +489,9 @@ input[type=checkbox]{accent-color:#BC002D}
   .col-highlights > .sec-label{display:none}
   .col-highlights > .alt-grid{display:none}
 
-  /* ══ LAYOUT: featured stops side by side ══ */
-  .col-highlights .col-head+.act-card{display:inline-block;vertical-align:top;width:calc(50% - 4px);margin-right:4px}
-  .col-highlights .act-card+.act-card{display:inline-block;vertical-align:top;width:calc(50% - 4px);margin-right:0}
+  /* ══ LAYOUT: featured stops side by side, wrap when needed ══ */
+  .col-highlights .act-card-row{display:flex;flex-wrap:wrap;gap:4px}
+  .col-highlights .act-card{flex:1 1 calc(50% - 4px);min-width:180px;margin-bottom:4px}
 
   /* ══ COMPACT SPACING (readable) ══ */
   .col-head{padding-top:8px;margin-bottom:4px;font-size:0.54rem}
@@ -524,6 +520,17 @@ input[type=checkbox]{accent-color:#BC002D}
   .split-panel .tl-row:nth-child(n+4){display:none}
   .split-panel .tl-row:nth-child(4){display:block}
   .split-panel .tl-row:nth-child(4)::after{content:'... click to expand';display:block;font-size:0.55rem;color:var(--muted);text-decoration:underline;margin-top:4px;cursor:pointer}
+}
+/* ══ TABLET: 769-1200px — 3 columns, map full-width, recalc viewport fit ══ */
+@media(max-width:1200px) and (min-width:769px){
+  .day-grid{grid-template-columns:1fr 1.2fr 1fr !important;gap:6px 16px}
+  .day-full{grid-column:1/-1 !important;grid-row:auto !important;align-self:auto !important}
+  .day-full .map-zone{height:auto !important}
+  .map-wrap{height:160px !important;min-height:auto !important;flex:none !important}
+  .gmap-route{margin-top:4px}
+  .meal-cards{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important}
+  /* Featured stops stack vertically on tablet */
+  .col-highlights .col-head+.act-card,.col-highlights .act-card+.act-card{display:block !important;width:auto !important;margin-right:0 !important}
 }
 @media(max-width:480px){
   .ov-grid{grid-template-columns:1fr}
