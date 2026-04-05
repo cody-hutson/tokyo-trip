@@ -2968,9 +2968,11 @@ if (!isMobile()) {
     }
   }
 
-  // Run auto-expand on all days after a frame
-  requestAnimationFrame(() => {
-    document.querySelectorAll('.day-section').forEach(autoExpandDay);
+  // Run auto-expand after fonts + layout settle
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.day-section').forEach(autoExpandDay);
+    }, 100);
   });
 }
 
