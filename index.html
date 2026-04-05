@@ -412,27 +412,29 @@ input[type=checkbox]{accent-color:#BC002D}
   .booking-backdrop{display:none}
   .booking-slide{transform:none !important;position:static;max-height:none;border-radius:0}
   .booking-x{display:none}
-  /* Desktop sec-toggles: compact headers, collapsible (start expanded via JS) */
-  .sec-toggle{display:flex;padding:6px 10px;margin:4px 0;background:none;border:1px solid var(--border);border-radius:var(--r-sm)}
-  .sec-toggle .st-icon{font-size:0.75rem}
-  .sec-toggle .st-label{font-size:0.68rem}
-  .sec-toggle .st-meta{font-size:0.55rem}
-  .sec-toggle .st-chev{font-size:0.42rem}
-  /* Desktop: nightlife matches sec-toggle style */
-  .night-toggle{display:flex;align-items:center;gap:8px;padding:6px 10px;margin:4px 0;background:none;border:1px solid var(--border);border-radius:var(--r-sm);font-size:0.68rem;letter-spacing:0.5px;border-bottom:none}
-  .map-trigger{display:none}
-  .map-zone{display:block !important}
-  .meal-cards-wrap{display:block !important}
-  .meal-toggle{display:none}
-  .show-more-tl{display:none}
-  .tl-row.tl-hidden{display:block !important}
+  /* Desktop: day-level disclosure — collapsed by default, click to expand */
+  .day-body{display:none}
+  .day-section.day-expanded .day-body{display:block}
+  .day-hero{cursor:pointer}
+  .day-hero::after{transition:opacity 0.3s}
+  .day-section.day-expanded .day-hero::after{opacity:0.08}
+  /* Expand indicator on collapsed day heroes */
+  .day-hero .expand-hint{position:absolute;bottom:8px;right:16px;font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);z-index:2;transition:opacity 0.3s}
+  .day-section.day-expanded .day-hero .expand-hint{opacity:0}
+  /* When expanded: everything inside is visible — no sec-toggle/sec-body games */
+  .day-section.day-expanded .sec-toggle{display:none}
+  .day-section.day-expanded .sec-body{display:block !important}
+  .day-section.day-expanded .night-content{display:block !important}
+  .day-section.day-expanded .map-trigger{display:none}
+  .day-section.day-expanded .map-zone{display:block !important}
+  .day-section.day-expanded .meal-cards-wrap{display:block !important}
+  .day-section.day-expanded .meal-toggle{display:none}
+  .day-section.day-expanded .show-more-tl{display:none}
+  .day-section.day-expanded .tl-row.tl-hidden{display:block !important}
   .day-summary{display:flex}
   /* Desktop: featured stops side by side */
   .col-highlights .col-head+.act-card{display:inline-block;vertical-align:top;width:calc(50% - 6px);margin-right:8px}
   .col-highlights .act-card+.act-card{display:inline-block;vertical-align:top;width:calc(50% - 6px);margin-right:0}
-  /* Desktop: map in column 1, square */
-  .day-full{grid-column:1}
-  .map-wrap{aspect-ratio:1;height:auto;max-height:320px}
 }
 @media(max-width:480px){
   .ov-grid{grid-template-columns:1fr}
@@ -547,6 +549,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <h2 class="day-headline">Arrival</h2>
     <p class="day-tagline">Land, eat, sleep. That's the entire job today.</p>
     <div class="day-summary"><span>🎯 <strong>2</strong> stops · 🍽 <strong>1</strong> dinner · ✅ All walk-up · 🌡 Evening only</span></div>
+    <p class="expand-hint">Click to expand ▾</p>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -725,6 +728,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <h2 class="day-headline">Tsukiji + Ginza Local</h2>
     <p class="day-tagline">Jet lag wakes you at 5 AM. That's an opportunity, not a problem.</p>
     <div class="day-summary"><span>🎯 <strong>2</strong> featured · 🍽 <strong>3</strong> meals · ✅ All walk-up · 🌡 Green → Red → Amber</span></div>
+    <p class="expand-hint">Click to expand ▾</p>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -1029,6 +1033,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <h2 class="day-headline">Tokyo DisneySea</h2>
     <p class="day-tagline">Friday = lower crowds. 25th Anniversary Jubilee + Summer Cool-Off + Toy Story 5 overlay. Buy Frozen Journey + Soaring Premier Access at 9:00 AM sharp.</p>
     <div class="day-summary"><span>🎯 <strong>2</strong> park areas · 🍽 <strong>3</strong> meals · 🎟 <strong>2</strong> need booking · 🌡 Full day — AC plan</span></div>
+    <p class="expand-hint">Click to expand ▾</p>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -1251,6 +1256,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <h2 class="day-headline">Ghibli &middot; Shibuya &middot; Special Dinner</h2>
     <p class="day-tagline">The best day of the trip. Museum, shopping corridor, sunset from the sky, and the crown jewel dinner.</p>
     <div class="day-summary"><span>🎯 <strong>2</strong> featured + shopping · 🍽 <strong>3</strong> meals · 🎟 <strong>3</strong> need booking · 🌡 Green → Red → Amber</span></div>
+    <p class="expand-hint">Click to expand ▾</p>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -1521,6 +1527,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <h2 class="day-headline">Asakusa + TeamLab Planets</h2>
     <p class="day-tagline">Old Tokyo at dawn. Immersive art in the afternoon. Omakase close to home for dinner.</p>
     <div class="day-summary"><span>🎯 <strong>2</strong> featured · 🍽 <strong>3</strong> meals · 🎟 <strong>2</strong> need booking · 🌡 Green → Red → Amber</span></div>
+    <p class="expand-hint">Click to expand ▾</p>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -1794,6 +1801,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <h2 class="day-headline">PokePark + Group Split</h2>
     <p class="day-tagline">Theme park morning. Cody + Will to the mountains. Natalie + Mom + Abe to the spa.</p>
     <div class="day-summary"><span>🎯 <strong>2</strong> featured + split · 🍽 <strong>2</strong> meals · 🎟 <strong>2</strong> booked · 🌡 Marine Day — crowds</span></div>
+    <p class="expand-hint">Click to expand ▾</p>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -2036,6 +2044,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <h2 class="day-headline">Reunite + Farewell</h2>
     <p class="day-tagline">Return from the mountains. One last neighborhood walk. The farewell dinner this trip deserves.</p>
     <div class="day-summary"><span>🎯 <strong>2</strong> featured · 🍽 <strong>3</strong> meals · 🎟 <strong>1</strong> needs booking · 🌡 Green → Red → Amber</span></div>
+    <p class="expand-hint">Click to expand ▾</p>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -2325,6 +2334,7 @@ input[type=checkbox]{accent-color:#BC002D}
     <h2 class="day-headline">Depart 12:30 PM</h2>
     <p class="day-tagline">One last Tsukiji breakfast. One last Ginza walk. Then the N'EX.</p>
     <div class="day-summary"><span>🎯 <strong>2</strong> final stops · 🍽 <strong>1</strong> breakfast · 🎟 N'EX reserved · 🌡 Morning → depart</span></div>
+    <p class="expand-hint">Click to expand ▾</p>
   </div>
   <div class="day-body">
     <div class="day-grid">
@@ -2752,12 +2762,16 @@ function showDayMobile(n) {
 function scrollToDay(n) {
   const el = document.getElementById('day' + n);
   const nav = document.getElementById('mainNav');
-  if (el && nav) {
+  if (!el || !nav) return;
+  // Expand the target day if not already
+  if (!el.classList.contains('day-expanded')) expandDay(n);
+  currentDay = n;
+  // Scroll after a tick so expanded content is rendered
+  requestAnimationFrame(() => {
     const navH = nav.getBoundingClientRect().height;
     const top = el.getBoundingClientRect().top + window.pageYOffset - navH;
     window.scrollTo({ top, behavior: 'smooth' });
-  }
-  currentDay = n;
+  });
 }
 
 function updatePill(n) {
@@ -2837,9 +2851,32 @@ function updateNav() {
 }
 window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(() => { updateNav(); ticking = false; }); ticking = true; } });
 
-// ── DESKTOP: start all sec-toggles + night-toggles expanded ─────────
+// ── DESKTOP: day-level expand/collapse ─────────
+function expandDay(n) {
+  const section = document.getElementById('day' + n);
+  if (!section) return;
+  section.classList.toggle('day-expanded');
+  // Trigger reveal animations for newly visible content
+  if (section.classList.contains('day-expanded')) {
+    section.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+    // Re-init maps that weren't loaded
+    section.querySelectorAll('.map-wrap[id]:not([data-init])').forEach(mapEl => {
+      const id = mapEl.id.replace('map-', '');
+      initMap(id);
+    });
+  }
+}
 if (!isMobile()) {
-  document.querySelectorAll('.sec-toggle, .night-toggle').forEach(t => t.classList.add('open'));
+  // Day 1 starts expanded
+  expandDay(1);
+  // Click day-hero to expand/collapse
+  document.querySelectorAll('.day-hero').forEach(hero => {
+    hero.addEventListener('click', () => {
+      const daySection = hero.closest('.day-section');
+      const dayNum = daySection.id.replace('day', '');
+      expandDay(parseInt(dayNum));
+    });
+  });
 }
 
 // ── ACT-CARD LINK WRAPPING ─────────
