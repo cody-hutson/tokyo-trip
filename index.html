@@ -426,17 +426,18 @@ input[type=checkbox]{accent-color:#BC002D}
   .day-body{flex:1;padding:0 20px 12px;max-width:100%;display:flex;flex-direction:column}
 
   /* ══ DAY HERO: compact bar ══ */
-  .day-hero{padding:8px 24px 6px;cursor:pointer}
+  .day-hero{padding:6px 24px 4px;cursor:pointer;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
   .day-hero::after{display:none}
+  .day-hero>*{position:relative;z-index:2}
   .day-tagline{display:none}
-  .energy-pill{font-size:0.55rem;padding:2px 8px;margin-bottom:4px}
-  .day-label{font-size:0.65rem;margin-bottom:1px}
-  .day-headline{font-size:1.4rem !important;margin-bottom:2px}
-  .day-summary{display:flex;gap:12px;margin-top:4px;padding:0;border:none;font-size:0.55rem}
+  .energy-pill{font-size:0.5rem;padding:1px 7px;margin:0;order:-1}
+  .day-label{font-size:0.58rem;margin:0;opacity:0.6}
+  .day-headline{font-size:1.2rem !important;margin:0}
+  .day-summary{display:inline-flex;gap:10px;margin:0 0 0 auto;padding:0;border:none;font-size:0.48rem}
   .expand-hint{display:none}
-  .day-section.hero-open .day-hero{padding:14px 24px 10px}
-  .day-section.hero-open .day-tagline{display:block}
-  .day-section.hero-open .day-headline{font-size:1.8rem !important}
+  .day-section.hero-open .day-hero{padding:12px 24px 8px;flex-wrap:wrap}
+  .day-section.hero-open .day-tagline{display:block;width:100%}
+  .day-section.hero-open .day-headline{font-size:1.5rem !important}
 
   /* ══ GRID: 4 columns, fills remaining viewport ══ */
   .day-grid{grid-template-columns:1fr 1.3fr 1fr 0.8fr !important;gap:2px 14px;flex:1;overflow-y:auto;overflow-x:hidden;min-height:0}
@@ -497,16 +498,32 @@ input[type=checkbox]{accent-color:#BC002D}
   .col-highlights .act-card+.act-card{display:inline-block;vertical-align:top;width:calc(50% - 4px);margin-right:0}
 
   /* ══ COMPACT SPACING (readable) ══ */
-  .col-head{padding-top:10px;margin-bottom:6px;font-size:0.56rem}
-  .heat-strip{padding:8px 0 6px}
-  .prep-box{padding:8px 12px;font-size:0.74rem}
-  .transport-box{padding:8px 12px;font-size:0.74rem}
-  .tl-row{margin-bottom:8px}
-  .act-body{padding:10px 12px}
-  .note-box,.warn-box{font-size:0.72rem;padding:8px 12px}
-  .meal-label{font-size:0.55rem;margin:8px 0 4px}
-  .split-tabs{margin:8px 0 0}
-  .split-tab{padding:6px 12px;font-size:0.65rem}
+  .col-head{padding-top:8px;margin-bottom:4px;font-size:0.54rem}
+  .heat-strip{padding:6px 0 4px}
+  .heat-track{height:7px}
+  .heat-times{font-size:0.5rem}
+  .hl-item{font-size:0.52rem}
+  /* Prep box: collapsed by default on desktop */
+  .prep-box{padding:0;font-size:0.72rem;max-height:24px;overflow:hidden;cursor:pointer;transition:max-height 0.3s}
+  .prep-box h5{padding:4px 12px;margin:0}
+  .prep-box ul{padding:4px 12px 8px 28px}
+  .prep-box.prep-open{max-height:500px;padding:0}
+  .transport-box{padding:6px 10px;font-size:0.7rem}
+  .transport-box h5{font-size:0.52rem;margin-bottom:2px}
+  .transport-box p{font-size:0.65rem}
+  .tl-row{margin-bottom:5px}
+  .tl-time{font-size:0.6rem}
+  .tl-title{font-size:0.74rem}
+  .tl-note{font-size:0.65rem}
+  .act-body{padding:8px 10px}
+  .note-box,.warn-box{font-size:0.68rem;padding:6px 10px}
+  .meal-label{font-size:0.52rem;margin:6px 0 3px}
+  .split-tabs{margin:4px 0 0}
+  .split-tab{padding:4px 10px;font-size:0.6rem}
+  /* Split panel timelines: truncate to 3 visible */
+  .split-panel .tl-row:nth-child(n+4){display:none}
+  .split-panel .tl-row:nth-child(4){display:block}
+  .split-panel .tl-row:nth-child(4)::after{content:'... click to expand';display:block;font-size:0.55rem;color:var(--muted);text-decoration:underline;margin-top:4px;cursor:pointer}
 }
 @media(max-width:480px){
   .ov-grid{grid-template-columns:1fr}
@@ -2926,6 +2943,19 @@ if (!isMobile()) {
     card.addEventListener('click', (e) => {
       if (e.target.tagName === 'A' || e.target.closest('a')) return;
       card.classList.toggle('card-open');
+    });
+  });
+  // Click prep-box to expand/collapse
+  document.querySelectorAll('.prep-box').forEach(box => {
+    box.addEventListener('click', () => box.classList.toggle('prep-open'));
+  });
+  // Click split-panel truncated timeline to expand
+  document.querySelectorAll('.split-panel').forEach(panel => {
+    panel.addEventListener('click', (e) => {
+      if (e.target.closest('.tl-row:nth-child(4)') || e.target.closest('.tl-row')) {
+        panel.style.cssText = '';
+        panel.querySelectorAll('.tl-row').forEach(r => r.style.display = '');
+      }
     });
   });
   // Click day-hero to expand tagline/summary or collapse
