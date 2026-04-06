@@ -12,6 +12,7 @@
 /* ── RESET ─────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
+html{overflow-x:hidden}
 body{font-family:'Karla',sans-serif;background:#FAF8F5;color:#0F1117;line-height:1.6;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
@@ -30,7 +31,7 @@ input[type=checkbox]{accent-color:#BC002D}
 /* ── HERO ─────────────────────────────── */
 .hero{min-height:100svh;background:linear-gradient(160deg,#0F1117 0%,#2A000D 45%,#BC002D 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 32px 60px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,255,255,0.03) 0%,transparent 70%);pointer-events:none}
-.hero-sun{position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(197,151,58,0.12) 0%,rgba(188,0,45,0.05) 50%,transparent 70%);pointer-events:none}
+.hero-sun{position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:min(500px,100vw);height:min(500px,100vw);border-radius:50%;background:radial-gradient(circle,rgba(197,151,58,0.12) 0%,rgba(188,0,45,0.05) 50%,transparent 70%);pointer-events:none}
 .hero-kana{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3vw,1.4rem);letter-spacing:8px;color:rgba(255,255,255,0.25);margin-bottom:8px;animation:fadeup 1s ease both}
 .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(7rem,22vw,18rem);color:#fff;line-height:0.85;letter-spacing:-3px;animation:fadeup 1s ease 0.15s both;text-shadow:0 0 120px rgba(188,0,45,0.4)}
 .hero-dates{font-family:'DM Serif Display',serif;font-size:clamp(1rem,3.5vw,1.8rem);color:rgba(255,255,255,0.7);letter-spacing:3px;margin:16px 0 8px;animation:fadeup 1s ease 0.3s both}
@@ -63,8 +64,8 @@ input[type=checkbox]{accent-color:#BC002D}
 .ov-highlights strong{color:rgba(255,255,255,0.7)}
 
 /* ── NAV ──────────────────────────────── */
-.day-nav{position:sticky;top:0;z-index:200;background:rgba(15,17,23,0.96);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(255,255,255,0.06)}
-.nav-inner{display:flex;gap:0;padding:0 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.day-nav{position:sticky;top:0;z-index:200;background:rgba(15,17,23,0.96);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(255,255,255,0.06);overflow:hidden;max-width:100vw}
+.nav-inner{display:flex;gap:0;padding:0 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;max-width:100vw}
 .nav-inner::-webkit-scrollbar{display:none}
 .nav-pill{flex-shrink:0;padding:14px 16px;font-size:0.82rem;font-weight:700;text-align:center;letter-spacing:0.5px;line-height:1.35;color:rgba(255,255,255,0.35);border-bottom:3px solid transparent;transition:all 0.2s;white-space:nowrap;position:relative}
 .nav-pill:hover,.nav-pill.active{color:rgba(255,255,255,0.9)}
@@ -369,6 +370,10 @@ input[type=checkbox]{accent-color:#BC002D}
 /* ── RESPONSIVE ──────────────────────── */
 /* tablet breakpoint moved after desktop block — see below */
 @media(max-width:768px){
+  /* Prevent horizontal scroll on iOS Safari */
+  html,body{max-width:100%;overflow-x:hidden}
+  .day-section,.day-body,.day-hero,.hero{max-width:100vw;overflow-x:hidden;box-sizing:border-box}
+  .col-agenda,.col-highlights,.col-food,.act-card,.act-body,.sec-toggle,.prep-box,.transport-box,.heat-strip,.tl{max-width:100%;overflow-x:hidden;box-sizing:border-box}
   .day-grid{grid-template-columns:1fr !important}
   .day-full{grid-column:1}
   .meal-cards{grid-template-columns:1fr!important}
