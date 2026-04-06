@@ -135,9 +135,9 @@ input[type=checkbox]{accent-color:#BC002D}
 .act-vis span{position:relative;z-index:1;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.4))}
 .av-airport{background:linear-gradient(135deg,#101B2E,#1F4D8B)}.av-tsukiji{background:linear-gradient(135deg,#5C1808,#B5440E)}.av-ginza{background:linear-gradient(135deg,#2C3542,#6B7D8E)}.av-temple{background:linear-gradient(135deg,#700018,#BC002D)}.av-teamlab{background:linear-gradient(135deg,#050520,#0D0D8A)}.av-shrine{background:linear-gradient(135deg,#0D2414,#2A6040)}.av-harajuku{background:linear-gradient(135deg,#4A1B60,#A04BC0)}.av-shibuya{background:linear-gradient(135deg,#150028,#4A1888)}.av-coast{background:linear-gradient(135deg,#083248,#0F7060)}.av-disney{background:linear-gradient(135deg,#020210,#0A2060)}.av-garden{background:linear-gradient(135deg,#0A2018,#256040)}.av-station{background:linear-gradient(135deg,#1E2A38,#3A5268)}.av-ramen{background:linear-gradient(135deg,#3C1008,#8A300A)}.av-sushi{background:linear-gradient(135deg,#051828,#1060A0)}.av-ghibli{background:linear-gradient(135deg,#0A3818,#2D8A50)}.av-pokepark{background:linear-gradient(135deg,#8A6800,#E8B800)}.av-glamping{background:linear-gradient(135deg,#1A3020,#2A6840)}.av-unagi{background:linear-gradient(135deg,#3A1A00,#7A4008)}.av-sky{background:linear-gradient(135deg,#150028,#5030A0)}
 .act-body{padding:12px 14px;position:relative}
-.act-links{position:absolute;top:10px;right:12px;display:flex;gap:3px}
-.act-kicker{font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
-.act-name{font-family:'DM Serif Display',serif;font-size:1.05rem;margin-bottom:4px}
+.act-links{position:absolute;top:10px;right:12px;display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;max-width:100px}
+.act-kicker{font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;padding-right:110px}
+.act-name{font-family:'DM Serif Display',serif;font-size:1.05rem;margin-bottom:4px;padding-right:110px}
 .act-desc{font-size:0.82rem;color:#3A3A4A;line-height:1.45;margin-bottom:8px}
 .act-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:0.74rem;color:var(--muted);margin-bottom:8px}
 .act-map{display:inline-flex;align-items:center;gap:3px;font-size:0.58rem;font-weight:700;color:#1252A0;background:#EBF3FF;padding:3px 7px;border-radius:var(--r-sm);transition:background 0.15s;text-decoration:none}
@@ -387,9 +387,9 @@ input[type=checkbox]{accent-color:#BC002D}
   .day-grid{flex:none !important;overflow:visible !important}
   .col-agenda,.col-highlights,.col-food{display:block !important}
   .day-hero{display:block !important;padding:20px 20px 16px !important}
-  /* Links in normal flow on mobile — large tap targets */
-  .act-links{position:static !important;display:flex !important;gap:6px;margin-top:8px;flex-wrap:wrap}
-  .act-map,.act-web,.act-tix{font-size:0.72rem !important;padding:6px 12px !important}
+  /* Pills: upper-right positioning on mobile, larger tap targets */
+  .act-links{max-width:140px !important}
+  .act-map,.act-web,.act-tix{font-size:0.65rem !important;padding:5px 10px !important}
   .food-card .fc-links{position:static !important;display:flex !important;gap:6px;margin-top:6px}
   .food-card .fc-links a{font-size:0.65rem !important;padding:4px 8px !important}
   /* bottom-nav removed */
@@ -471,10 +471,9 @@ input[type=checkbox]{accent-color:#BC002D}
   .act-card.card-open .act-desc,.act-card.card-open .act-meta,.act-card.card-open .act-tip,
   .act-card.card-open .act-timing,.act-card.card-open .act-group,.act-card.card-open .act-links{display:block}
   .act-card.card-open .act-links{display:flex}
-  /* Pill overlap fix: clear space for absolutely-positioned link pills */
-  .act-card .act-kicker,.act-card .act-name{padding-right:90px}
-  .act-card.card-open .act-kicker,.act-card.card-open .act-name{padding-right:14px}
-  .act-card.card-open .act-links{position:static;margin-bottom:6px;gap:6px}
+  /* Compact cards: no padding needed since pills are hidden */
+  .act-card:not(.card-open) .act-kicker,.act-card:not(.card-open) .act-name{padding-right:0}
+  .act-card.card-open .act-links{gap:6px}
   /* Expand affordance: hint that compact cards are clickable */
   .act-card:not(.card-open) .act-body::after{content:'▾ expand';display:block;font-size:0.48rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:2px;opacity:0.5}
   .act-card:not(.card-open):hover .act-body::after{opacity:1;color:var(--gold)}
