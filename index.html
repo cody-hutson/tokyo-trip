@@ -476,7 +476,9 @@ input[type=checkbox]{accent-color:#BC002D}
   .act-card.card-open .act-links{display:flex}
   /* Compact cards: no padding needed since pills are hidden */
   .act-card:not(.card-open) .act-kicker,.act-card:not(.card-open) .act-name{padding-right:0}
-  .act-card.card-open .act-links{gap:6px}
+  /* Expanded cards: pills centered top, side-by-side, no overlap */
+  .act-card.card-open .act-links{position:static;display:flex;justify-content:center;gap:6px;margin-bottom:6px;max-width:none}
+  .act-card.card-open .act-kicker,.act-card.card-open .act-name{padding-right:0}
   /* Expand affordance: hint that compact cards are clickable */
   .act-card:not(.card-open) .act-body::after{content:'▾ expand';display:block;font-size:0.48rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:2px;opacity:0.5}
   .act-card:not(.card-open):hover .act-body::after{opacity:1;color:var(--gold)}
@@ -489,8 +491,9 @@ input[type=checkbox]{accent-color:#BC002D}
   .food-card .card-transit{display:flex;font-size:0.58rem}
   .food-card.card-open .fc-desc{display:block}
   .food-card.card-open .fc-links{display:flex}
-  /* Meal suggestion text in toggles — larger for readability */
-  .col-food .sec-toggle .st-meta{font-size:0.72rem;color:var(--navy);font-weight:600}
+  /* Meal toggles: text scales to fit, no wrapping */
+  .col-food .sec-toggle .st-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .col-food .sec-toggle .st-meta{font-size:0.62rem;color:var(--navy);font-weight:600;white-space:nowrap;flex-shrink:0}
 
   .night-card .nc-desc{display:none}
   .night-card.card-open .nc-desc{display:block}
@@ -562,7 +565,8 @@ input[type=checkbox]{accent-color:#BC002D}
   .act-card .act-vis{height:60px !important;font-size:2rem !important}
   .act-card .act-desc,.act-card .act-meta,.act-card .act-tip,
   .act-card .act-timing,.act-card .act-group,.act-card .act-links{display:block !important}
-  .act-card .act-links{display:flex !important}
+  .act-card .act-links{display:flex !important;position:static !important;justify-content:center;gap:6px;margin-bottom:6px;max-width:none !important}
+  .act-card .act-kicker,.act-card .act-name{padding-right:0 !important}
   .food-card .fc-desc,.food-card .fc-type{display:block !important}
   .food-card .fc-links{display:flex !important}
   .night-card .nc-desc{display:block !important}
@@ -576,6 +580,9 @@ input[type=checkbox]{accent-color:#BC002D}
   .tl-row.tl-hidden{display:block !important}
   .split-panel .tl-row{display:block !important}
   .split-panel .tl-row::after{display:none !important}
+  /* Meal toggles: text scales to fit */
+  .col-food .sec-toggle .st-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .col-food .sec-toggle .st-meta{font-size:0.62rem;white-space:nowrap;flex-shrink:0}
   /* Featured stops side by side */
   .col-highlights .act-card{min-width:160px}
 }
