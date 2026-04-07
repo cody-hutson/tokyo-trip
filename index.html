@@ -281,6 +281,10 @@ input[type=checkbox]{accent-color:#BC002D}
 .prep-box li{margin-bottom:2px}
 .prep-box strong{color:#3A2A00}
 .prep-meta{font-size:0.65rem;color:var(--muted);font-weight:400}
+.sec-body .prep-box ul{max-height:500px;padding-bottom:10px}
+.sec-body .prep-box h5{cursor:default}
+.sec-body .prep-box h5::after{display:none}
+.sec-body .prep-meta{display:none}
 .transport-box{padding:12px 16px;background:#EEF3FF;border-left:3px solid #3B5BD9;border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:0.78rem;margin-top:8px}
 .transport-box h5{font-size:0.6rem;text-transform:uppercase;letter-spacing:1.5px;color:#3B5BD9;margin-bottom:4px}
 .transport-box p{color:#2A3050;line-height:1.5}
@@ -3129,9 +3133,13 @@ document.querySelectorAll('.prep-box').forEach(box => {
     meta.textContent = count + ' items';
     h5.appendChild(meta);
   }
-  if (h5) h5.addEventListener('click', (e) => { e.stopPropagation(); box.classList.toggle('prep-open'); });
-  // Mobile: default expanded
-  if (isMobile()) box.classList.add('prep-open');
+  // If prep-box is inside a sec-body, skip its own toggle (parent sec-toggle handles expand)
+  if (box.closest('.sec-body')) {
+    box.classList.add('prep-open');
+  } else {
+    if (h5) h5.addEventListener('click', (e) => { e.stopPropagation(); box.classList.toggle('prep-open'); });
+    if (isMobile()) box.classList.add('prep-open');
+  }
 });
 
 // ── FEATURED STOPS: wrap act-cards in flex row ─────────
